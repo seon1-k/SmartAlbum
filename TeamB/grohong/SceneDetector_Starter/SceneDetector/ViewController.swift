@@ -29,6 +29,8 @@
  */
 
 import UIKit
+import CoreML
+import Vision
 
 class ViewController: UIViewController {
 
