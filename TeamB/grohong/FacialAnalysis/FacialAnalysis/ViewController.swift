@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Vision
 
 class ViewController: UIViewController {
     
@@ -17,6 +18,8 @@ class ViewController: UIViewController {
         }
     }
     
+    var faceImageViews = [VNFaceObservation]()
+    
     @IBOutlet weak var blurredImage: UIImageView!
     @IBOutlet weak var selectImage: UIImageView!
     
@@ -26,6 +29,29 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         picker.delegate = self
+    }
+    
+    func detectFaces(image: CIImage) {
+        
+        let request = VNDetectFaceRectanglesRequest() { request, error in
+            guard let faceResults = request.results as? [VNFaceObservation] else {
+                fatalError("unexpected result type from VNCoreMLRequest")
+            }
+            
+            DispatchQueue.main.async {
+
+            }
+        }
+        
+        let handler = VNImageRequestHandler(ciImage: image)
+        
+        DispatchQueue.global(qos: .userInteractive).async {
+            do {
+                try handler.perform([request])
+            } catch {
+                print("error")
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -49,5 +75,10 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
             fatalError("unexpeted error pick picture")
         }
         self.selectedImage = uiImage
+        
+        guard let ciImage = CIImage(image: uiImage) else {
+            fatalError("couldn't convert UIImage to CIImage")
+        }
+        detectFaces(image: ciImage)
     }
 }
