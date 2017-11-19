@@ -96,6 +96,7 @@
                     </view>
                     <connections>
                         <outlet property="blurredImage" destination="udC-xo-rpd" id="YNB-SR-BM8"/>
+                        <outlet property="faceScrollView" destination="NjK-CX-Zc4" id="aDG-la-Zok"/>
                         <outlet property="selectImage" destination="QjN-Pa-JvT" id="KfM-Fn-Esb"/>
                     </connections>
                 </viewController>

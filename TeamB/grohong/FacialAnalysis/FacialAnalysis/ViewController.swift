@@ -8,6 +8,7 @@
 
 import UIKit
 import Vision
+import AVFoundation
 
 class ViewController: UIViewController {
     
@@ -18,10 +19,12 @@ class ViewController: UIViewController {
         }
     }
     
-    var faceImageViews = [VNFaceObservation]()
+    var faceImageInfo = [VNFaceObservation]()
+    var faceImages = [UIImageView]()
     
     @IBOutlet weak var blurredImage: UIImageView!
     @IBOutlet weak var selectImage: UIImageView!
+    @IBOutlet weak var faceScrollView: UIScrollView!
     
     let picker = UIImagePickerController()
     override func viewDidLoad() {
@@ -39,7 +42,7 @@ class ViewController: UIViewController {
             }
             
             DispatchQueue.main.async {
-
+                self.displayUI(facesInfo: faceResults)
             }
         }
         
@@ -64,6 +67,41 @@ class ViewController: UIViewController {
         self.present(picker, animated: true, completion: nil)
     }
     
+    func displayUI(facesInfo: [VNFaceObservation]){
+        if let faceImage = self.selectedImage {
+            let imageRect = AVMakeRect(aspectRatio: faceImage.size, insideRect: self.selectImage.bounds)
+            for (index, face) in facesInfo.enumerated() {
+                let w = face.boundingBox.size.width * imageRect.width
+                let h = face.boundingBox.size.height * imageRect.height
+                let x = face.boundingBox.origin.x * imageRect.width
+                let y = imageRect.maxY - (face.boundingBox.origin.y * imageRect.height) - h
+                
+                let layer = CAShapeLayer()
+                layer.frame = CGRect(x: x, y: y, width: w, height: h)
+                layer.borderColor = UIColor.red.cgColor
+                layer.borderWidth = 1
+                self.selectImage.layer.addSublayer(layer)
+                
+                let w2 = face.boundingBox.size.width * faceImage.size.width
+                let h2 = face.boundingBox.size.height * faceImage.size.height
+                let x2 = face.boundingBox.origin.x * faceImage.size.width
+                let y2 = (1 - face.boundingBox.origin.y) * faceImage.size.height - h2
+                let cropRect = CGRect(x: x2 * faceImage.scale, y: y2 * faceImage.scale, width: w2 * faceImage.scale, height: h2 * faceImage.scale)
+                
+                if let faceCgImage = faceImage.cgImage?.cropping(to: cropRect) {
+                    let faceUiImage = UIImage(cgImage: faceCgImage, scale: faceImage.scale, orientation: .up)
+                    let faceImage = UIImageView(frame: CGRect(x: 90*index, y: 0, width: 80, height: 80))
+                    faceImage.image = faceUiImage
+                    faceImage.isUserInteractionEnabled = true
+                    
+                    self.faceImages.append(faceImage)
+                    self.faceScrollView.addSubview(faceImage)
+                }
+            }
+            
+            self.faceScrollView.contentSize = CGSize(width: 90*faceImages.count - 10, height: 80)
+        }
+    }
 
 }
 
