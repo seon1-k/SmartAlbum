@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16G1036" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -29,7 +28,7 @@
             </objects>
             <point key="canvasLocation" x="1689" y="410"/>
         </scene>
-        <!--All Albums View Controller-->
+        <!--Photos-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
                 <viewController id="8rJ-Kc-sve" customClass="AllAlbumsViewController" customModule="SmartAlbum" customModuleProvider="target" sceneMemberID="viewController">
@@ -46,13 +45,13 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="DVi-Vj-6xt">
                                     <size key="itemSize" width="147" height="131"/>
-                                    <size key="headerReferenceSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AssetCell" id="Q9l-Lx-fDh" customClass="AssetCell" customModule="SmartAlbum" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="50" width="147" height="131"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="147" height="131"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="147" height="131"/>
@@ -74,25 +73,6 @@
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
-                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AssetHeaderView" id="iU2-p4-TDe" customClass="AssetHeaderView" customModule="SmartAlbum" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Album Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IwR-8D-Oln" userLabel="Album Title">
-                                            <rect key="frame" x="18" y="15" width="87" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="IwR-8D-Oln" firstAttribute="leading" secondItem="iU2-p4-TDe" secondAttribute="leadingMargin" constant="10" id="58g-6o-Lzb"/>
-                                        <constraint firstItem="IwR-8D-Oln" firstAttribute="centerY" secondItem="iU2-p4-TDe" secondAttribute="centerY" id="cBW-MZ-ExY"/>
-                                    </constraints>
-                                    <connections>
-                                        <outlet property="albumTitle" destination="IwR-8D-Oln" id="DGh-fL-TK6"/>
-                                    </connections>
-                                </collectionReusableView>
                             </collectionView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="VPN-AN-QOf">
                                 <rect key="frame" x="177" y="323" width="20" height="20"/>
@@ -108,7 +88,7 @@
                             <constraint firstItem="VPN-AN-QOf" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="qjH-0Q-fEZ"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="8ia-Eh-hC0"/>
+                    <navigationItem key="navigationItem" title="Photos" id="8ia-Eh-hC0"/>
                     <connections>
                         <outlet property="albumsCollectionView" destination="mYV-KK-uSC" id="YrN-dn-Axu"/>
                         <outlet property="spinner" destination="VPN-AN-QOf" id="N5X-Dj-bfH"/>
