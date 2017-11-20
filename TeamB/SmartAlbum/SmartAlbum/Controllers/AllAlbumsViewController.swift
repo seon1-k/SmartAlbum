@@ -13,6 +13,7 @@ class AllAlbumsViewController: UIViewController {
     
     // MARK:- Properties
     
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var albumsCollectionView: UICollectionView!
     
     let sectionInsets = UIEdgeInsets(top: 1.0, left: 1.0, bottom: 1.0, right: 1.0)
@@ -27,8 +28,24 @@ class AllAlbumsViewController: UIViewController {
         albumsCollectionView.delegate = self
         albumsCollectionView.dataSource = self
         
+        self.spinner.hidesWhenStopped = true
+        self.spinner.startAnimating()
+        
         // Get assets from all albums
-        getAllAssets()
+        PHPhotoLibrary.requestAuthorization { (status) in
+            switch status {
+            case .authorized:
+                self.getAllAssets()
+            case .denied, .restricted:
+                print("Not allowed")
+                // TODO: Add alertview
+                self.spinner.stopAnimating()
+            case .notDetermined:
+                // TODO: Add alertview
+                print("Not determined yet")
+                self.spinner.stopAnimating()
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -50,7 +67,7 @@ class AllAlbumsViewController: UIViewController {
             let collection: PHAssetCollection = $0.0
             let result = PHAsset.fetchAssets(in: collection, options: nil)
             let imgArray = NSMutableArray()
-            name = collection.localizedTitle! // Album' Title
+            name = collection.localizedTitle! // Album's Title
             
             result.enumerateObjects({ (object, index, stop) -> Void in
                 let asset = object
@@ -79,6 +96,8 @@ class AllAlbumsViewController: UIViewController {
                 }
             }
         })
+        self.albumsCollectionView.reloadData()
+        self.spinner.stopAnimating()
     }
     
     // Convert PHAseet to UIImage
