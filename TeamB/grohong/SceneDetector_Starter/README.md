@@ -3,7 +3,7 @@
 ####  Machine Learning Model 추가
 *GoogleLeNetPlaces model을 추가합니다.*
 
-![machine learning model](/images/coreMLModel.png)
+![machine learning model](./images/coreMLModel.png)
 
 Apple에서는 이미 학습된 GoogleLeNetPlaces을 제공하여 이를 통해 모델을 추가하면 ```CoreML```, ```Vision```을 추가 할수 있습니다.
 
@@ -99,6 +99,6 @@ image를 ```CIImage```로 변환하여 ```detectScene``` 함수를 통해 분석
 
 #### 결과화면
 
-![결과화면](/images/result.jpeg)
+![결과화면](./images/result.jpeg)
 
 정확하진 않지만 정확도와 주제가 나오기 때문에 데이터베이스를 설계할때 가장 높은 주제뿐만 아니라 나머지 주제도 참고하여 설계해야 될거 같습니다.
