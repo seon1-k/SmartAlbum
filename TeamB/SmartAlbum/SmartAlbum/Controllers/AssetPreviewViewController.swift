@@ -17,6 +17,7 @@ class AssetPreviewViewController: UIViewController {
     var photoLibrary: PhotoLibrary!
     var passedIndexPath = IndexPath()
     var numberOfSections = 1
+    var onceOnly = false
     
     // MARK:- Initialize
     
@@ -29,6 +30,7 @@ class AssetPreviewViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        //self.assetsCollectionView.scrollToItem(at: passedIndexPath, at: .left, animated: false)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -110,7 +112,10 @@ extension AssetPreviewViewController: UICollectionViewDelegateFlowLayout {
                         willDisplay cell: UICollectionViewCell,
                         forItemAt indexPath: IndexPath) {
         let cell = cell as! FullAssetPreviewCell
-        self.assetsCollectionView.scrollToItem(at: passedIndexPath, at: .left, animated: false)
+        if !onceOnly {
+            self.assetsCollectionView.scrollToItem(at: passedIndexPath, at: .left, animated: false)
+            onceOnly = true
+        }
 
         DispatchQueue.global(qos: .background).async {
             self.photoLibrary.setPhoto(at: indexPath.row) { image in
