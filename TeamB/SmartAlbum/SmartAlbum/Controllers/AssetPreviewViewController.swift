@@ -94,6 +94,31 @@ extension AssetPreviewViewController: UICollectionViewDelegate, UICollectionView
             return cell
         }
     }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        willDisplay cell: UICollectionViewCell,
+                        forItemAt indexPath: IndexPath) {
+        // scroll to selected cell
+        if !onceOnly {
+            self.assetsCollectionView.scrollToItem(at: passedIndexPath, at: .left, animated: false)
+            onceOnly = true
+        }
+        // Show media data
+        DispatchQueue.global(qos: .background).async {
+            if let asset = self.photoLibrary.getAsset(at: indexPath.row) {
+                DispatchQueue.main.async {
+                    if asset.mediaType == .video {
+                        let cell = cell as! FullVideoCell
+                        cell.avPlayer?.play()
+                    } else { // .image
+                        let cell = cell as! FullAssetPreviewCell
+                        cell.fullAssetImg.image = self.photoLibrary.getPhoto(at: indexPath.row)
+                    }
+                }
+            }
+        }
+    }
+    
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
@@ -118,27 +143,16 @@ extension AssetPreviewViewController: UICollectionViewDelegateFlowLayout {
         return 0.0
     }
    
-    func collectionView(_ collectionView: UICollectionView,
-                        willDisplay cell: UICollectionViewCell,
-                        forItemAt indexPath: IndexPath) {
-        // scroll to selected cell
-        if !onceOnly {
-            self.assetsCollectionView.scrollToItem(at: passedIndexPath, at: .left, animated: false)
-            onceOnly = true
-        }
-        // Show media data
-        DispatchQueue.global(qos: .background).async {
-            if let asset = self.photoLibrary.getAsset(at: indexPath.row) {
-                DispatchQueue.main.async {
-                    if asset.mediaType == .video {
-                        let cell = cell as! FullVideoCell
-                        cell.avPlayer?.play()
-                    } else { // .image
-                        let cell = cell as! FullAssetPreviewCell
-                        cell.fullAssetImg.image = self.photoLibrary.getPhoto(at: indexPath.row)
-                    }
-                }
-            }
+}
+
+extension AssetPreviewViewController {
+    // to pause video when dragging
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        let indexPath = self.assetsCollectionView.indexPathsForVisibleItems.first
+        if let asset = self.photoLibrary.getAsset(at: (indexPath?.row)!),
+            asset.mediaType == .video {
+            let cell = self.assetsCollectionView.cellForItem(at: indexPath!) as! FullVideoCell
+            cell.avPlayer?.pause()
         }
     }
 }

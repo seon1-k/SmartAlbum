@@ -37,7 +37,7 @@ class FullVideoCell: UICollectionViewCell {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-
+    
     // MARK:- Setup Player Function
     
     private func setupMoviePlayer() {
