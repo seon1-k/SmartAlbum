@@ -12,7 +12,7 @@ import Photos
 class AllAlbumsViewController: UIViewController {
     
     // MARK:- Properties
-    
+
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var albumsCollectionView: UICollectionView!
     
@@ -25,6 +25,7 @@ class AllAlbumsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Photos"
         
         initCollectionView()
         initPhotoLib()
@@ -33,6 +34,19 @@ class AllAlbumsViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
+    // MARK:- Navigation control
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "AssetPreviewVC" {
+            let assetPreviewVC = segue.destination as! AssetPreviewViewController
+            let selectedIndexPath = sender as! IndexPath
+            
+            assetPreviewVC.photoLibrary = self.photoLibrary
+            assetPreviewVC.numberOfSections = self.numberOfSections
+            assetPreviewVC.passedIndexPath = selectedIndexPath
+        }
+    }
+            
 
     // MARK:- Help functions
     
@@ -89,6 +103,7 @@ extension AllAlbumsViewController: UICollectionViewDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("get selected collectionview itemindex \(indexPath.row)")
+        self.performSegue(withIdentifier: "AssetPreviewVC", sender: indexPath)
     }
     
 }
@@ -106,7 +121,7 @@ extension AllAlbumsViewController: UICollectionViewDelegateFlowLayout {
         cell.thumbnail.clipsToBounds = true
         
         DispatchQueue.global(qos: .background).async {
-            self.photoLibrary.setPhoto(at: indexPath.row) { image in
+            self.photoLibrary.setPhoto(mode: .thumbnail, at: indexPath.row) { image in
                 if let image = image {
                     DispatchQueue.main.async {
                         cell.thumbnail.image = image
@@ -138,5 +153,3 @@ extension AllAlbumsViewController: UICollectionViewDelegateFlowLayout {
         return sectionInsets.left
     }
 }
-
-

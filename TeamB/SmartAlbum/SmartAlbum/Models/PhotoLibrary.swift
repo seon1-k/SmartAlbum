@@ -9,6 +9,11 @@
 import Foundation
 import Photos
 
+enum ViewMode {
+    case thumbnail
+    case full
+}
+
 class PhotoLibrary {
     fileprivate var imgManager: PHImageManager
     fileprivate var requestOptions: PHImageRequestOptions
@@ -28,12 +33,15 @@ class PhotoLibrary {
         return fetchResult.count
     }
     
-    func setPhoto(at index: Int, completion block: @escaping (UIImage?)->()) {
+    func setPhoto(mode selectMode: ViewMode = .full, at index: Int, completion block: @escaping (UIImage?)->()) {
         if index < fetchResult.count  {
             // As the size increases, there is an error that the image in the collectionview is not shown.
-            // let thumbnailSize = UIScreen.main.bounds.size
-            let thumbnailSize = CGSize(width: 100, height: 100)
-            imgManager.requestImage(for: fetchResult.object(at: index) as PHAsset, targetSize: thumbnailSize, contentMode: PHImageContentMode.aspectFill, options: requestOptions) { (image, _) in
+            // let size = UIScreen.main.bounds.size
+            var size: CGSize = UIScreen.main.bounds.size
+            if selectMode == .thumbnail {
+                size = CGSize(width: 100, height: 100)
+            }
+            imgManager.requestImage(for: fetchResult.object(at: index) as PHAsset, targetSize: size, contentMode: PHImageContentMode.aspectFill, options: requestOptions) { (image, _) in
                 block(image)
             }
         } else {
@@ -41,6 +49,16 @@ class PhotoLibrary {
         }
     }
     
+    func getSpecificPhoto(at index: Int) -> UIImage {
+        var result = UIImage()
+        imgManager.requestImage(for: fetchResult.object(at: index) as PHAsset, targetSize: UIScreen.main.bounds.size, contentMode: PHImageContentMode.aspectFill, options: requestOptions) { (image, _) in
+                if let image = image {
+                    result = image
+            }
+        }
+        return result
+    }
+
     func getAllPhotos() -> [UIImage] {
         var resultArray = [UIImage]()
         for index in 0..<fetchResult.count {
