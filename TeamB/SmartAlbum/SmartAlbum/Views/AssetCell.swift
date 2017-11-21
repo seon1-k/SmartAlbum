@@ -13,5 +13,6 @@ class AssetCell: UICollectionViewCell {
     // MARK:- Properties
     
     @IBOutlet weak var thumbnail: UIImageView!
+    @IBOutlet weak var playIcon: UIImageView!
     
 }

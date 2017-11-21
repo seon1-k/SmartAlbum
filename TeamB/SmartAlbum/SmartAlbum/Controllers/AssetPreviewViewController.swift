@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVKit
 
 class AssetPreviewViewController: UIViewController {
     
@@ -30,7 +31,6 @@ class AssetPreviewViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        //self.assetsCollectionView.scrollToItem(at: passedIndexPath, at: .left, animated: false)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -53,9 +53,10 @@ class AssetPreviewViewController: UIViewController {
     // MARK:- UI Function
     
     func setUI() {
+        self.automaticallyAdjustsScrollViewInsets = false
         self.assetsCollectionView.backgroundColor = UIColor.black
     }
-    
+   
 }
 
 // MARK:- UICollectionViewDelegate, UICollectionViewDataSource {
@@ -68,6 +69,7 @@ extension AssetPreviewViewController: UICollectionViewDelegate, UICollectionView
         self.assetsCollectionView.showsHorizontalScrollIndicator = false
         self.assetsCollectionView.isPagingEnabled = true
         self.assetsCollectionView.register(FullAssetPreviewCell.self, forCellWithReuseIdentifier: "FullAssetPreviewCell")
+        self.assetsCollectionView.register(FullVideoCell.self, forCellWithReuseIdentifier: "FullVideoCell")
         self.assetsCollectionView.autoresizingMask = UIViewAutoresizing(rawValue: UIViewAutoresizing.RawValue(UInt8(UIViewAutoresizing.flexibleWidth.rawValue) | UInt8(UIViewAutoresizing.flexibleHeight.rawValue)))
     }
     
@@ -80,10 +82,18 @@ extension AssetPreviewViewController: UICollectionViewDelegate, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FullAssetPreviewCell", for: indexPath) as! FullAssetPreviewCell
-        return cell
+        let asset = self.photoLibrary.getAsset(at: indexPath.row)
+        if asset?.mediaType == .video {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FullVideoCell", for: indexPath) as! FullVideoCell
+            asset?.getURL() { url in
+                cell.videoItemUrl = url
+            }
+            return cell
+        } else { // .image
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FullAssetPreviewCell", for: indexPath) as! FullAssetPreviewCell
+            return cell
+        }
     }
-    
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
@@ -111,21 +121,24 @@ extension AssetPreviewViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         willDisplay cell: UICollectionViewCell,
                         forItemAt indexPath: IndexPath) {
-        let cell = cell as! FullAssetPreviewCell
+        // scroll to selected cell
         if !onceOnly {
             self.assetsCollectionView.scrollToItem(at: passedIndexPath, at: .left, animated: false)
             onceOnly = true
         }
-
+        // Show media data
         DispatchQueue.global(qos: .background).async {
-            self.photoLibrary.setPhoto(at: indexPath.row) { image in
-                if let image = image {
-                    DispatchQueue.main.async {
-                        cell.fullAssetImg.image = image
+            if let asset = self.photoLibrary.getAsset(at: indexPath.row) {
+                DispatchQueue.main.async {
+                    if asset.mediaType == .video {
+                        let cell = cell as! FullVideoCell
+                        cell.avPlayer?.play()
+                    } else { // .image
+                        let cell = cell as! FullAssetPreviewCell
+                        cell.fullAssetImg.image = self.photoLibrary.getPhoto(at: indexPath.row)
                     }
                 }
             }
         }
     }
-    
 }

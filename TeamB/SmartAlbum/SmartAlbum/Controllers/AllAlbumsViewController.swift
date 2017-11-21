@@ -18,7 +18,7 @@ class AllAlbumsViewController: UIViewController {
     
     fileprivate var photoLibrary: PhotoLibrary!
     fileprivate var numberOfSections = 0
-    fileprivate let sectionInsets = UIEdgeInsets(top: 1.0, left: 1.0, bottom: 1.0, right: 1.0)
+    fileprivate let sectionInsets = UIEdgeInsets(top: 0.5, left: 0.5, bottom: 0.5, right: 0.5)
     fileprivate let itemsPerRow: CGFloat = 4
     
     // MARK:- Initialize
@@ -36,6 +36,7 @@ class AllAlbumsViewController: UIViewController {
     }
     
     // MARK:- Navigation control
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "AssetPreviewVC" {
             let assetPreviewVC = segue.destination as! AssetPreviewViewController
@@ -46,7 +47,6 @@ class AllAlbumsViewController: UIViewController {
             assetPreviewVC.passedIndexPath = selectedIndexPath
         }
     }
-            
 
     // MARK:- Help functions
     
@@ -119,11 +119,13 @@ extension AllAlbumsViewController: UICollectionViewDelegateFlowLayout {
         cell.thumbnail.image = nil
         cell.thumbnail.contentMode = .scaleAspectFill
         cell.thumbnail.clipsToBounds = true
+        cell.playIcon.isHidden = true
         
         DispatchQueue.global(qos: .background).async {
-            self.photoLibrary.setPhoto(mode: .thumbnail, at: indexPath.row) { image in
+            self.photoLibrary.setLibrary(mode: .thumbnail, at: indexPath.row) { image, isVideo in
                 if let image = image {
                     DispatchQueue.main.async {
+                        if isVideo { cell.playIcon.isHidden = false }
                         cell.thumbnail.image = image
                     }
                 }

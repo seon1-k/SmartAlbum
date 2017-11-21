@@ -14,6 +14,32 @@ enum ViewMode {
     case full
 }
 
+extension PHAsset {
+    
+    func getURL(completionHandler : @escaping ((_ responseURL : URL?) -> Void)){
+        if self.mediaType == .image {
+            let options: PHContentEditingInputRequestOptions = PHContentEditingInputRequestOptions()
+            options.canHandleAdjustmentData = {(adjustmeta: PHAdjustmentData) -> Bool in
+                return true
+            }
+            self.requestContentEditingInput(with: options, completionHandler: {(contentEditingInput: PHContentEditingInput?, info: [AnyHashable : Any]) -> Void in
+                completionHandler(contentEditingInput!.fullSizeImageURL as URL?)
+            })
+        } else if self.mediaType == .video {
+            let options: PHVideoRequestOptions = PHVideoRequestOptions()
+            options.version = .original
+            PHImageManager.default().requestAVAsset(forVideo: self, options: options, resultHandler: {(asset: AVAsset?, audioMix: AVAudioMix?, info: [AnyHashable : Any]?) -> Void in
+                if let urlAsset = asset as? AVURLAsset {
+                    let localVideoUrl: URL = urlAsset.url as URL
+                    completionHandler(localVideoUrl)
+                } else {
+                    completionHandler(nil)
+                }
+            })
+        }
+    }
+}
+
 class PhotoLibrary {
     fileprivate var imgManager: PHImageManager
     fileprivate var requestOptions: PHImageRequestOptions
@@ -25,31 +51,46 @@ class PhotoLibrary {
         requestOptions = PHImageRequestOptions()
         requestOptions.isSynchronous = true
         fetchOptions = PHFetchOptions()
+        fetchOptions.predicate = NSPredicate(format: "mediaType == %d || mediaType == %d",
+                                             PHAssetMediaType.image.rawValue,
+                                             PHAssetMediaType.video.rawValue)
         fetchOptions.sortDescriptors = [NSSortDescriptor(key:"creationDate", ascending: false)]
-        fetchResult = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: fetchOptions)
+        fetchResult = PHAsset.fetchAssets(with: fetchOptions)
     }
 
     var count: Int {
         return fetchResult.count
     }
     
-    func setPhoto(mode selectMode: ViewMode = .full, at index: Int, completion block: @escaping (UIImage?)->()) {
+    // MARK:- Function
+    
+    func getAsset(at index: Int) -> PHAsset? {
+        guard index < fetchResult.count else { return nil }
+        return fetchResult.object(at: index) as PHAsset
+    }
+    
+    func setLibrary(mode selectMode: ViewMode = .full, at index: Int, completion block: @escaping (UIImage?, Bool)->()) {
         if index < fetchResult.count  {
-            // As the size increases, there is an error that the image in the collectionview is not shown.
-            // let size = UIScreen.main.bounds.size
             var size: CGSize = UIScreen.main.bounds.size
             if selectMode == .thumbnail {
+                // As the size increases, there is an error that the image in the collectionview is not shown.
                 size = CGSize(width: 100, height: 100)
             }
-            imgManager.requestImage(for: fetchResult.object(at: index) as PHAsset, targetSize: size, contentMode: PHImageContentMode.aspectFill, options: requestOptions) { (image, _) in
-                block(image)
+            imgManager.requestImage(for: fetchResult.object(at: index) as PHAsset, targetSize: size, contentMode: PHImageContentMode.aspectFill, options: requestOptions) { (image, phAssetForVideo) in
+                // check Photo or Video
+                let asset = self.fetchResult.object(at: index)
+                var isVideo: Bool = false
+                if asset.mediaType == .video {
+                    isVideo = true
+                }
+                block(image, isVideo)
             }
         } else {
-            block(nil)
+            block(nil, false)
         }
     }
     
-    func getSpecificPhoto(at index: Int) -> UIImage {
+    func getPhoto(at index: Int) -> UIImage {
         var result = UIImage()
         imgManager.requestImage(for: fetchResult.object(at: index) as PHAsset, targetSize: UIScreen.main.bounds.size, contentMode: PHImageContentMode.aspectFill, options: requestOptions) { (image, _) in
                 if let image = image {
@@ -58,7 +99,16 @@ class PhotoLibrary {
         }
         return result
     }
-
+    
+    func getVideo(at index: Int) -> AVPlayer {
+        var player = AVPlayer()
+        imgManager.requestAVAsset(forVideo: fetchResult.object(at: index) as PHAsset, options: nil) { (asset, audioMix, args) in
+            let asset = asset as! AVURLAsset
+            player = AVPlayer(url: asset.url)
+        }
+        return player
+    }
+    
     func getAllPhotos() -> [UIImage] {
         var resultArray = [UIImage]()
         for index in 0..<fetchResult.count {

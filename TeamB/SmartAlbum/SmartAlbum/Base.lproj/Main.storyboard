@@ -60,15 +60,25 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YQ6-Kj-aFj">
                                                     <rect key="frame" x="0.0" y="0.0" width="147" height="131"/>
                                                 </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_play" translatesAutoresizingMaskIntoConstraints="NO" id="iUS-Qm-cvK">
+                                                    <rect key="frame" x="48.666666666666657" y="40.666666666666657" width="50" height="50"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="50" id="7iB-PG-fvR"/>
+                                                        <constraint firstAttribute="height" constant="50" id="MgP-YL-Gwf"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                         </view>
                                         <constraints>
                                             <constraint firstItem="YQ6-Kj-aFj" firstAttribute="leading" secondItem="Q9l-Lx-fDh" secondAttribute="leading" id="0KM-Uk-oWS"/>
                                             <constraint firstItem="YQ6-Kj-aFj" firstAttribute="top" secondItem="Q9l-Lx-fDh" secondAttribute="top" id="DOP-6D-Sjq"/>
                                             <constraint firstAttribute="trailing" secondItem="YQ6-Kj-aFj" secondAttribute="trailing" id="Gdm-N9-NrP"/>
+                                            <constraint firstItem="iUS-Qm-cvK" firstAttribute="centerY" secondItem="Q9l-Lx-fDh" secondAttribute="centerY" id="K5N-tk-fuR"/>
                                             <constraint firstAttribute="bottom" secondItem="YQ6-Kj-aFj" secondAttribute="bottom" id="Wg2-fb-Tl7"/>
+                                            <constraint firstItem="iUS-Qm-cvK" firstAttribute="centerX" secondItem="Q9l-Lx-fDh" secondAttribute="centerX" id="dqo-PU-iq7"/>
                                         </constraints>
                                         <connections>
+                                            <outlet property="playIcon" destination="iUS-Qm-cvK" id="Be3-C2-6gO"/>
                                             <outlet property="thumbnail" destination="YQ6-Kj-aFj" id="w9r-es-fDU"/>
                                         </connections>
                                     </collectionViewCell>
@@ -115,17 +125,17 @@
                                 <rect key="frame" x="0.0" y="64" width="414" height="623"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="pgT-4W-C8p">
-                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="itemSize" width="112" height="142"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="HK8-lC-g7d" customClass="FullAssetPreviewCell" customModule="SmartAlbum" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="HK8-lC-g7d">
+                                        <rect key="frame" x="0.0" y="0.0" width="112" height="142"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="112" height="142"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </view>
                                     </collectionViewCell>
@@ -190,7 +200,7 @@
         <scene sceneID="rcp-Vx-77J">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="FKl-Pr-oKH" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="All Photos" image="first" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="All Photos" image="icon_album" id="cPa-gy-q4n"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="JQb-dG-Nmg">
                         <autoresizingMask key="autoresizingMask"/>
@@ -206,7 +216,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="first" width="30" height="30"/>
+        <image name="icon_album" width="256" height="256"/>
+        <image name="icon_play" width="256" height="256"/>
         <image name="second" width="30" height="30"/>
     </resources>
 </document>

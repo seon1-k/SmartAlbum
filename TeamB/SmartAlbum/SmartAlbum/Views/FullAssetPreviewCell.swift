@@ -39,7 +39,7 @@ class FullAssetPreviewCell: UICollectionViewCell, UIScrollViewDelegate {
         super.init(coder: aDecoder)
     }
     
-    // MARK:- Set Default View
+    // MARK:- Set default view
     
     func setFullImgView() {
         self.fullAssetImg = UIImageView()
