@@ -38,40 +38,44 @@ class FullVideoCell: UICollectionViewCell {
         super.init(coder: aDecoder)
     }
 
-    // MARK:- Setup Player
+    // MARK:- Setup Player Function
     
     private func setupMoviePlayer() {
         // Create a new AVPlayer and AVPlayerLayer
         self.avPlayer = AVPlayer()
-        avPlayerLayer = AVPlayerLayer(player: avPlayer)
-        avPlayerLayer?.videoGravity = AVLayerVideoGravityResizeAspect
+        self.avPlayerLayer = AVPlayerLayer(player: avPlayer)
+        self.avPlayerLayer?.videoGravity = AVLayerVideoGravityResizeAspect
         
         // We want video controls so we need an AVPlayerViewController
-        avPlayerViewConroller = AVPlayerViewController()
-        avPlayerViewConroller?.player = avPlayer
+        self.avPlayerViewConroller = AVPlayerViewController()
+        self.avPlayerViewConroller?.player = avPlayer
         
         // Insert the player into the cell view hierarchy and setup autolayout
-        avPlayerViewConroller!.view.translatesAutoresizingMaskIntoConstraints = false
-        insertSubview(avPlayerViewConroller!.view, at: 0)
-        avPlayerViewConroller!.view.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        avPlayerViewConroller!.view.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
-        avPlayerViewConroller!.view.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        avPlayerViewConroller!.view.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        self.avPlayerViewConroller!.view.translatesAutoresizingMaskIntoConstraints = false
+       
+        // Tak: below code isn't working properly. e.g. press play button.
+        // insertSubview(avPlayerViewConroller!.view, at: 0)
+        self.addSubview(self.avPlayerViewConroller!.view)
+        
+        self.avPlayerViewConroller!.view.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        self.avPlayerViewConroller!.view.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+        self.avPlayerViewConroller!.view.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        self.avPlayerViewConroller!.view.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
     }
     
     private func initNewPlayerItem() {
-        videoAsset?.cancelLoading()
+        self.videoAsset?.cancelLoading()
         // Pause the existing video (if there is one)
-        avPlayer?.pause()
+        self.avPlayer?.pause()
         
         // First we need to make sure we have a valid URL
-        guard let videoPlayerItemUrl = videoItemUrl else {
+        guard let videoPlayerItemUrl = self.videoItemUrl else {
             return
         }
         
         // Create a new AVAsset from the URL
-        videoAsset = AVAsset(url: videoPlayerItemUrl)
-        videoAsset?.loadValuesAsynchronously(forKeys: ["duration"]) {
+        self.videoAsset = AVAsset(url: videoPlayerItemUrl)
+        self.videoAsset?.loadValuesAsynchronously(forKeys: ["duration"]) {
             guard self.videoAsset?.statusOfValue(forKey: "duration", error: nil) == .loaded else {
                 return
             }
@@ -82,6 +86,5 @@ class FullVideoCell: UICollectionViewCell {
                 self.avPlayer?.replaceCurrentItem(with: videoPlayerItem)
             }
         }
-        avPlayer?.play()
     }
 }
