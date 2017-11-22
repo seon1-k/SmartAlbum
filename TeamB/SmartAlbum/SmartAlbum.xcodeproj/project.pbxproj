@@ -15,6 +15,7 @@
 		84199E811FC17475007F8C86 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84199E7F1FC17475007F8C86 /* LaunchScreen.storyboard */; };
 		84199EB91FC18758007F8C86 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84199EB81FC18758007F8C86 /* Info.plist */; };
 		846873241FC5561900DC35A8 /* MobileNet.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 846873231FC5561900DC35A8 /* MobileNet.mlmodel */; };
+		846873261FC55F7300DC35A8 /* GoogLeNetPlaces.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 846873251FC55F7300DC35A8 /* GoogLeNetPlaces.mlmodel */; };
 		8477E4A71FC318BB00BA0CE0 /* AssetPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477E4A61FC318BB00BA0CE0 /* AssetPreviewViewController.swift */; };
 		8477E4AB1FC31AC700BA0CE0 /* FullAssetPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477E4AA1FC31AC700BA0CE0 /* FullAssetPreviewCell.swift */; };
 		848A01071FC2F2D800CB490D /* PhotoLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848A01061FC2F2D800CB490D /* PhotoLibrary.swift */; };
@@ -36,6 +37,7 @@
 		84199E801FC17475007F8C86 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		84199EB81FC18758007F8C86 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		846873231FC5561900DC35A8 /* MobileNet.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = MobileNet.mlmodel; sourceTree = "<group>"; };
+		846873251FC55F7300DC35A8 /* GoogLeNetPlaces.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = GoogLeNetPlaces.mlmodel; sourceTree = "<group>"; };
 		8477E4A61FC318BB00BA0CE0 /* AssetPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetPreviewViewController.swift; sourceTree = "<group>"; };
 		8477E4AA1FC31AC700BA0CE0 /* FullAssetPreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullAssetPreviewCell.swift; sourceTree = "<group>"; };
 		848A01061FC2F2D800CB490D /* PhotoLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLibrary.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 			children = (
 				84199E7D1FC17475007F8C86 /* Assets.xcassets */,
 				846873231FC5561900DC35A8 /* MobileNet.mlmodel */,
+				846873251FC55F7300DC35A8 /* GoogLeNetPlaces.mlmodel */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -291,6 +294,7 @@
 				84CC073D1FC28934003A8C2E /* AssetCell.swift in Sources */,
 				84199E751FC17475007F8C86 /* AppDelegate.swift in Sources */,
 				8477E4AB1FC31AC700BA0CE0 /* FullAssetPreviewCell.swift in Sources */,
+				846873261FC55F7300DC35A8 /* GoogLeNetPlaces.mlmodel in Sources */,
 				84E7E7CF1FC5521C00FFB0E5 /* AnalysisViewController.swift in Sources */,
 				846873241FC5561900DC35A8 /* MobileNet.mlmodel in Sources */,
 				848A01071FC2F2D800CB490D /* PhotoLibrary.swift in Sources */,

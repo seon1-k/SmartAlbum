@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -147,15 +148,34 @@
                                     <action selector="pressDismiss:" destination="Taa-FE-FgT" eventType="touchUpInside" id="o3W-di-EAH"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RXm-Kz-cLM">
+                                <rect key="frame" x="107" y="84" width="200" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="hlk-5q-PpE"/>
+                                    <constraint firstAttribute="height" constant="200" id="jDG-gq-zPc"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XsL-CK-XbM">
+                                <rect key="frame" x="186" y="357.66666666666669" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="RXm-Kz-cLM" firstAttribute="centerY" secondItem="0vk-sR-41O" secondAttribute="centerY" multiplier="0.5" id="6V6-2s-aZd"/>
                             <constraint firstItem="SZd-91-XMM" firstAttribute="leading" secondItem="0vk-sR-41O" secondAttribute="leadingMargin" id="XAP-bX-16f"/>
+                            <constraint firstItem="XsL-CK-XbM" firstAttribute="centerY" secondItem="0vk-sR-41O" secondAttribute="centerY" id="dCy-r3-L94"/>
+                            <constraint firstItem="XsL-CK-XbM" firstAttribute="centerX" secondItem="0vk-sR-41O" secondAttribute="centerX" id="g0D-Dn-iGX"/>
                             <constraint firstItem="SZd-91-XMM" firstAttribute="top" secondItem="DJL-Tt-Rm7" secondAttribute="bottom" constant="10" id="p0j-Mv-oh1"/>
+                            <constraint firstItem="RXm-Kz-cLM" firstAttribute="centerX" secondItem="0vk-sR-41O" secondAttribute="centerX" id="ts4-9S-PwX"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="answerLabel" destination="XsL-CK-XbM" id="45O-mI-yY2"/>
                         <outlet property="dismissBtn" destination="SZd-91-XMM" id="YLb-oH-DJl"/>
+                        <outlet property="scene" destination="RXm-Kz-cLM" id="DF7-0e-zwg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="egc-LF-7ey" userLabel="First Responder" sceneMemberID="firstResponder"/>
