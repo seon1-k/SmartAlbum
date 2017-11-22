@@ -35,17 +35,17 @@ class AllAlbumsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Photos"
-        
+
         initCollectionView()
         initPhotoLib()
         setBarBtnText(show: self.checkPickImage)
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.albumsCollectionView.reloadData()
     }
-    
+
     // MARK:- Navigation control
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -107,20 +107,27 @@ class AllAlbumsViewController: UIViewController {
     
     func togglePickBtn() {
         self.checkPickImage = !self.checkPickImage
-        setBarBtnText(show: self.checkPickImage)
         
-        if self.checkPickImage {
-            self.albumsCollectionView.allowsMultipleSelection = true
-        } else {
-            self.albumsCollectionView.allowsMultipleSelection = false
-            self.albumsCollectionView.reloadData()
-        }
+        // change UI
+        setBarBtnText(show: self.checkPickImage)
+        self.albumsCollectionView.allowsMultipleSelection = self.checkPickImage ? true : false
+    }
+    
+    func customReloadData() {
+        // to reload collectionview without animation
+        UIView.performWithoutAnimation({
+            self.albumsCollectionView.reloadSections(IndexSet(integersIn: 0..<numberOfSections))
+        })
     }
     
     // MARK:- Outlet Actions
     
     @IBAction func pressSelectDone(_ sender: UIBarButtonItem) {
         togglePickBtn()
+        guard self.pickedAssets.count > 0 else {
+            self.customReloadData()
+            return
+        }
         self.performSegue(withIdentifier: "AnalysisVC", sender: nil)
     }
     
@@ -129,6 +136,7 @@ class AllAlbumsViewController: UIViewController {
 
         if !self.checkPickImage {
             self.deleteAllPickedAssets()
+            self.customReloadData()
         }
     }
     

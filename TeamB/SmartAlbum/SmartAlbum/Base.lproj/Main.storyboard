@@ -20,7 +20,7 @@
                         <viewControllerLayoutGuide type="bottom" id="4ug-Mw-9AY"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="tsR-hK-woN">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="687"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -30,7 +30,7 @@
             </objects>
             <point key="canvasLocation" x="1689" y="410"/>
         </scene>
-        <!--All Albums View Controller-->
+        <!--모든 사진-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
                 <viewController id="8rJ-Kc-sve" customClass="AllAlbumsViewController" customModule="SmartAlbum" customModuleProvider="target" sceneMemberID="viewController">
@@ -39,7 +39,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Djb-ko-YwX"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="QS5-Rx-YEW">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="687"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="mYV-KK-uSC">
@@ -69,25 +69,47 @@
                                                         <constraint firstAttribute="height" constant="50" id="MgP-YL-Gwf"/>
                                                     </constraints>
                                                 </imageView>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5ov-1W-AqG">
+                                                    <rect key="frame" x="0.0" y="0.0" width="147" height="131"/>
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_checked" translatesAutoresizingMaskIntoConstraints="NO" id="U5O-en-M1b">
+                                                            <rect key="frame" x="53.666666666666657" y="45.666666666666657" width="40" height="40"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="40" id="9sZ-oV-S6i"/>
+                                                                <constraint firstAttribute="width" constant="40" id="EdT-O0-uek"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="U5O-en-M1b" firstAttribute="centerX" secondItem="5ov-1W-AqG" secondAttribute="centerX" id="FtP-5k-LsY"/>
+                                                        <constraint firstItem="U5O-en-M1b" firstAttribute="centerY" secondItem="5ov-1W-AqG" secondAttribute="centerY" id="tTf-FV-9ZM"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
                                         </view>
                                         <constraints>
                                             <constraint firstItem="YQ6-Kj-aFj" firstAttribute="leading" secondItem="Q9l-Lx-fDh" secondAttribute="leading" id="0KM-Uk-oWS"/>
+                                            <constraint firstItem="5ov-1W-AqG" firstAttribute="top" secondItem="Q9l-Lx-fDh" secondAttribute="top" id="4vr-09-NeE"/>
                                             <constraint firstItem="YQ6-Kj-aFj" firstAttribute="top" secondItem="Q9l-Lx-fDh" secondAttribute="top" id="DOP-6D-Sjq"/>
                                             <constraint firstAttribute="trailing" secondItem="YQ6-Kj-aFj" secondAttribute="trailing" id="Gdm-N9-NrP"/>
                                             <constraint firstItem="iUS-Qm-cvK" firstAttribute="centerY" secondItem="Q9l-Lx-fDh" secondAttribute="centerY" id="K5N-tk-fuR"/>
+                                            <constraint firstItem="5ov-1W-AqG" firstAttribute="leading" secondItem="Q9l-Lx-fDh" secondAttribute="leading" id="ShX-i6-Vkv"/>
                                             <constraint firstAttribute="bottom" secondItem="YQ6-Kj-aFj" secondAttribute="bottom" id="Wg2-fb-Tl7"/>
+                                            <constraint firstAttribute="bottom" secondItem="5ov-1W-AqG" secondAttribute="bottom" id="bxD-D1-P1N"/>
                                             <constraint firstItem="iUS-Qm-cvK" firstAttribute="centerX" secondItem="Q9l-Lx-fDh" secondAttribute="centerX" id="dqo-PU-iq7"/>
+                                            <constraint firstAttribute="trailing" secondItem="5ov-1W-AqG" secondAttribute="trailing" id="uVm-f0-iaA"/>
                                         </constraints>
                                         <connections>
+                                            <outlet property="checkedImg" destination="U5O-en-M1b" id="rwH-O9-MdG"/>
                                             <outlet property="playIcon" destination="iUS-Qm-cvK" id="Be3-C2-6gO"/>
+                                            <outlet property="specialHighlightedArea" destination="5ov-1W-AqG" id="bxj-wa-VNq"/>
                                             <outlet property="thumbnail" destination="YQ6-Kj-aFj" id="w9r-es-fDU"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="VPN-AN-QOf">
-                                <rect key="frame" x="197" y="358" width="20" height="20"/>
+                                <rect key="frame" x="197" y="333.66666666666669" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -100,13 +122,16 @@
                             <constraint firstItem="VPN-AN-QOf" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="qjH-0Q-fEZ"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="8ia-Eh-hC0">
+                    <navigationItem key="navigationItem" title="모든 사진" id="8ia-Eh-hC0">
+                        <barButtonItem key="backBarButtonItem" title=" " id="Fa6-al-xdG"/>
                         <barButtonItem key="leftBarButtonItem" title="선택" id="ypK-Ck-siM">
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="pressPickImage:" destination="8rJ-Kc-sve" id="azh-vE-bU2"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="완료" id="Lbb-kx-Zyg">
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="pressSelectDone:" destination="8rJ-Kc-sve" id="zWH-YA-6AU"/>
                             </connections>
@@ -182,7 +207,7 @@
             </objects>
             <point key="canvasLocation" x="2672.4637681159425" y="-207.06521739130437"/>
         </scene>
-        <!--Asset Preview View Controller-->
+        <!--특별한 순간-->
         <scene sceneID="ihE-f8-o4Q">
             <objects>
                 <viewController id="MMV-92-wxw" customClass="AssetPreviewViewController" customModule="SmartAlbum" customModuleProvider="target" sceneMemberID="viewController">
@@ -191,7 +216,7 @@
                         <viewControllerLayoutGuide type="bottom" id="N6G-fV-dzG"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Zuq-t3-HI4">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="687"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Inf-Df-v1s">
@@ -231,7 +256,7 @@
                             <constraint firstItem="Inf-Df-v1s" firstAttribute="leading" secondItem="Zuq-t3-HI4" secondAttribute="leading" id="ZQV-Ps-ecp"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="kYh-u6-aCb"/>
+                    <navigationItem key="navigationItem" title="특별한 순간" id="kYh-u6-aCb"/>
                     <connections>
                         <outlet property="assetsCollectionView" destination="Inf-Df-v1s" id="fmp-Zi-7Zf"/>
                     </connections>
@@ -245,10 +270,13 @@
             <objects>
                 <tabBarController id="49e-Tb-3d3" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" id="W28-zg-YXA">
+                    <tabBar key="tabBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="W28-zg-YXA">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
                     </tabBar>
                     <connections>
                         <segue destination="FKl-Pr-oKH" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
@@ -277,14 +305,22 @@
             </objects>
             <point key="canvasLocation" x="750" y="410"/>
         </scene>
-        <!--All Photos-->
+        <!--모든 사진-->
         <scene sceneID="rcp-Vx-77J">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="FKl-Pr-oKH" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="All Photos" image="icon_album" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="모든 사진" image="icon_album" id="cPa-gy-q4n"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="JQb-dG-Nmg">
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -298,8 +334,10 @@
     </scenes>
     <resources>
         <image name="btn_dismiss" width="16" height="16"/>
-        <image name="icon_album" width="24" height="24"/>
+        <image name="icon_album" width="30" height="30"/>
+        <image name="icon_checked" width="128" height="128"/>
         <image name="icon_play" width="256" height="256"/>
         <image name="second" width="30" height="30"/>
     </resources>
+    <color key="tintColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
 </document>

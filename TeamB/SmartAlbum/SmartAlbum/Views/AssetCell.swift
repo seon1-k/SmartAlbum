@@ -8,28 +8,45 @@
 
 import UIKit
 
+private let highlightedColor = UIColor(red:0.12, green:0.77, blue:0.27, alpha:1.00)
+
 class AssetCell: UICollectionViewCell {
     
-    // MARK:- Properties
+    // MARK:- Outlets
     
     @IBOutlet weak var thumbnail: UIImageView!
     @IBOutlet weak var playIcon: UIImageView!
+    @IBOutlet weak var specialHighlightedArea: UIView!
+    @IBOutlet weak var checkedImg: UIImageView!
     
+    // MARK:- Properties
+    
+    var shouldTintBackgroundWhenSelected = true
+
     // MARK:- Init
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.checkedImg.isHidden = true
+    }
+    
     override var isHighlighted: Bool {
-        didSet {
-            self.setNeedsDisplay()
+        willSet {
+            self.onSelected(newValue)
         }
     }
     
-    override func draw(_ rect: CGRect) {
-        super.draw(rect)
-        if self.isHighlighted {
-            self.layer.borderWidth = 2.0
-            self.layer.borderColor = UIColor.blue.cgColor
-        } else {
-            self.layer.borderColor = UIColor.clear.cgColor
+    // MARK:- Help Fucntion to change UI
+    
+    func onSelected(_ newValue: Bool) {
+        if shouldTintBackgroundWhenSelected {
+            self.layer.borderWidth = 3.0
+            self.checkedImg.isHidden = newValue ? false : true
+            self.layer.borderColor = newValue ? highlightedColor.cgColor : UIColor.clear.cgColor
+        }
+        if let sa = self.specialHighlightedArea {
+            sa.backgroundColor = newValue ? UIColor.black.withAlphaComponent(0.4) : UIColor.clear
         }
     }
+
 }
