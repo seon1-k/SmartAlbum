@@ -57,10 +57,12 @@ class AllAlbumsViewController: UIViewController {
             assetPreviewVC.numberOfSections = self.numberOfSections
             assetPreviewVC.passedIndexPath = selectedIndexPath
         } else if segue.identifier == "AnalysisVC" {
-            guard let analysisVC = segue.destination as? AnalysisViewController else { return }
-            
-            analysisVC.delegate = self
-            analysisVC.pickedImages = self.photoLibrary.convertPHAssetsToUIImages(assetArray: self.pickedAssets)
+            if #available(iOS 11.0, *) {
+                guard let analysisVC = segue.destination as? AnalysisViewController else { return }
+                
+                analysisVC.delegate = self
+                analysisVC.pickedImages = self.photoLibrary.convertPHAssetsToUIImages(assetArray: self.pickedAssets)
+            }
         }
     }
     

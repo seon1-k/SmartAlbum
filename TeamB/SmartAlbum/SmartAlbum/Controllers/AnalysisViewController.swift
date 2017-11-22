@@ -10,6 +10,7 @@ import UIKit
 import CoreML
 import Vision
 
+@available(iOS 11.0, *)
 class AnalysisViewController: UIViewController {
     
     // MARK:- Properties
@@ -22,7 +23,7 @@ class AnalysisViewController: UIViewController {
     // to be deleted
     @IBOutlet weak var scene: UIImageView!
     @IBOutlet weak var answerLabel: UILabel!
-    let vowels: [Character] = ["a", "e", "i", "o", "u"]
+    let model = MobileNet()
     
     // MARK:- Initialize
     
@@ -31,61 +32,13 @@ class AnalysisViewController: UIViewController {
         
         print(pickedImages.count)
         
-        guard let image = self.pickedImages.popLast() else {
+        guard let image = self.pickedImages.last else {
             fatalError("no starting image")
         }
         
         scene.image = image
-        guard let ciImage = CIImage(image: image) else {
-            fatalError("couldn't convert UIImage to CIImage")
-        }
-        
-        detectScene(image: ciImage)
-        
+        predictUsingVision(image: image)
     }
-    
-    // MARK:- Detect Scene
-    // to be deleted
-    func detectScene(image: CIImage) {
-        answerLabel.text = "detecing scene..."
-        
-        if #available(iOS 11.0, *) {
-            guard let model = try? VNCoreMLModel(for: GoogLeNetPlaces().model) else {
-                fatalError("can't load Places ML model")
-            }
-        } else {
-            // Fallback on earlier versions
-        }
-        
-        if #available(iOS 11.0, *) {
-            
-            guard let model = try? VNCoreMLModel(for: GoogLeNetPlaces().model) else {
-                fatalError("can't load Places ML model")
-            }
-            let request = VNCoreMLRequest(model: model) { [weak self] request, error in
-                guard let results = request.results as? [VNClassificationObservation],
-                    let topResult = results.first else {
-                        fatalError("unexpected result type from VNCoreMLRequest")
-                }
-                
-                let article = (self?.vowels.contains(topResult.identifier.first!))! ? "an" : "a"
-                DispatchQueue.main.async {
-                    self?.answerLabel.text = "\(Int(topResult.confidence * 100))% it's \(article) \(topResult.identifier)"
-                }
-            }
-            let handler = VNImageRequestHandler(ciImage: image)
-            
-            
-            DispatchQueue.global(qos: .userInteractive).async {
-                do {
-                    try handler.perform([request])
-                } catch {
-                    print("error")
-                }
-            }
-        }
-    }
-    
     
     // MARK:- Outlet Action
     
@@ -95,4 +48,59 @@ class AnalysisViewController: UIViewController {
         })
     }
     
+    // MARK:- Prediction
+    
+    /*
+     This uses the Vision framework to drive Core ML.
+     Note that this actually gives a slightly different prediction. This must
+     be related to how the UIImage gets converted.
+     */
+    func predictUsingVision(image: UIImage) {
+        guard let visionModel = try? VNCoreMLModel(for: model.model) else {
+            fatalError("Someone did a baddie")
+        }
+        
+        let request = VNCoreMLRequest(model: visionModel) { request, error in
+            if let observations = request.results as? [VNClassificationObservation] {
+                
+                // The observations appear to be sorted by confidence already, so we
+                // take the top 5 and map them to an array of (String, Double) tuples.
+                let top5 = observations.prefix(through: 4)
+                    .map { ($0.identifier, Double($0.confidence)) }
+                self.show(results: top5)
+            }
+        }
+        
+        request.imageCropAndScaleOption = .centerCrop
+        
+        let handler = VNImageRequestHandler(cgImage: image.cgImage!)
+        try? handler.perform([request])
+    }
+    
+    // MARK: - UI stuff
+    
+    typealias Prediction = (String, Double)
+    
+    func show(results: [Prediction]) {
+        var s: [String] = []
+        for (i, pred) in results.enumerated() {
+            s.append(String(format: "%d: %@ (%3.2f%%)", i + 1, pred.0, pred.1 * 100))
+        }
+        
+        answerLabel.text = s.joined(separator: "\n\n")
+        
+        ///////////
+        let key: String = (results.first?.0)!
+        let prob: Double = Double((results.first?.1)!) * 100
+        tmpPredictedAssetArray.append(PredictedAsset(image: self.pickedImages.last!, keyword: key, probability: prob))
+    }
+    
+    func top(_ k: Int, _ prob: [String: Double]) -> [Prediction] {
+        precondition(k <= prob.count)
+        
+        return Array(prob.map { x in (x.key, x.value) }
+            .sorted(by: { a, b -> Bool in a.1 > b.1 })
+            .prefix(through: k - 1))
+    }
+
 }
