@@ -9,6 +9,10 @@
 import UIKit
 import Photos
 
+protocol SegueProtocol {
+    func deleteAllPickedAssets()
+}
+
 class AllAlbumsViewController: UIViewController {
     
     // MARK:- Properties
@@ -54,7 +58,9 @@ class AllAlbumsViewController: UIViewController {
             assetPreviewVC.passedIndexPath = selectedIndexPath
         } else if segue.identifier == "AnalysisVC" {
             guard let analysisVC = segue.destination as? AnalysisViewController else { return }
-            analysisVC.pickedAssets = self.pickedAssets
+            
+            analysisVC.delegate = self
+            analysisVC.pickedImages = self.photoLibrary.convertPHAssetsToUIImages(assetArray: self.pickedAssets)
         }
     }
     
@@ -99,13 +105,7 @@ class AllAlbumsViewController: UIViewController {
         }
     }
     
-    // MARK:- Outlet Actions
-    
-    @IBAction func pressSelectDone(_ sender: UIBarButtonItem) {
-        self.performSegue(withIdentifier: "AnalysisVC", sender: nil)
-    }
-    
-    @IBAction func pressPickImage(_ sender: UIBarButtonItem) {
+    func togglePickBtn() {
         self.checkPickImage = !self.checkPickImage
         setBarBtnText(show: self.checkPickImage)
         
@@ -114,6 +114,21 @@ class AllAlbumsViewController: UIViewController {
         } else {
             self.albumsCollectionView.allowsMultipleSelection = false
             self.albumsCollectionView.reloadData()
+        }
+    }
+    
+    // MARK:- Outlet Actions
+    
+    @IBAction func pressSelectDone(_ sender: UIBarButtonItem) {
+        togglePickBtn()
+        self.performSegue(withIdentifier: "AnalysisVC", sender: nil)
+    }
+    
+    @IBAction func pressPickImage(_ sender: UIBarButtonItem) {
+        togglePickBtn()
+
+        if !self.checkPickImage {
+            self.deleteAllPickedAssets()
         }
     }
     
@@ -220,5 +235,13 @@ extension AllAlbumsViewController: UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return sectionInsets.left
+    }
+}
+
+// MARK:- SegueProtocol 
+
+extension AllAlbumsViewController: SegueProtocol {
+    func deleteAllPickedAssets() {
+        self.pickedAssets.removeAll()
     }
 }

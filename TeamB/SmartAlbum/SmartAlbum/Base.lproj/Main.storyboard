@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -134,12 +135,32 @@
                     <view key="view" contentMode="scaleToFill" id="0vk-sR-41O">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SZd-91-XMM">
+                                <rect key="frame" x="20" y="30" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="0Kz-62-jQ9"/>
+                                    <constraint firstAttribute="height" constant="30" id="20z-Hd-0xA"/>
+                                </constraints>
+                                <state key="normal" image="btn_dismiss"/>
+                                <connections>
+                                    <action selector="pressDismiss:" destination="Taa-FE-FgT" eventType="touchUpInside" id="o3W-di-EAH"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="SZd-91-XMM" firstAttribute="leading" secondItem="0vk-sR-41O" secondAttribute="leadingMargin" id="XAP-bX-16f"/>
+                            <constraint firstItem="SZd-91-XMM" firstAttribute="top" secondItem="DJL-Tt-Rm7" secondAttribute="bottom" constant="10" id="p0j-Mv-oh1"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="dismissBtn" destination="SZd-91-XMM" id="YLb-oH-DJl"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="egc-LF-7ey" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2673" y="-207"/>
+            <point key="canvasLocation" x="2672.4637681159425" y="-207.06521739130437"/>
         </scene>
         <!--Asset Preview View Controller-->
         <scene sceneID="ihE-f8-o4Q">
@@ -256,6 +277,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="btn_dismiss" width="16" height="16"/>
         <image name="icon_album" width="24" height="24"/>
         <image name="icon_play" width="256" height="256"/>
         <image name="second" width="30" height="30"/>

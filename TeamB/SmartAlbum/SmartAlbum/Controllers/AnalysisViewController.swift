@@ -7,32 +7,31 @@
 //
 
 import UIKit
-import Photos
+import CoreML
+import Vision
 
 class AnalysisViewController: UIViewController {
     
-    var pickedAssets: [PHAsset] = [PHAsset]()
+    // MARK:- Properties
+
+    @IBOutlet weak var dismissBtn: UIButton!
+    var pickedImages: [UIImage] = [UIImage]()
+    var delegate : SegueProtocol?
+    
+    // MARK:- Initialize
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        print(pickedImages.count)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // MARK:- Outlet Action
+    
+    @IBAction func pressDismiss(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: {
+            self.delegate?.deleteAllPickedAssets()
+        })
     }
-    */
-
+    
 }
