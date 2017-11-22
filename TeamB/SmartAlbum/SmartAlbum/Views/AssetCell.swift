@@ -15,4 +15,21 @@ class AssetCell: UICollectionViewCell {
     @IBOutlet weak var thumbnail: UIImageView!
     @IBOutlet weak var playIcon: UIImageView!
     
+    // MARK:- Init
+    
+    override var isHighlighted: Bool {
+        didSet {
+            self.setNeedsDisplay()
+        }
+    }
+    
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        if self.isHighlighted {
+            self.layer.borderWidth = 2.0
+            self.layer.borderColor = UIColor.blue.cgColor
+        } else {
+            self.layer.borderColor = UIColor.clear.cgColor
+        }
+    }
 }

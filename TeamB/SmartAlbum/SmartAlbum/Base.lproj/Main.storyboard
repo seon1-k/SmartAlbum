@@ -98,16 +98,48 @@
                             <constraint firstItem="VPN-AN-QOf" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="qjH-0Q-fEZ"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="8ia-Eh-hC0"/>
+                    <navigationItem key="navigationItem" id="8ia-Eh-hC0">
+                        <barButtonItem key="leftBarButtonItem" title="선택" id="ypK-Ck-siM">
+                            <connections>
+                                <action selector="pressPickImage:" destination="8rJ-Kc-sve" id="azh-vE-bU2"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="완료" id="Lbb-kx-Zyg">
+                            <connections>
+                                <action selector="pressSelectDone:" destination="8rJ-Kc-sve" id="zWH-YA-6AU"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="albumsCollectionView" destination="mYV-KK-uSC" id="YrN-dn-Axu"/>
+                        <outlet property="doneBtn" destination="Lbb-kx-Zyg" id="ORx-bz-c6Y"/>
+                        <outlet property="pickImagebtn" destination="ypK-Ck-siM" id="zcS-uh-JLj"/>
                         <outlet property="spinner" destination="VPN-AN-QOf" id="N5X-Dj-bfH"/>
                         <segue destination="MMV-92-wxw" kind="show" identifier="AssetPreviewVC" id="uv3-77-rIr"/>
+                        <segue destination="Taa-FE-FgT" kind="presentation" identifier="AnalysisVC" id="3RC-CZ-5HR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1688.8" y="-541.07946026986508"/>
+        </scene>
+        <!--Analysis View Controller-->
+        <scene sceneID="Bg6-q3-FVX">
+            <objects>
+                <viewController id="Taa-FE-FgT" customClass="AnalysisViewController" customModule="SmartAlbum" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="DJL-Tt-Rm7"/>
+                        <viewControllerLayoutGuide type="bottom" id="8kz-Au-Vfg"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="0vk-sR-41O">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="egc-LF-7ey" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2673" y="-207"/>
         </scene>
         <!--Asset Preview View Controller-->
         <scene sceneID="ihE-f8-o4Q">
@@ -165,7 +197,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u8e-I7-Tw2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2517.3913043478265" y="-541.304347826087"/>
+            <point key="canvasLocation" x="2678" y="-908"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">

@@ -12,25 +12,32 @@ import Photos
 class AllAlbumsViewController: UIViewController {
     
     // MARK:- Properties
-
+    
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var albumsCollectionView: UICollectionView!
     
+    @IBOutlet weak var pickImagebtn: UIBarButtonItem!
+    @IBOutlet weak var doneBtn: UIBarButtonItem!
+    
+    fileprivate var checkPickImage: Bool = false
     fileprivate var photoLibrary: PhotoLibrary!
     fileprivate var numberOfSections = 0
+    fileprivate var pickedAssets: [PHAsset] = [PHAsset]()
+    
     fileprivate let sectionInsets = UIEdgeInsets(top: 0.5, left: 0.5, bottom: 0.5, right: 0.5)
     fileprivate let itemsPerRow: CGFloat = 4
     
     // MARK:- Initialize
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Photos"
         
         initCollectionView()
         initPhotoLib()
+        setBarBtnText(show: self.checkPickImage)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -45,9 +52,12 @@ class AllAlbumsViewController: UIViewController {
             assetPreviewVC.photoLibrary = self.photoLibrary
             assetPreviewVC.numberOfSections = self.numberOfSections
             assetPreviewVC.passedIndexPath = selectedIndexPath
+        } else if segue.identifier == "AnalysisVC" {
+            guard let analysisVC = segue.destination as? AnalysisViewController else { return }
+            analysisVC.pickedAssets = self.pickedAssets
         }
     }
-
+    
     // MARK:- Help functions
     
     func initPhotoLib() {
@@ -76,7 +86,37 @@ class AllAlbumsViewController: UIViewController {
             }
         }   
     }
-   
+    
+    func setBarBtnText(show: Bool) {
+        if show {
+            self.pickImagebtn.title = "취소"
+            self.doneBtn.isEnabled = true
+            self.doneBtn.title = "완료"
+        } else {
+            self.pickImagebtn.title = "선택"
+            self.doneBtn.isEnabled = false
+            self.doneBtn.title = ""
+        }
+    }
+    
+    // MARK:- Outlet Actions
+    
+    @IBAction func pressSelectDone(_ sender: UIBarButtonItem) {
+        self.performSegue(withIdentifier: "AnalysisVC", sender: nil)
+    }
+    
+    @IBAction func pressPickImage(_ sender: UIBarButtonItem) {
+        self.checkPickImage = !self.checkPickImage
+        setBarBtnText(show: self.checkPickImage)
+        
+        if self.checkPickImage {
+            self.albumsCollectionView.allowsMultipleSelection = true
+        } else {
+            self.albumsCollectionView.allowsMultipleSelection = false
+            self.albumsCollectionView.reloadData()
+        }
+    }
+    
 }
 
 // MARK:- UICollectionViewDelegate, UICollectionViewDataSource {
@@ -86,6 +126,7 @@ extension AllAlbumsViewController: UICollectionViewDelegate, UICollectionViewDat
     func initCollectionView() {
         self.albumsCollectionView.delegate = self
         self.albumsCollectionView.dataSource = self
+        self.albumsCollectionView.allowsMultipleSelection = false
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -103,7 +144,33 @@ extension AllAlbumsViewController: UICollectionViewDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("get selected collectionview itemindex \(indexPath.row)")
-        self.performSegue(withIdentifier: "AssetPreviewVC", sender: indexPath)
+        
+        if self.checkPickImage {
+            guard let cell = collectionView.cellForItem(at: indexPath) as? AssetCell else { return }
+            guard let selectedAsset = self.photoLibrary.getAsset(at: indexPath.row) else { return }
+            
+            // add asset to array for CoreML
+            self.pickedAssets.append(selectedAsset)
+            // change Cell's UI
+            cell.isHighlighted = true
+        } else {
+            // show full image
+            self.performSegue(withIdentifier: "AssetPreviewVC", sender: indexPath)
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        if self.checkPickImage {
+            guard let cell = collectionView.cellForItem(at: indexPath) as? AssetCell else { return }
+            guard let deSelectedAsset = self.photoLibrary.getAsset(at: indexPath.row) else { return }
+            
+            // change Cell's UI
+            cell.isHighlighted = false
+            // delete selected items
+            if let index = self.pickedAssets.index(of: deSelectedAsset) {
+                self.pickedAssets.remove(at: index)
+            }
+        }
     }
     
 }
