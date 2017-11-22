@@ -128,6 +128,7 @@ class AllAlbumsViewController: UIViewController {
             self.customReloadData()
             return
         }
+        self.customReloadData()
         self.performSegue(withIdentifier: "AnalysisVC", sender: nil)
     }
     

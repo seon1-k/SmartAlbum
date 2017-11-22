@@ -27,10 +27,18 @@ class AssetCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.checkedImg.isHidden = true
+        if !isHighlighted && !isSelected {
+            self.checkedImg.isHidden = true
+        }
     }
     
     override var isHighlighted: Bool {
+        willSet {
+            self.onSelected(newValue)
+        }
+    }
+    
+    override var isSelected: Bool {
         willSet {
             self.onSelected(newValue)
         }
