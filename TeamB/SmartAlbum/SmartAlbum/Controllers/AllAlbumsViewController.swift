@@ -39,8 +39,8 @@ class AllAlbumsViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "AssetPreviewVC" {
-            let assetPreviewVC = segue.destination as! AssetPreviewViewController
-            let selectedIndexPath = sender as! IndexPath
+            guard let assetPreviewVC = segue.destination as? AssetPreviewViewController else { return }
+            guard let selectedIndexPath = sender as? IndexPath else { return }
             
             assetPreviewVC.photoLibrary = self.photoLibrary
             assetPreviewVC.numberOfSections = self.numberOfSections
@@ -121,7 +121,7 @@ extension AllAlbumsViewController: UICollectionViewDelegateFlowLayout {
         cell.thumbnail.clipsToBounds = true
         cell.playIcon.isHidden = true
         
-        DispatchQueue.global(qos: .background).async {
+        DispatchQueue(label: "setThumbnail").async {
             self.photoLibrary.setLibrary(mode: .thumbnail, at: indexPath.row) { image, isVideo in
                 if let image = image {
                     DispatchQueue.main.async {

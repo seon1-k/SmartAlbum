@@ -100,15 +100,6 @@ class PhotoLibrary {
         return result
     }
     
-    func getVideo(at index: Int) -> AVPlayer {
-        var player = AVPlayer()
-        imgManager.requestAVAsset(forVideo: fetchResult.object(at: index) as PHAsset, options: nil) { (asset, audioMix, args) in
-            let asset = asset as! AVURLAsset
-            player = AVPlayer(url: asset.url)
-        }
-        return player
-    }
-    
     func getAllPhotos() -> [UIImage] {
         var resultArray = [UIImage]()
         for index in 0..<fetchResult.count {

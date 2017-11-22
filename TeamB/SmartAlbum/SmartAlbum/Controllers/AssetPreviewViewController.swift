@@ -104,16 +104,14 @@ extension AssetPreviewViewController: UICollectionViewDelegate, UICollectionView
             onceOnly = true
         }
         // Show media data
-        DispatchQueue.global(qos: .background).async {
-            if let asset = self.photoLibrary.getAsset(at: indexPath.row) {
-                DispatchQueue.main.async {
-                    if asset.mediaType == .video {
-                        let cell = cell as! FullVideoCell
-                        cell.avPlayer?.play()
-                    } else { // .image
-                        let cell = cell as! FullAssetPreviewCell
-                        cell.fullAssetImg.image = self.photoLibrary.getPhoto(at: indexPath.row)
-                    }
+        if let asset = self.photoLibrary.getAsset(at: indexPath.row) {
+            DispatchQueue.main.async {
+                if asset.mediaType == .video {
+                    let cell = cell as! FullVideoCell
+                    cell.avPlayer?.play()
+                } else { // .image
+                    let cell = cell as! FullAssetPreviewCell
+                    cell.fullAssetImg.image = self.photoLibrary.getPhoto(at: indexPath.row)
                 }
             }
         }
