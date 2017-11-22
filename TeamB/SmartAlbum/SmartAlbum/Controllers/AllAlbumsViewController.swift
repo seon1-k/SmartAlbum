@@ -12,144 +12,98 @@ import Photos
 class AllAlbumsViewController: UIViewController {
     
     // MARK:- Properties
-    
+
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var albumsCollectionView: UICollectionView!
     
-    let sectionInsets = UIEdgeInsets(top: 1.0, left: 1.0, bottom: 1.0, right: 1.0)
-    let itemsPerRow: CGFloat = 4
-    var albumArray = NSMutableArray()
+    fileprivate var photoLibrary: PhotoLibrary!
+    fileprivate var numberOfSections = 0
+    fileprivate let sectionInsets = UIEdgeInsets(top: 0.5, left: 0.5, bottom: 0.5, right: 0.5)
+    fileprivate let itemsPerRow: CGFloat = 4
     
     // MARK:- Initialize
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        albumsCollectionView.delegate = self
-        albumsCollectionView.dataSource = self
+        self.title = "Photos"
         
+        initCollectionView()
+        initPhotoLib()
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    // MARK:- Navigation control
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "AssetPreviewVC" {
+            guard let assetPreviewVC = segue.destination as? AssetPreviewViewController else { return }
+            guard let selectedIndexPath = sender as? IndexPath else { return }
+            
+            assetPreviewVC.photoLibrary = self.photoLibrary
+            assetPreviewVC.numberOfSections = self.numberOfSections
+            assetPreviewVC.passedIndexPath = selectedIndexPath
+        }
+    }
+
+    // MARK:- Help functions
+    
+    func initPhotoLib() {
+        // start spinner
         self.spinner.hidesWhenStopped = true
         self.spinner.startAnimating()
         
-        // Get assets from all albums
         PHPhotoLibrary.requestAuthorization { (status) in
             switch status {
             case .authorized:
-                self.getAllAssets()
+                self.photoLibrary = PhotoLibrary()
+                self.numberOfSections = 1
+                
+                DispatchQueue.main.async {
+                    self.albumsCollectionView.reloadData()
+                    self.spinner.stopAnimating()
+                }
             case .denied, .restricted:
-                print("Not allowed")
                 // TODO: Add alertview
+                print("Not allowed")
                 self.spinner.stopAnimating()
             case .notDetermined:
                 // TODO: Add alertview
                 print("Not determined yet")
                 self.spinner.stopAnimating()
             }
-        }
+        }   
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-
-    // MARK:- Help functions
-    
-    func getAllAssets() {
-        let fetchOptions = PHFetchOptions()
-        let smartAlbums = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .any, options: fetchOptions)
-        // the root of the photo library’s hierarchy of user-created albums and folders
-        let topLevelfetchOptions = PHFetchOptions()
-        let topLevelUserCollections = PHCollectionList.fetchTopLevelUserCollections(with: topLevelfetchOptions)
-        
-        var name: String = ""
-        
-        smartAlbums.enumerateObjects({
-            let collection: PHAssetCollection = $0.0
-            let result = PHAsset.fetchAssets(in: collection, options: nil)
-            let imgArray = NSMutableArray()
-            name = collection.localizedTitle! // Album's Title
-            
-            result.enumerateObjects({ (object, index, stop) -> Void in
-                let asset = object
-                imgArray.add(self.getAssetThumbnail(asset: asset))
-            })
-            // Append to albumArray
-            if imgArray.count > 0 {
-                let newAlbum = AlbumModel(name: name, count: collection.estimatedAssetCount, asset: imgArray)
-                self.albumArray.add(newAlbum)
-            }
-        })
-        
-        topLevelUserCollections.enumerateObjects({
-            if let collection = $0.0 as? PHAssetCollection {
-                let imgArray = NSMutableArray()
-                let result = PHAsset.fetchAssets(in: collection, options: nil)
-                name = collection.localizedTitle!
-                
-                result.enumerateObjects({ (object, index, stop) -> Void in
-                    let asset = object
-                    imgArray.add(self.getAssetThumbnail(asset: asset))
-                })
-                if imgArray.count > 0 {
-                    let newAlbum = AlbumModel(name: name, count: collection.estimatedAssetCount, asset: imgArray)
-                    self.albumArray.add(newAlbum)
-                }
-            }
-        })
-        self.albumsCollectionView.reloadData()
-        self.spinner.stopAnimating()
-    }
-    
-    // Convert PHAseet to UIImage
-    func getAssetThumbnail(asset: PHAsset) -> UIImage {
-        let manager = PHImageManager.default()
-        let option = PHImageRequestOptions()
-        var thumbnail = UIImage()
-        
-        option.isSynchronous = true
-        manager.requestImage(for: asset, targetSize: CGSize(width: 100, height: 100), contentMode: .aspectFit, options: option, resultHandler: {(result, info) -> Void in
-            thumbnail = result!
-        })
-        
-        return thumbnail
-    }
-
+   
 }
 
 // MARK:- UICollectionViewDelegate, UICollectionViewDataSource {
 
 extension AllAlbumsViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
+    func initCollectionView() {
+        self.albumsCollectionView.delegate = self
+        self.albumsCollectionView.dataSource = self
+    }
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return self.albumArray.count
+        return self.numberOfSections
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let album = self.albumArray[section] as! AlbumModel
-        print("count = \(album.asset.count)")
-        return album.asset.count
+        return self.photoLibrary.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let album = self.albumArray[indexPath.section] as! AlbumModel
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AssetCell", for: indexPath) as! AssetCell
-        
-        cell.thumbnail.image = album.asset.object(at: indexPath.row) as? UIImage
-        cell.thumbnail.contentMode = .scaleAspectFill
-        
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("get selected collectionview itemindex \(indexPath.row)")
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let assetHeader: AssetHeaderView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "AssetHeaderView", for: indexPath) as! AssetHeaderView
-        let album = self.albumArray[indexPath.section] as! AlbumModel
-        assetHeader.albumTitle.text = album.name
-        
-        return assetHeader
+        self.performSegue(withIdentifier: "AssetPreviewVC", sender: indexPath)
     }
     
 }
@@ -157,6 +111,27 @@ extension AllAlbumsViewController: UICollectionViewDelegate, UICollectionViewDat
 // MARK: - UICollectionViewDelegateFlowLayout
 
 extension AllAlbumsViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        willDisplay cell: UICollectionViewCell,
+                        forItemAt indexPath: IndexPath) {
+        let cell = cell as! AssetCell
+        cell.thumbnail.image = nil
+        cell.thumbnail.contentMode = .scaleAspectFill
+        cell.thumbnail.clipsToBounds = true
+        cell.playIcon.isHidden = true
+        
+        DispatchQueue(label: "setThumbnail").async {
+            self.photoLibrary.setLibrary(mode: .thumbnail, at: indexPath.row) { image, isVideo in
+                if let image = image {
+                    DispatchQueue.main.async {
+                        if isVideo { cell.playIcon.isHidden = false }
+                        cell.thumbnail.image = image
+                    }
+                }
+            }
+        }
+    }
     
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
@@ -180,5 +155,3 @@ extension AllAlbumsViewController: UICollectionViewDelegateFlowLayout {
         return sectionInsets.left
     }
 }
-
-
