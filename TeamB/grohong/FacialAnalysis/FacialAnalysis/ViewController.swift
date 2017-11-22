@@ -19,8 +19,10 @@ class ViewController: UIViewController {
         }
     }
     
+    @IBOutlet weak var emotionLabel: UILabel!
     var faceImageInfo = [VNFaceObservation]()
     var faceImages = [UIImageView]()
+    var selectedFace: UIImage?
     
     @IBOutlet weak var blurredImage: UIImageView!
     @IBOutlet weak var selectImage: UIImageView!
@@ -47,6 +49,35 @@ class ViewController: UIViewController {
         }
         
         let handler = VNImageRequestHandler(ciImage: image)
+        
+        DispatchQueue.global(qos: .userInteractive).async {
+            do {
+                try handler.perform([request])
+            } catch {
+                print("error")
+            }
+        }
+    }
+    
+    func detectEmotion(image: CGImage) {
+        emotionLabel.text = "detection emotion...."
+        
+        guard let model = try? VNCoreMLModel(for: CNNEmotions().model) else {
+            fatalError("can't load Places ML model")
+        }
+        
+        let request = VNCoreMLRequest(model: model) { [weak self] request, error in
+            guard let results = request.results as? [VNClassificationObservation],
+                let topResult = results.first else {
+                    fatalError("unexpected result type from VNCoreMLRequest")
+            }
+            
+            DispatchQueue.main.async {
+                self?.emotionLabel.text = "\(Int(topResult.confidence * 100))%: \(topResult.identifier)"
+            }
+        }
+        
+        let handler = VNImageRequestHandler(cgImage: image)
         
         DispatchQueue.global(qos: .userInteractive).async {
             do {
@@ -94,6 +125,9 @@ class ViewController: UIViewController {
                     faceImage.image = faceUiImage
                     faceImage.isUserInteractionEnabled = true
                     
+                    let tap = UITapGestureRecognizer(target: self, action: #selector(ViewController.handleFaceImageViewTap(_:)))
+                    faceImage.addGestureRecognizer(tap)
+                    
                     self.faceImages.append(faceImage)
                     self.faceScrollView.addSubview(faceImage)
                 }
@@ -105,7 +139,7 @@ class ViewController: UIViewController {
 
 }
 
-extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension ViewController: UIImagePickerControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
        picker.dismiss(animated: true, completion: nil)
         
@@ -118,5 +152,13 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
             fatalError("couldn't convert UIImage to CIImage")
         }
         detectFaces(image: ciImage)
+    }
+}
+
+extension ViewController: UINavigationControllerDelegate {
+    @objc func handleFaceImageViewTap(_ sender: UITapGestureRecognizer) {
+        if let tappedImageView = sender.view as? UIImageView {
+            self.detectEmotion(image: (tappedImageView.image?.cgImage)!)
+        }
     }
 }

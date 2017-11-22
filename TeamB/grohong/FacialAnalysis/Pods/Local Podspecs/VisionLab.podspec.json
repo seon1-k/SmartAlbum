@@ -1,0 +1,27 @@
+{
+  "name": "VisionLab",
+  "version": "0.2.0",
+  "summary": "Common sources for projects using Vision framework",
+  "homepage": "https://github.com/cocoa-ml/VisionLab",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Vadym Markov": "markov.vadym@gmail.com"
+  },
+  "social_media_url": "https://twitter.com/vadymmarkov",
+  "platforms": {
+    "ios": "11.0"
+  },
+  "source": {
+    "git": "https://github.com/cocoa-ml/VisionLab.git",
+    "tag": "0.2.0"
+  },
+  "source_files": "Sources/**/*",
+  "frameworks": [
+    "UIKit",
+    "Vision",
+    "CoreML"
+  ]
+}
