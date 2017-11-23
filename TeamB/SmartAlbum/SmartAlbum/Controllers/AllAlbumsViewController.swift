@@ -74,6 +74,10 @@ class AllAlbumsViewController: UIViewController {
                 self.photoLibrary = PhotoLibrary()
                 self.numberOfSections = 1
                 
+                DispatchQueue.global(qos: .background).async {
+                    self.photoLibrary.setDB()
+                }
+                
                 DispatchQueue.main.async {
                     self.albumsCollectionView.reloadData()
                     self.spinner.stopAnimating()

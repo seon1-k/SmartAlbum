@@ -32,6 +32,7 @@ class AnalysisController {
             completion(keyword, confidence)
         }
         
+        
         let handler = VNImageRequestHandler(ciImage: image)
         DispatchQueue.global(qos: .userInteractive).async {
             do {
@@ -43,16 +44,3 @@ class AnalysisController {
     }
 }
 
-extension DispatchQueue {
-
-    static func detechImage(delay: Double = 0.0, background: (() -> Void)? = nil, completion: (() -> Void)? = nil) {
-        DispatchQueue.global(qos: .background).async {
-            background?()
-            if let completion = completion {
-                DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: {
-                    completion()
-                })
-            }
-        }
-    }
-}

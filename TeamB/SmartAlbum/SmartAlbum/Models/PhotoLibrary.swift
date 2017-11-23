@@ -63,10 +63,6 @@ class PhotoLibrary {
         fetchOptions.sortDescriptors = [NSSortDescriptor(key:"creationDate", ascending: false)]
         fetchResult = PHAsset.fetchAssets(with: fetchOptions)
         formatter.dateFormat = "yyyy.MM.dd"
-        
-        setDB()
-        
-//        print(Realm.Configuration.defaultConfiguration.description)
     }
 
     var count: Int {
@@ -81,8 +77,10 @@ class PhotoLibrary {
     }
     
     func setDB() {
-        for index in 0..<10 {
-            imgManager.requestImage(for: fetchResult.object(at: index) as PHAsset, targetSize: UIScreen.main.bounds.size, contentMode: PHImageContentMode.aspectFill, options: requestOptions) { (image, _) in
+        for index in 0..<fetchResult.count {
+            
+            print(index)
+            imgManager.requestImage(for: fetchResult.object(at: index) as PHAsset, targetSize: CGSize(), contentMode: PHImageContentMode.aspectFill, options: requestOptions) { (image, _) in
                 let asset = self.fetchResult.object(at: index)
                 
                 guard let uiImage = image else {
@@ -117,7 +115,7 @@ class PhotoLibrary {
                 }
                 
                 if let ciImage = CIImage(image: uiImage) {
-
+                
                     self.analysisController.getInfo(image: ciImage) { result in
                         keyword = result.0
                         confidence = result.1
