@@ -85,9 +85,11 @@ extension AnalyzedViewController: UICollectionViewDelegateFlowLayout {
         cell.analyzedThumbnailImg.clipsToBounds = true
         cell.playImg.isHidden = true
         
-        DispatchQueue(label: "setAnalyzedThumbnail").async {
+        DispatchQueue.global(qos: .background).async {
             let url = self.selectedObjs[indexPath.row].url
+            let isVideo = self.selectedObjs[indexPath.row].isVideo
             DispatchQueue.main.async {
+                if isVideo { cell.playImg.isHidden = false }
                 cell.analyzedThumbnailImg.imageFromAssetURL(assetURL: url)
             }
         }
