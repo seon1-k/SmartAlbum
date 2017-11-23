@@ -15,16 +15,21 @@ class TestVC: UIViewController {
     override func viewDidLoad() {
         print(Realm.Configuration.defaultConfiguration.fileURL!)
         
-        let fetchOptions = PHFetchOptions()
-        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
-        let fetch = PHAsset.fetchAssets(with: fetchOptions)
+//        UserDefaults.standard.set(Date(), forKey: "updateDate")
         
-        DBManager.initData(assets: fetch)
+//        DBManager.updateData()
         
-        DispatchQueue.main.async {
-            print(DBManager.getKeywords())
-            print(DBManager.getKeywords().count)
-        }
+//        for i in 0..<fetch.count {
+//            let item = fetch.object(at: i)
+//            print(item.modificationDate)
+//        }
+        
+        DBManager.initData()
+//
+//        DispatchQueue.main.async {
+//            print(DBManager.getKeywords())
+//            print(DBManager.getKeywords().count)
+//        }
         
 //        DBManager.groupByCity()
     }

@@ -21,23 +21,29 @@ import Photos
 import MapKit
 
 class DBManager {
-    static func initData(assets: PHFetchResult<PHAsset>) {
+    static func initData(completionHandler: @escaping (Bool) -> Void) {
         // PHAsset 을 DB에 저장
+        
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+        let assets:PHFetchResult<PHAsset> = PHAsset.fetchAssets(with: fetchOptions)
+        
         let realm = try! Realm()
         
         var items:[Picture] = []
 //        assets.count
         for i in 0..<100 {
             let asset = assets.object(at: i)
-            let pic = Picture()
-            pic.id = asset.localIdentifier
-            pic.date = asset.creationDate
+            let pic = Picture(asset: asset)
+//            pic.id = asset.localIdentifier
+//            pic.date = asset.creationDate
+//
+//            let loc = Location()
+//            if let lati = asset.location?.coordinate.latitude, let longti = asset.location?.coordinate.longitude {
+//                loc.latitude = lati
+//                loc.longtitude = longti
+//            }
             
-            let loc = Location()
-            if let lati = asset.location?.coordinate.latitude, let longti = asset.location?.coordinate.longitude {
-                loc.latitude = lati
-                loc.longtitude = longti
-            }
 //            if let location = asset.location {
 //                print("location \(i)")
 //                LocationServices.getCity(location: location) { (city, error) in
@@ -47,19 +53,17 @@ class DBManager {
 //                    }
 //                }
 //            }
-            pic.location = loc
+//            pic.location = loc
             
-            MLHelper.setKeyword(pic.id) { (key, error) in
+            MLHelper.setKeyword(asset.localIdentifier) { (key, error) in
                 if error == nil {
                     print("keyword \(i)")
-//                        :\(key!)")
                     pic.flag = 1
                     pic.keyword = key!
                 } else {
                     print("error in coreML")
                 }
             }
-            
             items.append(pic)
         }
         
@@ -67,7 +71,39 @@ class DBManager {
             realm.deleteAll()
             realm.add(items)
             print("add complete")
+            
+            UserDefaults.standard.set(Date(), forKey: "updateDate")
+            completionHandler(true)
         }
+    }
+    
+    static func updateData() {
+        // 사진의 modificationDate 값을 기준으로, 가장 최근에 keyword를 입힌 시점보다 최근에 수정된 이미지 파일은 keyword 업데이트
+        let realm = try! Realm()
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "modificationDate", ascending: false)]
+        let fetch:PHFetchResult<PHAsset> = PHAsset.fetchAssets(with: fetchOptions)
+        
+//        print("updateDate:\(UserDefaults.standard.value(forKey: "updateDate"))")
+        var count = 0
+        for i in 0..<fetch.count {
+            let item = fetch.object(at: i)
+//            print(item.modificationDate)
+            if item.modificationDate! < UserDefaults.standard.value(forKey: "updateDate") as! Date {
+                break
+            }
+            
+            try! realm.write {
+                let pic = Picture(asset: item)
+                realm.add(pic)
+            }
+            count += 1
+        }
+        
+        // 삭제된 사진은 DB에서 지워야함.? -> 일단 보류
+        
+        print("new item:\(count)")
+        UserDefaults.standard.set(Date(), forKey: "updateDate")
     }
     
     static func getKeywords() -> [String] {
@@ -77,14 +113,22 @@ class DBManager {
         return keywords
     }
     
-    static func getAssets(_ keyword: String) -> PHFetchResult<PHAsset> {
+    static func getAssets(_ keyword: String?) -> PHFetchResult<PHAsset> {
         //키워드에 해당하는 PHAsset 불러옴
+        
+        
         
         let realm = try! Realm()
         let fetchOptions = PHFetchOptions()
         fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
         
-        let identifiers:[String] = Array(realm.objects(Picture.self).value(forKey: "id") as! [String])
+        var identifiers:[String] = []
+        if keyword == nil {
+            // 분류 안된 것만 리턴
+            identifiers = Array(realm.objects(Picture.self).filter("flag == 0").value(forKey: "id") as! [String])
+        } else {
+            identifiers = Array(realm.objects(Picture.self).value(forKey: "id") as! [String])
+        }
 
         let fds:PHFetchResult<PHAsset> = PHAsset.fetchAssets(withLocalIdentifiers: identifiers, options: fetchOptions)
         return fds
@@ -113,7 +157,7 @@ class DBManager {
         var i = 0
         for item in items {
             // 7일간의 데이터 저장
-            let itemDate = item.date //현재 아이템의 시간
+            let itemDate = item.createDate //현재 아이템의 시간
             if startDate.isInSameWeek(date: itemDate!) {
                 groups[i].append(item)
             } else {
