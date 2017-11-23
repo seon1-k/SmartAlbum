@@ -21,6 +21,11 @@ class TestVC: UIViewController {
         
         DBManager.initData(assets: fetch)
         
+        DispatchQueue.main.async {
+            print(DBManager.getKeywords())
+            print(DBManager.getKeywords().count)
+        }
+        
 //        DBManager.groupByCity()
     }
 }

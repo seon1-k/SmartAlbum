@@ -27,7 +27,7 @@ class DBManager {
         
         var items:[Picture] = []
 //        assets.count
-        for i in 0..<30 {
+        for i in 0..<100 {
             let asset = assets.object(at: i)
             let pic = Picture()
             pic.id = asset.localIdentifier
