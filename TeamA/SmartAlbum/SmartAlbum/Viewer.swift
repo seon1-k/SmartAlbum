@@ -10,7 +10,7 @@ import UIKit
 import Photos
 protocol PageCallback {
     func getBeforeIndex(index:Int) -> PHAsset
-    func getAfterIndex(index:Int) -> PHAsset
+    func getAfterIndex(index:Int) -> PHAsset?
 }
 
 class Viewer: BaseVC {
@@ -56,7 +56,7 @@ class Viewer: BaseVC {
         self.pageViewController.setViewControllers(viewControllers as? [UIViewController], direction: .forward, animated: true, completion: nil)
         self.view.backgroundColor = UIColor.gray
         self.pageViewController.view.backgroundColor = UIColor.gray
-        self.addChildViewController(self.pageViewController)
+     
         self.view.addSubview(self.pageViewController.view)
     }
     private func setupConstraints() {
@@ -93,7 +93,7 @@ extension Viewer:UIPageViewControllerDataSource{
         }else{
             
             let beforeAsset =  self.pageCallback?.getBeforeIndex(index: vc.index - 1)
-            let beforeImg = PhotoLibrary().getPhotoImage(asset: beforeAsset!, size: CGSize(width: 100, height: 100))
+            let beforeImg = PhotoLibrary().getPhotoImage(asset: beforeAsset!, size: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
             let before = viewControllerAtIndex(index: vc.index - 1)
            before.img.image = beforeImg
             return  before
@@ -104,10 +104,12 @@ extension Viewer:UIPageViewControllerDataSource{
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         
         let vc = viewController as! ContentVC
-        print(self.pageCallback)
-        let afterAsset =  self.pageCallback?.getBeforeIndex(index:vc.index + 1)
-          let afterImg = PhotoLibrary().getPhotoImage(asset: afterAsset!, size: CGSize(width: 100, height: 100))
-        let afterVC = viewControllerAtIndex(index:vc.index + 1)
+        
+       
+        guard  let afterAsset =  self.pageCallback?.getAfterIndex(index:vc.index + 1) else{return nil}
+         let afterVC = viewControllerAtIndex(index:vc.index + 1)
+          let afterImg = PhotoLibrary().getPhotoImage(asset: afterAsset, size: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+      
         afterVC.img.image = afterImg
    
         return afterVC

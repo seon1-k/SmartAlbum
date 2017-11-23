@@ -9,18 +9,24 @@
 import UIKit
 import Photos
 class AlbumListVC: UIViewController {
-     var collectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    var collectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     var albumsList : PHFetchResult<PHAssetCollection>?
     let PHImageManager = PHCachingImageManager()
-    
+    let keywords:[String] = DBManager.getKeywords()
+
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        getAlbums()
+     //   getAlbums()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        
+          self.navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,6 +42,8 @@ class AlbumListVC: UIViewController {
         navigationItem.title = "스마트앨범"
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationController? .navigationItem.largeTitleDisplayMode = .never
+        albumsList = PHFetchResult()
+        albumsList = DBManager.getAssets(nil) as! PHFetchResult<PHAssetCollection>
         
         // UI - collectionView
         
@@ -102,28 +110,30 @@ class AlbumListVC: UIViewController {
         
     }
     
-    func getAlbums() {
-        let options:PHFetchOptions = PHFetchOptions()
-        self.albumsList  = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .any, options: options)
-        // 앨범 정보
-        guard let albums = albumsList else{return}
-        for i in 0 ..< albums.count{
-            let collection = albums[i]
-            // . localizedTitle = 앨범 타이틀
-            let title : String = collection.localizedTitle!
-            
-            if(collection.estimatedAssetCount != nil){
-                // . estimatedAssetCount = 앨범 내 사진 수
-                let assetsFetchResult: PHFetchResult = PHAsset.fetchAssets(in: collection, options: nil)
-                print("assetsFetchResult.count=\(assetsFetchResult.count)")
-                
-                let count : Int = collection.estimatedAssetCount
-                //  print(count)
-                print(title)
-            }else{
-            }
-        }
-    }
+//    func getAlbums() {
+//        let options:PHFetchOptions = PHFetchOptions()
+//        self.albumsList  = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .any, options: options)
+//        // 앨범 정보
+//        guard let albums = albumsList else{return}
+//        for i in 0 ..< albums.count{
+//            let collection = albums[i]
+//            // . localizedTitle = 앨범 타이틀
+//            let title : String = collection.localizedTitle!
+//
+//            if(collection.estimatedAssetCount != nil){
+//                // . estimatedAssetCount = 앨범 내 사진 수
+//                let assetsFetchResult: PHFetchResult = PHAsset.fetchAssets(in: collection, options: nil)
+//                print("assetsFetchResult.count=\(assetsFetchResult.count)")
+//
+//                let count : Int = collection.estimatedAssetCount
+//                //  print(count)
+//                print(title)
+//            }else{
+//            }
+//        }
+//    }
+    
+    
 }
 
 extension AlbumListVC:UICollectionViewDelegate,UICollectionViewDataSource{
@@ -134,40 +144,40 @@ extension AlbumListVC:UICollectionViewDelegate,UICollectionViewDataSource{
         
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return albumsList!.count
+        return keywords.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         //메서드로뺴내기
         let cell  = collectionView.dequeueReusableCell(withReuseIdentifier:String(describing:AlbumListCell.self), for: indexPath) as! AlbumListCell
-        cell.titleLbl.text = albumsList![indexPath.row].localizedTitle
-        cell.tag = indexPath.row
-        cell.albumImgView.image = nil
-        let assetsFetchResult: PHFetchResult = PHAsset.fetchAssets(in: albumsList![indexPath.row], options: nil)
+        cell.titleLbl.text = keywords[indexPath.row]
+//        cell.tag = indexPath.row
+//        cell.albumImgView.image = nil
+//        let assetsFetchResult: PHFetchResult = PHAsset.fetchAssets(in: albumsList![indexPath.row], options: nil)
         
-        let fetchOptions = PHFetchOptions()
-        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+//        let fetchOptions = PHFetchOptions()
+//        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+//
+//        let fetchResult  = PHAsset.fetchAssets(in:albumsList![indexPath.row], options: fetchOptions)
+//        let last = fetchResult.lastObject
         
-        let fetchResult  = PHAsset.fetchAssets(in:albumsList![indexPath.row], options: fetchOptions)
-        let last = fetchResult.lastObject
         
-        if let lastAsset = last {
-            let options = PHImageRequestOptions()
-            options.version = .current
-            
-            
+        
+//        if let lastAsset = last {
+//            let options = PHImageRequestOptions()
+//            options.version = .current
+//
+//
             PHImageManager.requestImage(for: lastAsset, targetSize: CGSize(width:100, height: 100), contentMode: .aspectFill, options: nil, resultHandler: { image, _ in
-                
-                if cell.tag == indexPath.row
-                {
+
                     DispatchQueue.main.async {
-                        cell.albumImgView.image = image
-                        cell.albumCountLbl.text = "\(assetsFetchResult.count)"
-                        
-                    }
+                      //  cell.albumImgView.image = image
+                        //cell.albumCountLbl.text = "\(assetsFetchResult.count)"
+
+                    
                 }
             })
-        }
+        //}
         return cell
     }
     
@@ -194,6 +204,15 @@ extension AlbumListVC: UICollectionViewDelegateFlowLayout{
 extension AlbumListVC: UISearchResultsUpdating,UISearchBarDelegate{
     
     func updateSearchResults(for searchController: UISearchController) {
+        
+        
+        
+        
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+       
+        
         
     }
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {

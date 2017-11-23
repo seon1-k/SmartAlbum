@@ -154,9 +154,9 @@ class DBManager {
         var identifier:String = ""
         if keyword == nil {
             // 분류 안된 것만 리턴
-            identifier = Array(realm.objects(Picture.self).filter("flag == 0")).first?.value(forKey: "id") as! String
+            identifier = Array(realm.objects(Picture.self).filter("flag == 0")).last?.value(forKey: "id") as! String
         } else {
-            identifier = Array(realm.objects(Picture.self).filter("keyword == %@", keyword!)).first?.value(forKey: "id") as! String
+            identifier = Array(realm.objects(Picture.self).filter("keyword == %@", keyword!)).last?.value(forKey: "id") as! String
         }
         let fds:PHFetchResult<PHAsset> = PHAsset.fetchAssets(withLocalIdentifiers: [identifier], options: fetchOptions)
         return fds
