@@ -50,6 +50,29 @@ class LocationServices {
     
     }
     
+    static func getCity(locations: [Location], completion: @escaping (_ citys:[String]?) -> ()) {
+        var citys:[String] = []
+        for location in locations {
+            let geoCoder = CLGeocoder()
+            let loc = CLLocation(latitude: location.value(forKey: "latitude") as! Double, longitude: location.value(forKey: "longtitude") as! Double)
+            geoCoder.reverseGeocodeLocation(loc) { placemarks, error in
+                if error == nil {
+                    let placeArray = placemarks
+                    var placeMark: CLPlacemark!
+                    placeMark = placeArray?[0]
+                    
+                    guard let address = placeMark.locality else {
+                        completion(nil)
+                        return
+                    }
+                    citys.append(address)
+                    if location == locations.last {
+                        completion(citys)
+                    }
+                }
+            }
+        }
+    }
     
     
     static func getCity(completion: @escaping (Bool) -> ()) {

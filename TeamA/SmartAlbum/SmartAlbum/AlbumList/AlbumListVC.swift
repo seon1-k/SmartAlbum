@@ -107,10 +107,47 @@ class AlbumListVC: UIViewController {
         let locationAction = UIAlertAction(title:"위치", style: .default) { (action) in
             
             
-            self.albumName = DBManager.groupByCity().groupKey
-            self.sortedAsset = DBManager.groupByCity().groupAssets
-            self.sortType = .Location
-            self.collectionView.reloadData()
+//            self.albumName = DBManager.groupByCity().groupKey
+//            self.sortedAsset = DBManager.groupByCity().groupAssets
+//            let realm = try! Realm()
+//            var citys:[String] = []
+//
+//            let locs = realm.objects(Location.self)
+//            for loc in locs {
+//                let location = CLLocation(latitude: loc.value(forKey: "latitude") as! Double, longitude: loc.value(forKey: "longtitude") as! Double)
+//                LocationServices.getCity(location: location) { city, error in
+//                    if error == nil {
+//                        citys.append(city!)
+//                    }
+//                }
+//            }
+            
+            let realm = try! Realm()
+            let pictures = realm.objects(Picture.self).filter("location != nil").sorted(byKeyPath: "createDate", ascending: false)
+            let loc = pictures.value(forKey: "location") as! [Location]
+//            let ids = pictures.value(forKey: "id") as! [String]
+            LocationServices.getCity(locations: loc) { citys in
+//                if error == nil {
+                    self.albumName = citys
+                    self.sortType = .Location
+                    self.collectionView.reloadData()
+//
+//                    self.sortedAsset = []
+//                    var imgArr:[PHAsset] = []
+//                    for id in ids {
+//                        let fds:PHFetchResult<PHAsset> = PHAsset.fetchAssets(withLocalIdentifiers: [id], options: nil)
+//                        imgArr.append(fds.objects(at: I))
+//                    }
+//                }
+            }
+//            for pic in pictures {
+//
+//            }
+            
+//            self.albumName = citys
+//            print("citys\(citys)")
+            
+           
         }
         let keywordAction = UIAlertAction(title:"키워드", style: .default) { (action) in
             

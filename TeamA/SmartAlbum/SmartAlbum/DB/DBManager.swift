@@ -251,14 +251,38 @@ class DBManager {
 //        }
 //    }
     
+//    static func groupByLocation() -> [Location] {
+//
+//    }
+    
     static func groupByCity() -> (groupKey:[String], groupAssets:[PHFetchResult<PHAsset>])  {
         // 시 단위 그루핑
         let realm = try! Realm()
         
         addLocation()
+        var citys:[String] = []
+        var groupAssets:[PHFetchResult<PHAsset>] = []
         
         DispatchQueue.main.async {
-            let citys = Array(Set(realm.object(Location.self).))
+            citys = Array(Set(realm.objects(Location.self).value(forKey: "city") as! [String]))
+            
+            let fetchOptions = PHFetchOptions()
+            fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+            
+            
+            for city in citys {
+                var identifiers:[String] = []
+                if city == "" {
+                    // 분류 안된 것만 리턴
+                    identifiers = Array(realm.objects(Picture.self).filter("location == nil").value(forKey: "id") as! [String])
+                } else {
+                    identifiers = Array(realm.objects(Picture.self).filter("location.city == %@", city).value(forKey: "id") as! [String])
+                }
+                
+                
+                let fds:PHFetchResult<PHAsset> = PHAsset.fetchAssets(withLocalIdentifiers: identifiers, options: fetchOptions)
+                groupAssets.append(fds)
+            }
         }
         
 //        let ids:[String] = Array(realm.objects(Picture.self).filter("location != nil").value(forKey: "id") as! [String])
@@ -287,7 +311,7 @@ class DBManager {
 //            print("citys:\(citys)")
 //        }
         
-        return ([], [])
+        return (citys, groupAssets)
     }
     
     static func groupByKeyWord() -> (groupKey:[String], groupAssets:[PHFetchResult<PHAsset>]) {
