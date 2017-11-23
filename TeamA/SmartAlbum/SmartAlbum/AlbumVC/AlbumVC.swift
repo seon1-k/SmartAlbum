@@ -103,40 +103,39 @@ extension AlbumVC:UICollectionViewDelegate,UICollectionViewDataSource,UICollecti
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let pageVC = Viewer(nibName: nil, bundle: nil)
+      
         
         let asset = allPhotos.object(at: indexPath.item)
+          let pageVC = Viewer(asset:asset)
         let currentImg = PhotoLibrary().getPhotoImage(asset: asset, size: CGSize(width: 100, height: 100))
         let contentVC = ContentVC(img: currentImg)
+        self.navigationController?.pushViewController(pageVC, animated: false)
+      
         self.navigationController?.view.addSubview(pageVC.view)
+        pageVC.pageViewController.setViewControllers([contentVC], direction: .forward, animated: true, completion: nil)
+       
+        
         pageVC.pageCallback = self
         contentVC.index = indexPath.row
-        pageVC.pageViewController.setViewControllers([contentVC], direction: .forward, animated: true, completion: nil)
         
         
-        
-       
-     
-      //  self.addChildViewController(pageVC)
-        
-
         print(pageVC.view.frame)
         print(contentVC.view.frame)
     }
 }
 
 extension AlbumVC: PageCallback{
-    func getAfterIndex(index: Int) -> UIImage {
+    func getAfterIndex(index: Int) -> PHAsset {
         
-      let asset = allPhotos.object(at: index)
-    let beforeImg = PhotoLibrary().getPhotoImage(asset: asset, size: CGSize(width: 100, height: 100))
-        return beforeImg
+      let beforeAsset = allPhotos.object(at: index)
+
+        return beforeAsset
     }
     
-    func getBeforeIndex(index: Int) -> UIImage {
-        let asset = allPhotos.object(at: index)
-        let afterImg = PhotoLibrary().getPhotoImage(asset: asset, size: CGSize(width: 100, height: 100))
-        return afterImg
+    func getBeforeIndex(index: Int) -> PHAsset {
+        let afterAsset = allPhotos.object(at: index)
+
+        return afterAsset
     }
     
 }

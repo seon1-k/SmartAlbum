@@ -7,30 +7,44 @@
 //
 
 import UIKit
-
+import Photos
 protocol PageCallback {
-    func getBeforeIndex(index:Int) -> UIImage
-    func getAfterIndex(index:Int) -> UIImage
+    func getBeforeIndex(index:Int) -> PHAsset
+    func getAfterIndex(index:Int) -> PHAsset
 }
 
 class Viewer: BaseVC {
     
     var pageCallback: PageCallback?
     var pageViewController : UIPageViewController!
-    
+    var selectAsset:PHAsset!
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
+    
+    convenience init(asset:PHAsset){
+        self.init()
+        selectAsset = asset
+       
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         setupPageController()
         setupConstraints()
-        
+        setupUI()
     }
     
+    override func setupUI() {
+        guard let date = selectAsset.creationDate else {
+            return
+        }
+        navigationItem.title = "\(date)"
+        self.navigationController?.navigationBar.prefersLargeTitles = false
+
+    }
     override func setupPageController() {
         
         self.pageViewController =  UIPageViewController(transitionStyle:.scroll, navigationOrientation: .horizontal, options: nil)
@@ -45,8 +59,6 @@ class Viewer: BaseVC {
         self.addChildViewController(self.pageViewController)
         self.view.addSubview(self.pageViewController.view)
     }
-    
-    
     private func setupConstraints() {
         pageViewController.view.translatesAutoresizingMaskIntoConstraints = false
         pageViewController.view
@@ -58,20 +70,17 @@ class Viewer: BaseVC {
             .leadingAnchor.constraint(equalTo:self.view.leadingAnchor, constant:0).isActive = true
         
         pageViewController.view
-            .heightAnchor.constraint(equalToConstant:500).isActive = true
+            .heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1).isActive = true
     }
-
 }
-    
+
+
 extension Viewer{
-    
     func viewControllerAtIndex (index : Int) -> ContentVC {
         let vc : ContentVC = ContentVC()
         vc.index = index
-        
         return vc
     }
-    
 }
 
 extension Viewer:UIPageViewControllerDataSource{
@@ -83,7 +92,8 @@ extension Viewer:UIPageViewControllerDataSource{
             return nil
         }else{
             
-            let beforeImg =  self.pageCallback?.getBeforeIndex(index: vc.index - 1)
+            let beforeAsset =  self.pageCallback?.getBeforeIndex(index: vc.index - 1)
+            let beforeImg = PhotoLibrary().getPhotoImage(asset: beforeAsset!, size: CGSize(width: 100, height: 100))
             let before = viewControllerAtIndex(index: vc.index - 1)
            before.img.image = beforeImg
             return  before
@@ -95,7 +105,8 @@ extension Viewer:UIPageViewControllerDataSource{
         
         let vc = viewController as! ContentVC
         print(self.pageCallback)
-        let afterImg =  self.pageCallback?.getBeforeIndex(index:vc.index + 1)
+        let afterAsset =  self.pageCallback?.getBeforeIndex(index:vc.index + 1)
+          let afterImg = PhotoLibrary().getPhotoImage(asset: afterAsset!, size: CGSize(width: 100, height: 100))
         let afterVC = viewControllerAtIndex(index:vc.index + 1)
         afterVC.img.image = afterImg
    
@@ -103,7 +114,7 @@ extension Viewer:UIPageViewControllerDataSource{
     }
     
     func presentationIndex(for pageViewController: UIPageViewController) -> Int {
-        return 0
+        return 5
     }
     
 }

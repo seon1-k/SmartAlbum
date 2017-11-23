@@ -13,20 +13,16 @@ class ContentVC: BaseVC {
     var img: UIImageView = UIImageView()
     override func viewDidLoad() {
         super.viewDidLoad()
-      //  img.backgroundColor = UIColor.red
-        print(img.frame)
-        // Do any additional setup after loading the view.
     }
     
     convenience init(img:UIImage) {
         self.init()
         self.img.image = img
-       
+        self.img.backgroundColor = UIColor.red
     }
 
     override func setupUI() {
-        
-       
+        img.contentMode = .scaleAspectFill
         self.view.addSubview(img)
     }
     override func setupContstrains() {
@@ -42,16 +38,5 @@ class ContentVC: BaseVC {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
