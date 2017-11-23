@@ -43,7 +43,7 @@ class AlbumListVC: UIViewController {
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationController? .navigationItem.largeTitleDisplayMode = .never
         albumsList = PHFetchResult()
-      
+        albumsList = DBManager.getAssets(nil) as! PHFetchResult<PHAssetCollection>
         
         // UI - collectionView
         
@@ -151,45 +151,29 @@ extension AlbumListVC:UICollectionViewDelegate,UICollectionViewDataSource{
         //메서드로뺴내기
         let cell  = collectionView.dequeueReusableCell(withReuseIdentifier:String(describing:AlbumListCell.self), for: indexPath) as! AlbumListCell
         cell.titleLbl.text = keywords[indexPath.row]
-//        cell.tag = indexPath.row
-//        cell.albumImgView.image = nil
-//        let assetsFetchResult: PHFetchResult = PHAsset.fetchAssets(in: albumsList![indexPath.row], options: nil)
         
-//        let fetchOptions = PHFetchOptions()
-//        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
-//
-//        let fetchResult  = PHAsset.fetchAssets(in:albumsList![indexPath.row], options: fetchOptions)
-//        let last = fetchResult.lastObject
-        
-        
-        
-//        if let lastAsset = last {
-//            let options = PHImageRequestOptions()
-//            options.version = .current
-//
-//
         let lastAsset = DBManager.getLastAsset(keywords[indexPath.row])
-        albumsList = DBManager.getAssets(nil) as! PHFetchResult<PHAssetCollection>
             PHImageManager.requestImage(for: lastAsset[0], targetSize: CGSize(width:100, height: 100), contentMode: .aspectFill, options: nil, resultHandler: { image, _ in
 
                     DispatchQueue.main.async {
                         cell.albumImgView.image = image
-                        cell.albumCountLbl.text =
+                        cell.albumCountLbl.text = "\(DBManager.getAssets(self.keywords[indexPath.row]).count)"
 
                     
                 }
             })
+        
         //}
         return cell
     }
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+      
+      
+        let asset = DBManager.getAssets(keywords[indexPath.row])
         
-        let fetchOptions = PHFetchOptions()
-        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
-        let fetchResult = PHAsset.fetchAssets(in:albumsList![indexPath.row], options: fetchOptions)
-        let vc = AlbumVC(asset:fetchResult, title:albumsList![indexPath.row].localizedTitle!)
+        let vc = AlbumVC(asset:asset, title:keywords[indexPath.row])
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }
