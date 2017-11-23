@@ -23,6 +23,7 @@
 		74366F361FC6F14500CE6300 /* MLHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74366F351FC6F14500CE6300 /* MLHelper.swift */; };
 		74AA735C1FC6F66A00A5B37C /* LocationServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AA735B1FC6F66A00A5B37C /* LocationServices.swift */; };
 		74AA735E1FC6FBA400A5B37C /* TestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AA735D1FC6FBA400A5B37C /* TestVC.swift */; };
+		74DC3B451FC7663400F2CC59 /* ExtDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DC3B441FC7663400F2CC59 /* ExtDate.swift */; };
 		7BF9A9851FC6C50D0018F4E6 /* PhotoLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF9A9841FC6C50D0018F4E6 /* PhotoLibrary.swift */; };
 		7BF9A9921FC6E5120018F4E6 /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF9A9911FC6E5120018F4E6 /* BaseVC.swift */; };
 		7BF9A9981FC721940018F4E6 /* Date+Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF9A9971FC721940018F4E6 /* Date+Photo.swift */; };
@@ -50,6 +51,7 @@
 		74366F351FC6F14500CE6300 /* MLHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLHelper.swift; sourceTree = "<group>"; };
 		74AA735B1FC6F66A00A5B37C /* LocationServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServices.swift; sourceTree = "<group>"; };
 		74AA735D1FC6FBA400A5B37C /* TestVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestVC.swift; sourceTree = "<group>"; };
+		74DC3B441FC7663400F2CC59 /* ExtDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtDate.swift; sourceTree = "<group>"; };
 		7BF9A9841FC6C50D0018F4E6 /* PhotoLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLibrary.swift; sourceTree = "<group>"; };
 		7BF9A9911FC6E5120018F4E6 /* BaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
 		7BF9A9971FC721940018F4E6 /* Date+Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Photo.swift"; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				74366F251FC6BE5500CE6300 /* DBManager.swift */,
 				74366F271FC6BE8600CE6300 /* Picture.swift */,
 				74AA735B1FC6F66A00A5B37C /* LocationServices.swift */,
+				74DC3B441FC7663400F2CC59 /* ExtDate.swift */,
 			);
 			path = DB;
 			sourceTree = "<group>";
@@ -328,6 +331,7 @@
 				7BF9A99E1FC74C110018F4E6 /* UView+Constraints.swift in Sources */,
 				7BF9A99A1FC7400E0018F4E6 /* ViewerVC.swift in Sources */,
 				7BF9A9981FC721940018F4E6 /* Date+Photo.swift in Sources */,
+				74DC3B451FC7663400F2CC59 /* ExtDate.swift in Sources */,
 				74366F1C1FC6BD2D00CE6300 /* AlbumListCell.swift in Sources */,
 				74AA735C1FC6F66A00A5B37C /* LocationServices.swift in Sources */,
 				74AA735E1FC6FBA400A5B37C /* TestVC.swift in Sources */,
