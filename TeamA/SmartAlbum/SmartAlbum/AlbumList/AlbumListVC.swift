@@ -155,24 +155,14 @@ extension AlbumListVC:UICollectionViewDelegate,UICollectionViewDataSource{
         let cell  = collectionView.dequeueReusableCell(withReuseIdentifier:String(describing:AlbumListCell.self), for: indexPath) as! AlbumListCell
         cell.titleLbl.text = albumName[indexPath.row]
         
-        let assets: PHFetchResult<PHAsset>
-        switch sortType {
-        case .Date:
-            assets = sortedAsset[indexPath.row]
-            break
-        case .Location:
-            assets = sortedAsset[indexPath.row]
-            break
-        case .Keyword:
-            assets = sortedAsset[indexPath.row]
-            break
-        }
+        let assets = sortedAsset[indexPath.row]
+        
         
         PHImageManager.requestImage(for: assets.lastObject!, targetSize: CGSize(width:100, height: 100), contentMode: .aspectFill, options: nil, resultHandler: { image, _ in
 
                     DispatchQueue.main.async {
                         cell.albumImgView.image = image
-                        cell.albumCountLbl.text = "\(DBManager.getAssets(self.albumName[indexPath.row]).count)"
+                        cell.albumCountLbl.text =  "\(assets.count)"
 
                 }
             })
