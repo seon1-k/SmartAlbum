@@ -27,7 +27,7 @@ class DBManager {
         
         var items:[Picture] = []
         //        assets.count
-        for i in 0..<300 {
+        for i in 0..<500 {
             let asset = assets[i]
             let pic = Picture(asset: asset)
             MLHelper.setKeyword(asset.localIdentifier) { (key, error) in

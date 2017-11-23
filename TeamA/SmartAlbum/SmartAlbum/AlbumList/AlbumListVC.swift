@@ -158,7 +158,7 @@ extension AlbumListVC:UICollectionViewDelegate,UICollectionViewDataSource{
         let assets = sortedAsset[indexPath.row]
         
         
-        PHImageManager.requestImage(for: assets.lastObject!, targetSize: CGSize(width:100, height: 100), contentMode: .aspectFill, options: nil, resultHandler: { image, _ in
+        PHImageManager.requestImage(for: assets.firstObject!, targetSize: CGSize(width:100, height: 100), contentMode: .aspectFill, options: nil, resultHandler: { image, _ in
 
                     DispatchQueue.main.async {
                         cell.albumImgView.image = image
@@ -175,7 +175,7 @@ extension AlbumListVC:UICollectionViewDelegate,UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
       
       
-        let asset = DBManager.getAssets(albumName[indexPath.row])
+        let asset = sortedAsset[indexPath.row]
         
         let vc = AlbumVC(asset:asset, title:albumName[indexPath.row])
         self.navigationController?.pushViewController(vc, animated: true)
