@@ -38,6 +38,10 @@ class PredictedViewController: UIViewController {
     var collectionNames: [String] {
         return Set(realmObjects.value(forKeyPath: sortBy) as! [String]).sorted { $0 > $1 }
     }
+    var monthNams: [String] {
+        return Set(realmObjects.value(forKeyPath: "creationDate") as! [String]).sorted { $0 > $1 }
+    }
+    
     // searcg variable
     let searchController = UISearchController(searchResultsController: nil)
     var filteredData = [String]()
@@ -213,6 +217,8 @@ extension PredictedViewController: UICollectionViewDelegate, UICollectionViewDat
         print("Prediceted: get selected collectionview itemindex \(indexPath.row)")
         if indexPath.row < collectionNames.count {
             self.performSegue(withIdentifier: "AnalyzedVC", sender: indexPath)
+        } else if indexPath.row == collectionNames.count { // last index
+            // TODO
         }
     }
     
