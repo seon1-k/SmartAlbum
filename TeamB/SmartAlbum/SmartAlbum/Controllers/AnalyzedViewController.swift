@@ -28,6 +28,16 @@ class AnalyzedViewController: UIViewController {
         }
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        self.navigationItem.title = " "
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationItem.title = self.titleTxt
+    }
+    
     // MARK: - Navigation control
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
