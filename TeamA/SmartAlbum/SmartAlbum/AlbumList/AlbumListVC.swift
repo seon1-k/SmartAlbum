@@ -43,7 +43,7 @@ class AlbumListVC: UIViewController {
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationController? .navigationItem.largeTitleDisplayMode = .never
         albumsList = PHFetchResult()
-        albumsList = DBManager.getAssets(nil) as! PHFetchResult<PHAssetCollection>
+      
         
         // UI - collectionView
         
@@ -168,11 +168,13 @@ extension AlbumListVC:UICollectionViewDelegate,UICollectionViewDataSource{
 //            options.version = .current
 //
 //
-            PHImageManager.requestImage(for: lastAsset, targetSize: CGSize(width:100, height: 100), contentMode: .aspectFill, options: nil, resultHandler: { image, _ in
+        let lastAsset = DBManager.getLastAsset(keywords[indexPath.row])
+        albumsList = DBManager.getAssets(nil) as! PHFetchResult<PHAssetCollection>
+            PHImageManager.requestImage(for: lastAsset[0], targetSize: CGSize(width:100, height: 100), contentMode: .aspectFill, options: nil, resultHandler: { image, _ in
 
                     DispatchQueue.main.async {
-                      //  cell.albumImgView.image = image
-                        //cell.albumCountLbl.text = "\(assetsFetchResult.count)"
+                        cell.albumImgView.image = image
+                        cell.albumCountLbl.text =
 
                     
                 }
