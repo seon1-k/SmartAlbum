@@ -25,6 +25,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.backgroundColor = UIColor.white
         self.window?.makeKeyAndVisible()
         
+        //  DB - initData
+        DBManager.initData(){_ in
+            
+            if let vc = navigationController.viewControllers.first as? AlbumListVC{
+                vc.collectionView.reloadData()
+            }
+            
+        
+        }
         
         
         return true

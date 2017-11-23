@@ -9,7 +9,7 @@
 import UIKit
 import Photos
 class AlbumListVC: UIViewController {
-    private var collectionView: UICollectionView =  UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+     var collectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     var albumsList : PHFetchResult<PHAssetCollection>?
     let PHImageManager = PHCachingImageManager()
     
@@ -38,6 +38,7 @@ class AlbumListVC: UIViewController {
         self.navigationController? .navigationItem.largeTitleDisplayMode = .never
         
         // UI - collectionView
+        
         collectionView.backgroundColor = UIColor.white
         collectionView.register(AlbumListCell.self, forCellWithReuseIdentifier:AlbumListCell.indentifier)
         collectionView.delegate = self
