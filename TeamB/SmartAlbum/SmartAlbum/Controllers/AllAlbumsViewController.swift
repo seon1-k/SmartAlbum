@@ -41,9 +41,6 @@ class AllAlbumsViewController: UIViewController {
         initCollectionView()
         initPhotoLib()
         setBarBtnText(show: self.checkPickImage)
-        
-        
-        print(Realm.Configuration.defaultConfiguration.fileURL)
     }
     
     override func viewWillAppear(_ animated: Bool) {
