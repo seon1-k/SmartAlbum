@@ -44,28 +44,7 @@ class AlbumVC: BaseVC {
         collectionView.backgroundColor = UIColor.white
         collectionView.delegate = self
         collectionView.dataSource = self
-        
-        searchField.borderStyle = .roundedRect
-        searchField.layer.borderColor = UIColor.gray.cgColor
-        searchField.layer.borderWidth = 1.0
-        
-        searchBtn.setTitle("찾기", for: .normal)
-        searchBtn.titleLabel?.textColor = UIColor.black
-        
-        let imageView = UIImageView();
-        let image = UIImage(named: "search");
-        imageView.image = image;
-        imageView.frame = CGRect(x: 10, y: 5, width: 20, height: 20)
-        searchField.addSubview(imageView)
-        let leftView = UIView.init(frame: CGRect(x: 10, y: 0, width: 30, height: 30))
-        searchField.leftView = leftView;
-        searchField.leftViewMode = UITextFieldViewMode.always
-        
-        
-        view.addSubview(searchField)
-        view.addSubview(searchBtn)
         view.addSubview(collectionView)
-        
     }
     
     override func setupContstrains(){
@@ -82,15 +61,10 @@ class AlbumVC: BaseVC {
         collectionView.reloadData()
         
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
 }
 
 extension AlbumVC:UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
-    
-    
+
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -118,7 +92,6 @@ extension AlbumVC:UICollectionViewDelegate,UICollectionViewDataSource,UICollecti
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         return CGSize(width:UIScreen.main.bounds.width/4 - 1, height:UIScreen.main.bounds.width/4 - 1)
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -128,18 +101,42 @@ extension AlbumVC:UICollectionViewDelegate,UICollectionViewDataSource,UICollecti
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 1
     }
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-       // let pageVC = ViewerVC
-//        let pageController  = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
-      //  self.present(pageController, animated: false, completion: nil)
-        let pageVC = Viewer(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
-         let contentVC = ContentVC()
-        pageVC.setViewControllers([contentVC], direction: .forward, animated: true, completion: nil)
+        let pageVC = Viewer(nibName: nil, bundle: nil)
+        
+        let asset = allPhotos.object(at: indexPath.item)
+        let currentImg = PhotoLibrary().getPhotoImage(asset: asset, size: CGSize(width: 100, height: 100))
+        let contentVC = ContentVC(img: currentImg)
+        self.navigationController?.view.addSubview(pageVC.view)
+        pageVC.pageCallback = self
+        contentVC.index = indexPath.row
+        pageVC.pageViewController.setViewControllers([contentVC], direction: .forward, animated: true, completion: nil)
         
         
+        
+       
+     
+      //  self.addChildViewController(pageVC)
+        
+
+        print(pageVC.view.frame)
+        print(contentVC.view.frame)
+    }
+}
+
+extension AlbumVC: PageCallback{
+    func getAfterIndex(index: Int) -> UIImage {
+        
+      let asset = allPhotos.object(at: index)
+    let beforeImg = PhotoLibrary().getPhotoImage(asset: asset, size: CGSize(width: 100, height: 100))
+        return beforeImg
+    }
+    
+    func getBeforeIndex(index: Int) -> UIImage {
+        let asset = allPhotos.object(at: index)
+        let afterImg = PhotoLibrary().getPhotoImage(asset: asset, size: CGSize(width: 100, height: 100))
+        return afterImg
     }
     
 }
-
