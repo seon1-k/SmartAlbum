@@ -134,6 +134,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="464-Mh-URZ">
                         <nil key="title"/>
+                        <barButtonItem key="backBarButtonItem" title=" " id="tkO-0g-b91"/>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="YiO-vx-1C1">
                             <rect key="frame" x="123.66666666666669" y="7" width="167" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -502,7 +503,7 @@
         <image name="second" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="uv3-77-rIr"/>
+        <segue reference="CIL-vA-odt"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
 </document>
