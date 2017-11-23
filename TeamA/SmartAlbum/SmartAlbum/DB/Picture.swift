@@ -20,6 +20,7 @@ class Picture:Object {
     @objc dynamic var createDate:Date? = nil
     @objc dynamic var modifyDate:Date? = nil
     @objc dynamic var flag:Int = 0 // 키워드 flag. 값 입력이 됬으면 1, 아직 머신러닝안했으면 0
+    @objc dynamic var city:String = ""
     
     override static func primaryKey() -> String? {
         return "id"
