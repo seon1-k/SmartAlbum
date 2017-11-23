@@ -18,37 +18,55 @@ import Foundation
 import RealmSwift
 import Photos
 
+import MapKit
+
 class DBManager {
-    static func initData(assets: [PHAsset]) {
+    static func initData(assets: PHFetchResult<PHAsset>) {
         // PHAsset 을 DB에 저장
         let realm = try! Realm()
         
         var items:[Picture] = []
-        
-        for asset in assets {
+//        assets.count
+        for i in 0..<30 {
+            let asset = assets.object(at: i)
             let pic = Picture()
             pic.id = asset.localIdentifier
             pic.date = asset.creationDate
             
             let loc = Location()
-            loc.latitude = Double((asset.location?.coordinate.latitude)!)
-            loc.latitude = Double((asset.location?.coordinate.latitude)!)
+            if let lati = asset.location?.coordinate.latitude, let longti = asset.location?.coordinate.longitude {
+                loc.latitude = lati
+                loc.longtitude = longti
+            }
+//            if let location = asset.location {
+//                print("location \(i)")
+//                LocationServices.getCity(location: location) { (city, error) in
+//                    if error == nil {
+////                        loc.city = city!
+//                        print("city \(i):\(city!)")
+//                    }
+//                }
+//            }
+            pic.location = loc
             
-            pic.flag = 0
-            pic.keyword = ""
-            MLHelper.setKeyword(pic.id) { keyword in
-                if keyword != "" {
+            MLHelper.setKeyword(pic.id) { (key, error) in
+                if error == nil {
+                    print("keyword \(i)")
+//                        :\(key!)")
                     pic.flag = 1
-                    pic.keyword = keyword
+                    pic.keyword = key!
+                } else {
+                    print("error in coreML")
                 }
             }
-
+            
             items.append(pic)
         }
         
         try! realm.write {
             realm.deleteAll()
             realm.add(items)
+            print("add complete")
         }
     }
     
@@ -70,6 +88,16 @@ class DBManager {
 
         let fds:PHFetchResult<PHAsset> = PHAsset.fetchAssets(withLocalIdentifiers: identifiers, options: fetchOptions)
         return fds
+    }
+    
+    static func groupByCity() {
+        // 시 단위 그루핑
+        let realm = try! Realm()
+        let locations = Array(realm.objects(Location.self))
+//        print(locations)
+        for loc in locations {
+            print("city:\(loc)")
+        }
     }
     
     static func groupByDate() {

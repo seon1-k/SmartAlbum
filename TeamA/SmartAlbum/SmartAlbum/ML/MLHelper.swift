@@ -16,7 +16,7 @@ class MLHelper {
     static let imageSize:CGSize = CGSize(width: 200, height: 200) //분석을 위해 가져올 이미지 크기
     static let correctValue:Float = 0 //이 수치 이상일 경우 키워드를 입력함
     
-    static func setKeyword(_ localIdentifier: String, completionHandler: @escaping (String) -> Void){
+    static func setKeyword(_ localIdentifier: String, completionHandler: @escaping (_ key:String?, _ error:String?) -> Void){
         //이미지에게 키워드 할당.
         //파라미터는 asset의 localidentifier
         //오류가 있거나, 일치하는 키워드가 없으면 공백 반환
@@ -27,7 +27,7 @@ class MLHelper {
             image = img
         })
         if image == nil {
-            return
+            completionHandler(nil, "error")
         }
         
         
@@ -40,8 +40,8 @@ class MLHelper {
             }
             
             if topResult.confidence >= correctValue {
-                completionHandler(topResult.identifier)
-            }
+                completionHandler(topResult.identifier, nil)
+            } 
         }
         
         let handler = VNImageRequestHandler(ciImage: CIImage(image: image!)!)
@@ -50,7 +50,7 @@ class MLHelper {
                 try handler.perform([request])
             } catch {
                 print(error)
-                return
+                completionHandler(nil, "error")
             }
         }
     }

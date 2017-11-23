@@ -27,4 +27,5 @@ class Picture:Object {
 class Location:Object {
     @objc dynamic var latitude:Double = 0.0
     @objc dynamic var longtitude:Double = 0.0
+    @objc dynamic var city:String = "" // 도시
 }
