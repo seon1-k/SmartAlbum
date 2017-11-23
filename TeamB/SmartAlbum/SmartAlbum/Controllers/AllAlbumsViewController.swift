@@ -41,6 +41,9 @@ class AllAlbumsViewController: UIViewController {
         initCollectionView()
         initPhotoLib()
         setBarBtnText(show: self.checkPickImage)
+        
+        
+        print(Realm.Configuration.defaultConfiguration.fileURL)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -223,26 +226,18 @@ extension AllAlbumsViewController: UICollectionViewDelegateFlowLayout {
             }
             // compare with DB
             let asset = self.photoLibrary.getAsset(at: indexPath.row)
-            asset?.getURL() { url in
-                guard let url = url else { return }
+            if let identifier = asset?.localIdentifier {
                 let realm = try! Realm()
-                //let test = realm.objects(AnalysisAsset.self).filter("url = %@", url)
-                let urlString: String = url.path
-                print(urlString)
-                // Sort tan dogs with names starting with "B" by name
-                //let sortedDogs = realm.objects(AnalysisAsset.self).sorted(byKeyPath: "location")
-                let test = realm.objects(AnalysisAsset.self).filter("url = %@", urlString)
-                print("123: testcount ", test.count)
-                if test.count > 0 {
+                let filtered = realm.objects(AnalysisAsset.self).filter("url = %@", identifier)
+                if filtered.count > 0 {
                     DispatchQueue.main.async {
                         cell.checked.isHidden = false
                     }
                 }
             }
-
         }
     }
-    
+
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {

@@ -77,10 +77,12 @@ class PhotoLibrary {
     }
     
     func setDB() {
+
         for index in 0..<fetchResult.count {
             
             print(index)
             imgManager.requestImage(for: fetchResult.object(at: index) as PHAsset, targetSize: CGSize(), contentMode: PHImageContentMode.aspectFill, options: requestOptions) { (image, _) in
+
                 let asset = self.fetchResult.object(at: index)
                 
                 guard let uiImage = image else {
@@ -99,14 +101,7 @@ class PhotoLibrary {
                         location = result
                     }
                 }
-                
-                asset.getURL() { imageUrl in
-                    if let isUrl = imageUrl?.absoluteString {
-                        url = isUrl
-                    } else {
-                        url = "no url"
-                    }
-                }
+                url = asset.localIdentifier
                 
                 if let imageDate = asset.creationDate {
                     creationDate = self.formatter.string(from: imageDate)

@@ -28,10 +28,10 @@ class PredictedViewController: UIViewController {
     
     let realm = RealmManager()
     // Default value is keyword
-    var realmObjects = try! Realm().objects(AnalysisAsset.self).sorted(byKeyPath: "keyword")
+    var realmObjects = try! Realm().objects(AnalysisAsset.self).sorted(byKeyPath: "keyword", ascending: false)
     var sortBy: String = "keyword" {
         didSet {
-            self.realmObjects = try! Realm().objects(AnalysisAsset.self).sorted(byKeyPath: sortBy)
+            self.realmObjects = try! Realm().objects(AnalysisAsset.self).sorted(byKeyPath: sortBy, ascending: false)
             self.predictedCollectionView.reloadData()
         }
     }
@@ -170,16 +170,16 @@ extension PredictedViewController: UICollectionViewDelegate, UICollectionViewDat
         // compare with DB
         let asset = self.photoLibrary.getAsset(at: indexPath.row)
         cell.firstLabel.text = self.collectionNames[indexPath.row]
+        cell.thirdLabel.text = String(self.realmObjects.filter("\(self.sortBy) == %@", self.collectionNames[indexPath.row]).count)
+        /*
         print(self.collectionNames[indexPath.row])
         print(String(self.realmObjects.filter("\(self.sortBy) == %@", self.collectionNames[indexPath.row]).count))
-        cell.thirdLabel.text = String(self.realmObjects.filter("\(self.sortBy) == %@", self.collectionNames[indexPath.row]).count)
         print(collectionNames)
         print(collectionNames[indexPath.row])
+ */
         let url = realmObjects.filter("\(self.sortBy) == %@", collectionNames[indexPath.row])[0].url
         cell.thumbnailImgView.image = getImage(assetUrl: url)
         print(realmObjects.filter("\(self.sortBy) == %@", collectionNames[indexPath.row])[0].url)
-        
-        
     }
     
     
@@ -221,8 +221,12 @@ extension PredictedViewController: UICollectionViewDelegateFlowLayout {
             
             let cell = cell as! PredictedAssetCell
             let url = realmObjects.filter("\(self.sortBy) == %@", collectionNames[indexPath.row])[0].url
-            let test = "file:///var/mobile/Media/DCIM/103APPLE/IMG_3471.JPG"
-            cell.thumbnailImgView.imageFromAssetURL(assetURL: test)
+            let fullNameArr = url.components(separatedBy: "file://")
+
+            if fullNameArr.count > 1 {
+                print(fullNameArr[1])
+                cell.thumbnailImgView.imageFromAssetURL(assetURL: fullNameArr[1])
+            }
 
         }
             
