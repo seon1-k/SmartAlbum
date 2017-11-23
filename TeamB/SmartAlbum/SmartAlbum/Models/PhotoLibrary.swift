@@ -83,19 +83,20 @@ class PhotoLibrary {
     }
     
     func setDB() {
-
+        
         for index in 0..<fetchResult.count {
             
-            print(index)
-            imgManager.requestImage(for: fetchResult.object(at: index) as PHAsset, targetSize: CGSize(), contentMode: PHImageContentMode.aspectFill, options: requestOptions) { (image, _) in
+            //CGSize for detect face
+            imgManager.requestImage(for: fetchResult.object(at: index) as PHAsset, targetSize: CGSize(width: 200.0, height: 200.0), contentMode: PHImageContentMode.aspectFill, options: requestOptions) { (image, _) in
+                
                 let asset = self.fetchResult.object(at: index)
                 var url = String()
                 url = asset.localIdentifier
                 
-                if self.checkPhotoAnalysis(url: url) {
-                    print("pass")
-                    return
-                }
+//                if self.checkPhotoAnalysis(url: url) {
+//                    print("pass")
+//                    return
+//                }
                 
                 var location = String()
                 let isVideo = (asset.mediaType == .video)
@@ -118,13 +119,19 @@ class PhotoLibrary {
                 } else {
                     creationDate = "0000.00.00"
                 }
-                
+    
                 if let ciImage = CIImage(image: uiImage) {
-                
+
+//                    self.analysisController.detectFace(image: ciImage) { result in
+//                        if result > 0 {
+//                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "detectEmmotion"), object: nil, userInfo: ["url": url, "isVideo": isVideo, "location": location, "creationDate": creationDate, "ciImage": ciImage])
+//                        }
+//                    }
+                    
                     self.analysisController.getInfo(image: ciImage) { result in
                         keyword = result.0
                         confidence = result.1
-                        
+
                         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "setData"), object: nil, userInfo: ["url": url, "isVideo": isVideo, "location": location, "creationDate": creationDate, "keyword": keyword, "confidence": confidence])
                     }
                 }
