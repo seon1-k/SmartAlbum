@@ -112,4 +112,18 @@ class PhotoLibrary {
         }
         return resultArray
     }
+    
+    func convertPHAssetsToUIImages(assetArray: [PHAsset]) -> [UIImage] {
+        var resultArray = [UIImage]()
+        for index in 0..<assetArray.count {
+            imgManager.requestImage(for: assetArray[index] as PHAsset, targetSize: UIScreen.main.bounds.size, contentMode: PHImageContentMode.aspectFill, options: requestOptions) { (image, _) in
+                
+                if let image = image {
+                    resultArray.append(image)
+                }
+            }
+        }
+        return resultArray
+    }
 }
+
