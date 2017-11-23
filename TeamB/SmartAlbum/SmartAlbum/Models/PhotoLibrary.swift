@@ -64,8 +64,7 @@ class PhotoLibrary {
         fetchResult = PHAsset.fetchAssets(with: fetchOptions)
         formatter.dateFormat = "yyyy.MM.dd"
         
-        setDB()
-        
+        //setDB()
 //        print(Realm.Configuration.defaultConfiguration.description)
     }
 
@@ -81,7 +80,7 @@ class PhotoLibrary {
     }
     
     func setDB() {
-        for index in 0..<10 {
+        for index in 0..<5 {
             imgManager.requestImage(for: fetchResult.object(at: index) as PHAsset, targetSize: UIScreen.main.bounds.size, contentMode: PHImageContentMode.aspectFill, options: requestOptions) { (image, _) in
                 let asset = self.fetchResult.object(at: index)
                 
@@ -101,14 +100,7 @@ class PhotoLibrary {
                         location = result
                     }
                 }
-                
-                asset.getURL() { imageUrl in
-                    if let isUrl = imageUrl?.absoluteString {
-                        url = isUrl
-                    } else {
-                        url = "no url"
-                    }
-                }
+                url = asset.localIdentifier
                 
                 if let imageDate = asset.creationDate {
                     creationDate = self.formatter.string(from: imageDate)
