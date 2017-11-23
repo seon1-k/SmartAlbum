@@ -23,7 +23,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="KMC-bD-3va">
-                                <rect key="frame" x="0.0" y="64" width="414" height="623"/>
+                                <rect key="frame" x="0.0" y="114" width="414" height="573"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="7nN-Mm-SPu">
                                     <size key="itemSize" width="153" height="181"/>
@@ -45,15 +45,15 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nHy-Ez-stJ">
                                                     <rect key="frame" x="0.0" y="0.0" width="153" height="181"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="49p-ac-eSk">
-                                                            <rect key="frame" x="10" y="46.666666666666664" width="133" height="23.999999999999993"/>
-                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="49p-ac-eSk">
+                                                            <rect key="frame" x="10" y="45" width="133" height="27.666666666666671"/>
+                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
                                                             <color key="textColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7bA-JO-iec">
-                                                            <rect key="frame" x="10" y="116.66666666666667" width="133" height="20.000000000000014"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7bA-JO-iec">
+                                                            <rect key="frame" x="10" y="115" width="133" height="24"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                             <color key="textColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -96,15 +96,15 @@
                                             <rect key="frame" x="0.0" y="0.0" width="153" height="181"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aOB-np-Tlv">
-                                                    <rect key="frame" x="55" y="48.333333333333336" width="42" height="21.000000000000007"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aOB-np-Tlv">
+                                                    <rect key="frame" x="73.666666666666671" y="47.333333333333336" width="5" height="23.000000000000007"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zbh-l4-k0N">
-                                                    <rect key="frame" x="55" y="116.33333333333333" width="42" height="20.999999999999986"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zbh-l4-k0N">
+                                                    <rect key="frame" x="73.666666666666671" y="116.33333333333333" width="4.6666666666666714" height="20.999999999999986"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -123,32 +123,32 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="YiO-vx-1C1">
+                                <rect key="frame" x="123.66666666666669" y="75" width="167" height="29"/>
+                                <segments>
+                                    <segment title=" 날  짜 "/>
+                                    <segment title="위  치"/>
+                                    <segment title="키 워 드"/>
+                                </segments>
+                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <connections>
+                                    <action selector="indexChanged:" destination="9pv-A4-QxB" eventType="valueChanged" id="jyR-T6-4XS"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="YiO-vx-1C1" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" constant="11" id="7R0-we-pJ9"/>
+                            <constraint firstItem="YiO-vx-1C1" firstAttribute="centerX" secondItem="tsR-hK-woN" secondAttribute="centerX" id="9zp-Ai-RJE"/>
                             <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="KMC-bD-3va" secondAttribute="bottom" id="Atu-7t-n5q"/>
                             <constraint firstAttribute="trailing" secondItem="KMC-bD-3va" secondAttribute="trailing" id="DIX-rF-W0H"/>
                             <constraint firstItem="KMC-bD-3va" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" id="QUQ-EH-hLg"/>
-                            <constraint firstItem="KMC-bD-3va" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" id="RBc-yu-jSe"/>
+                            <constraint firstItem="KMC-bD-3va" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" constant="50" id="zdP-a6-zs8"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="464-Mh-URZ">
                         <nil key="title"/>
                         <barButtonItem key="backBarButtonItem" title=" " id="tkO-0g-b91"/>
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="YiO-vx-1C1">
-                            <rect key="frame" x="123.66666666666669" y="7" width="167" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <segments>
-                                <segment title=" 날  짜 "/>
-                                <segment title="위  치"/>
-                                <segment title="키 워 드"/>
-                            </segments>
-                            <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
-                            <connections>
-                                <action selector="indexChanged:" destination="9pv-A4-QxB" eventType="valueChanged" id="jyR-T6-4XS"/>
-                            </connections>
-                        </segmentedControl>
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="SCC-gu-Ufo"/>
                     </navigationItem>
                     <connections>
                         <outlet property="predictedCollectionView" destination="KMC-bD-3va" id="wpu-Jg-ro3"/>
@@ -283,7 +283,7 @@
                                                                 <constraint firstAttribute="width" constant="40" id="EdT-O0-uek"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_green_checked" translatesAutoresizingMaskIntoConstraints="NO" id="hCn-sE-eka">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_black_checked" translatesAutoresizingMaskIntoConstraints="NO" id="hCn-sE-eka">
                                                             <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="20" id="7f6-fx-BKP"/>
@@ -443,11 +443,11 @@
             </objects>
             <point key="canvasLocation" x="0.0" y="0.0"/>
         </scene>
-        <!--Second-->
+        <!--분류 사진-->
         <scene sceneID="diZ-3S-nJe">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="8Kt-yH-LWM" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Second" image="second" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="분류 사진" image="icon_syncronize" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="sdX-ns-xvU">
                         <autoresizingMask key="autoresizingMask"/>
@@ -498,13 +498,13 @@
     </scenes>
     <resources>
         <image name="icon_album" width="30" height="30"/>
+        <image name="icon_black_checked" width="30" height="30"/>
         <image name="icon_checked" width="128" height="128"/>
-        <image name="icon_green_checked" width="24" height="24"/>
         <image name="icon_play" width="256" height="256"/>
-        <image name="second" width="30" height="30"/>
+        <image name="icon_syncronize" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="CIL-vA-odt"/>
+        <segue reference="uv3-77-rIr"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
 </document>

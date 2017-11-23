@@ -61,7 +61,7 @@ class PhotoLibrary {
                                              PHAssetMediaType.video.rawValue)
         fetchOptions.sortDescriptors = [NSSortDescriptor(key:"creationDate", ascending: false)]
         fetchResult = PHAsset.fetchAssets(with: fetchOptions)
-        formatter.dateFormat = "yyyy.MM.dd"
+        formatter.dateFormat = "yyyy.MM"
     }
 
     var count: Int {
@@ -117,7 +117,7 @@ class PhotoLibrary {
                 if let imageDate = asset.creationDate {
                     creationDate = self.formatter.string(from: imageDate)
                 } else {
-                    creationDate = "0000.00.00"
+                    creationDate = "0000.00"
                 }
     
                 if let ciImage = CIImage(image: uiImage) {

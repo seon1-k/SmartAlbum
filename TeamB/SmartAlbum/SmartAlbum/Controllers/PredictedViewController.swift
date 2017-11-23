@@ -38,6 +38,13 @@ class PredictedViewController: UIViewController {
     var collectionNames: [String] {
         return Set(realmObjects.value(forKeyPath: sortBy) as! [String]).sorted { $0 > $1 }
     }
+    var monthNams: [String] {
+        return Set(realmObjects.value(forKeyPath: "creationDate") as! [String]).sorted { $0 > $1 }
+    }
+    
+    // searcg variable
+    let searchController = UISearchController(searchResultsController: nil)
+    var filteredData = [String]()
     
     // MARK: - Initialze
     
@@ -48,7 +55,10 @@ class PredictedViewController: UIViewController {
         self.sortSegmented.selectedSegmentIndex = 2
         
         initCollectionView()
+        setupSearchController()
         self.getAnalysisAssets()
+        
+        print(monthNams)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -58,6 +68,23 @@ class PredictedViewController: UIViewController {
     
     // MARK: - Set Text Search View
     
+    func setupSearchController() {
+        self.searchController.searchResultsUpdater = self
+        self.searchController.searchBar.delegate = self
+
+        self.searchController.hidesNavigationBarDuringPresentation = false
+        self.searchController.dimsBackgroundDuringPresentation = false
+        
+        let bounds = UIScreen.main.bounds
+        let width = bounds.size.width
+        let frame = CGRect(x: 0, y: 0, width: width+50, height: 60)
+        let titleView = UIView(frame: frame)
+        self.searchController.searchBar.backgroundImage = UIImage()
+        self.searchController.searchBar.frame = frame
+        titleView.addSubview(self.searchController.searchBar)
+        
+        self.navigationItem.titleView = titleView
+    }
 
     // MARK: - Help function
     
@@ -70,6 +97,9 @@ class PredictedViewController: UIViewController {
     // MARK: - Outlet Function
     
     @IBAction func indexChanged(_ sender: UISegmentedControl) {
+        self.searchController.isActive = false
+        self.searchController.title = ""
+        
         switch self.sortSegmented.selectedSegmentIndex {
         case 0:
             self.sortBy = "creationDate"
@@ -89,7 +119,12 @@ class PredictedViewController: UIViewController {
             guard let analyzedVC = segue.destination as? AnalyzedViewController else { return }
             guard let selectedIndexPath = sender as? IndexPath else { return }
             
-            let collectionName = self.collectionNames[selectedIndexPath.row]
+            var collectionName: String = ""
+            if searchController.isActive && searchController.searchBar.text != "" {
+                if filteredData.count > 0 { collectionName = self.filteredData[selectedIndexPath.row] }
+            } else {
+                collectionName = self.collectionNames[selectedIndexPath.row]
+            }
             let datas = self.realmObjects.filter("\(self.sortBy) == %@", collectionName).toArray(ofType: AnalysisAsset.self) as [AnalysisAsset]
             var selectedObjs: [AnalysisAsset] = [AnalysisAsset]()
             for data in datas {
@@ -112,6 +147,9 @@ extension PredictedViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if searchController.isActive && searchController.searchBar.text != "" {
+            return filteredData.count
+        }
         return self.collectionNames.count + self.unAnalyzedCollection
     }
     
@@ -133,6 +171,7 @@ extension PredictedViewController: UICollectionViewDelegate, UICollectionViewDat
     // LastSpecialCell
     func setupLastSpecialCell(cell: LastSpecialCell, indexPath: IndexPath) {
         // compare with DB
+        self.getAnalysisAssets()
         var count = self.photoLibrary.count - self.analysisAssets.count
         count = count < 0 ? 0 : count
         cell.firstLabel.text = "분류되지 않은 사진들"
@@ -141,12 +180,25 @@ extension PredictedViewController: UICollectionViewDelegate, UICollectionViewDat
     
     // PredictedCell
     func setupPredictedCell(cell: PredictedAssetCell, indexPath: IndexPath) {
-        let data = self.realmObjects.filter("\(self.sortBy) == %@", self.collectionNames[indexPath.row])
-        DispatchQueue.main.async {
-            cell.firstLabel.text = self.collectionNames[indexPath.row]
-            cell.thirdLabel.text = String(data.count)
-            if let url = data.first?.url {
-                cell.thumbnailImgView.imageFromAssetURL(assetURL: url)
+        if searchController.isActive && searchController.searchBar.text != "" {
+            if filteredData.count > indexPath.row {
+                let data = self.realmObjects.filter("\(self.sortBy) == %@", self.filteredData[indexPath.row])
+                if data.count > 0 {
+                    cell.firstLabel.text = self.filteredData[indexPath.row]
+                    cell.thirdLabel.text = String(data.count)
+                    if let url = data.first?.url {
+                        cell.thumbnailImgView.imageFromAssetURL(assetURL: url)
+                    }
+                }
+            }
+        } else {
+            let data = self.realmObjects.filter("\(self.sortBy) == %@", self.collectionNames[indexPath.row])
+            DispatchQueue.main.async {
+                cell.firstLabel.text = self.collectionNames[indexPath.row]
+                cell.thirdLabel.text = String(data.count)
+                if let url = data.first?.url {
+                    cell.thumbnailImgView.imageFromAssetURL(assetURL: url)
+                }
             }
         }
     }
@@ -168,6 +220,8 @@ extension PredictedViewController: UICollectionViewDelegate, UICollectionViewDat
         print("Prediceted: get selected collectionview itemindex \(indexPath.row)")
         if indexPath.row < collectionNames.count {
             self.performSegue(withIdentifier: "AnalyzedVC", sender: indexPath)
+        } else if indexPath.row == collectionNames.count { // last index
+            // TODO
         }
     }
     
@@ -204,4 +258,28 @@ extension PredictedViewController: UICollectionViewDelegateFlowLayout {
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return sectionInsets.left
     }
+}
+
+// MARK: - UISearchBarDelegate, UISearchResultsUpdating
+
+extension PredictedViewController: UISearchBarDelegate, UISearchResultsUpdating {
+    
+    func filterContentForSearchText(_ searchText: String) {
+        filteredData = collectionNames.filter({( data : String) -> Bool in
+            print(data)
+            return (data.lowercased().contains(searchText.lowercased()))
+        })
+        self.predictedCollectionView.reloadData()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        filterContentForSearchText(searchBar.text!)
+    }
+    
+    // MARK: - UISearchResultsUpdating Delegate
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        filterContentForSearchText(searchController.searchBar.text!)
+    }
+    
 }

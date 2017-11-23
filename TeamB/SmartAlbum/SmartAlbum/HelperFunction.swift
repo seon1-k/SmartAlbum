@@ -10,6 +10,6 @@ import Foundation
 
 func createDate(stringDate: String) -> Date {
     let formatter = DateFormatter()
-    formatter.dateFormat = "yyyy.MM.dd"
+    formatter.dateFormat = "yyyy.MM"
     return formatter.date(from: stringDate)!
 }
