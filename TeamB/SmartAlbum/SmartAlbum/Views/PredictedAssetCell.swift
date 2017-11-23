@@ -15,6 +15,5 @@ class PredictedAssetCell: UICollectionViewCell {
     @IBOutlet weak var thumbnailImgView: UIImageView!
     @IBOutlet weak var dimmedLayer: UIView!
     @IBOutlet weak var firstLabel: UILabel!
-    @IBOutlet weak var secondLabel: UILabel!
     @IBOutlet weak var thirdLabel: UILabel!
 }

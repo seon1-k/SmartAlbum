@@ -39,26 +39,20 @@
                                             <rect key="frame" x="0.0" y="0.0" width="153" height="181"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Kx3-c8-ptk">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Kx3-c8-ptk">
                                                     <rect key="frame" x="0.0" y="0.0" width="153" height="181"/>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nHy-Ez-stJ">
                                                     <rect key="frame" x="0.0" y="0.0" width="153" height="181"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="49p-ac-eSk">
-                                                            <rect key="frame" x="10" y="42" width="133" height="24"/>
+                                                            <rect key="frame" x="10" y="46.666666666666664" width="133" height="23.999999999999993"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                             <color key="textColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="04W-fD-ETP">
-                                                            <rect key="frame" x="10" y="89.666666666666671" width="133" height="20"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <color key="textColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7bA-JO-iec">
-                                                            <rect key="frame" x="10" y="125.66666666666669" width="133" height="20"/>
+                                                            <rect key="frame" x="10" y="116.66666666666667" width="133" height="20.000000000000014"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <nil key="highlightedColor"/>
@@ -66,18 +60,14 @@
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.31113401073619629" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
-                                                        <constraint firstItem="04W-fD-ETP" firstAttribute="leading" secondItem="nHy-Ez-stJ" secondAttribute="leading" constant="10" id="03s-cW-i5N"/>
                                                         <constraint firstItem="49p-ac-eSk" firstAttribute="centerX" secondItem="nHy-Ez-stJ" secondAttribute="centerX" id="2Wu-B9-oJN"/>
-                                                        <constraint firstAttribute="trailing" secondItem="04W-fD-ETP" secondAttribute="trailing" constant="10" id="2mh-5V-hbW"/>
-                                                        <constraint firstItem="04W-fD-ETP" firstAttribute="centerY" secondItem="nHy-Ez-stJ" secondAttribute="centerY" multiplier="1.1" id="5lY-nF-iN9"/>
                                                         <constraint firstAttribute="trailing" secondItem="7bA-JO-iec" secondAttribute="trailing" constant="10" id="K5v-iD-l1T"/>
                                                         <constraint firstAttribute="trailing" secondItem="49p-ac-eSk" secondAttribute="trailing" constant="10" id="OSC-hB-Kqk"/>
                                                         <constraint firstItem="7bA-JO-iec" firstAttribute="centerX" secondItem="nHy-Ez-stJ" secondAttribute="centerX" id="ibg-tM-TP0"/>
                                                         <constraint firstItem="7bA-JO-iec" firstAttribute="leading" secondItem="nHy-Ez-stJ" secondAttribute="leading" constant="10" id="q8y-LK-G8G"/>
-                                                        <constraint firstItem="49p-ac-eSk" firstAttribute="centerY" secondItem="nHy-Ez-stJ" secondAttribute="centerY" multiplier="0.6" id="qHz-yn-Hfh"/>
+                                                        <constraint firstItem="49p-ac-eSk" firstAttribute="centerY" secondItem="nHy-Ez-stJ" secondAttribute="centerY" multiplier="0.65" id="qHz-yn-Hfh"/>
                                                         <constraint firstItem="49p-ac-eSk" firstAttribute="leading" secondItem="nHy-Ez-stJ" secondAttribute="leading" constant="10" id="qLg-KJ-pUH"/>
-                                                        <constraint firstItem="7bA-JO-iec" firstAttribute="centerY" secondItem="nHy-Ez-stJ" secondAttribute="centerY" multiplier="1.5" id="qYC-0O-pti"/>
-                                                        <constraint firstItem="04W-fD-ETP" firstAttribute="centerX" secondItem="nHy-Ez-stJ" secondAttribute="centerX" id="qgf-sT-1PE"/>
+                                                        <constraint firstItem="7bA-JO-iec" firstAttribute="centerY" secondItem="nHy-Ez-stJ" secondAttribute="centerY" multiplier="1.4" id="qYC-0O-pti"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
@@ -95,7 +85,6 @@
                                         <connections>
                                             <outlet property="dimmedLayer" destination="nHy-Ez-stJ" id="oud-9Y-Gfh"/>
                                             <outlet property="firstLabel" destination="49p-ac-eSk" id="Sft-Ul-gMF"/>
-                                            <outlet property="secondLabel" destination="04W-fD-ETP" id="UnW-ba-Fr1"/>
                                             <outlet property="thirdLabel" destination="7bA-JO-iec" id="7g6-ub-lG9"/>
                                             <outlet property="thumbnailImgView" destination="Kx3-c8-ptk" id="sQG-aX-Jr8"/>
                                         </connections>
@@ -108,13 +97,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aOB-np-Tlv">
-                                                    <rect key="frame" x="55" y="53" width="42" height="21"/>
+                                                    <rect key="frame" x="55" y="48.333333333333336" width="42" height="21.000000000000007"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zbh-l4-k0N">
-                                                    <rect key="frame" x="55" y="107" width="42" height="21"/>
+                                                    <rect key="frame" x="55" y="116.33333333333333" width="42" height="20.999999999999986"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -122,9 +111,9 @@
                                             </subviews>
                                         </view>
                                         <constraints>
-                                            <constraint firstItem="aOB-np-Tlv" firstAttribute="centerY" secondItem="gc1-We-uTx" secondAttribute="centerY" multiplier="0.7" id="Cpx-S7-pUG"/>
+                                            <constraint firstItem="aOB-np-Tlv" firstAttribute="centerY" secondItem="gc1-We-uTx" secondAttribute="centerY" multiplier="0.65" id="Cpx-S7-pUG"/>
                                             <constraint firstItem="aOB-np-Tlv" firstAttribute="centerX" secondItem="gc1-We-uTx" secondAttribute="centerX" id="Yj9-N7-072"/>
-                                            <constraint firstItem="Zbh-l4-k0N" firstAttribute="centerY" secondItem="gc1-We-uTx" secondAttribute="centerY" multiplier="1.3" id="biY-r2-t5E"/>
+                                            <constraint firstItem="Zbh-l4-k0N" firstAttribute="centerY" secondItem="gc1-We-uTx" secondAttribute="centerY" multiplier="1.4" id="biY-r2-t5E"/>
                                             <constraint firstItem="Zbh-l4-k0N" firstAttribute="centerX" secondItem="gc1-We-uTx" secondAttribute="centerX" id="tGH-it-62F"/>
                                         </constraints>
                                         <connections>

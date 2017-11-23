@@ -20,7 +20,7 @@ extension UIImageView {
 
         let imageManager = PHImageManager.default()
         
-        imageManager.requestImage(for: result, targetSize: CGSize(width: 200, height: 200), contentMode: PHImageContentMode.aspectFill, options: nil) { (image, _) -> Void in
+        imageManager.requestImage(for: result, targetSize: CGSize(width: 100, height: 100), contentMode: PHImageContentMode.aspectFill, options: nil) { (image, _) -> Void in
             if let image = image {
                 self.image = image
             }
