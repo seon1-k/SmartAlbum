@@ -42,7 +42,9 @@ class MLHelper {
             if topResult.confidence >= correctValue {
                 let keywords = topResult.identifier.components(separatedBy: ",")
                 completionHandler(keywords.first, nil)
-            } 
+            }  else {
+                completionHandler(nil, "error")
+            }
         }
         
         let handler = VNImageRequestHandler(ciImage: CIImage(image: image!)!)

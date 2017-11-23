@@ -35,36 +35,19 @@ class DBManager {
         for i in 0..<100 {
             let asset = assets.object(at: i)
             let pic = Picture(asset: asset)
-//            pic.id = asset.localIdentifier
-//            pic.date = asset.creationDate
-//
-//            let loc = Location()
-//            if let lati = asset.location?.coordinate.latitude, let longti = asset.location?.coordinate.longitude {
-//                loc.latitude = lati
-//                loc.longtitude = longti
-//            }
-            
-//            if let location = asset.location {
-//                print("location \(i)")
-//                LocationServices.getCity(location: location) { (city, error) in
-//                    if error == nil {
-////                        loc.city = city!
-//                        print("city \(i):\(city!)")
-//                    }
-//                }
-//            }
-//            pic.location = loc
             
             MLHelper.setKeyword(asset.localIdentifier) { (key, error) in
+//                print("key:\(key!)")
                 if error == nil {
-                    print("keyword \(i)")
+//                    print("keyword \(i)")
                     pic.flag = 1
                     pic.keyword = key!
                 } else {
-                    print("error in coreML")
+//                    print("error in coreML")
                 }
+//                print("append \(i)")
+                items.append(pic)
             }
-            items.append(pic)
         }
         
         try! realm.write {
