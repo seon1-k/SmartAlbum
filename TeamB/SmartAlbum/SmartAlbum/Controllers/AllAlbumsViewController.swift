@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Realm
+import RealmSwift
 import Photos
 
 protocol SegueProtocol {
@@ -15,22 +17,22 @@ protocol SegueProtocol {
 
 class AllAlbumsViewController: UIViewController {
     
-    // MARK: - Properties
+    // MARK: - Outlets
     
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var albumsCollectionView: UICollectionView!
-    
     @IBOutlet weak var pickImagebtn: UIBarButtonItem!
     @IBOutlet weak var doneBtn: UIBarButtonItem!
+    
+    // MARK: - Properties
     
     fileprivate var checkPickImage: Bool = false
     fileprivate var photoLibrary: PhotoLibrary!
     fileprivate var numberOfSections = 0
     fileprivate var pickedAssets: [PHAsset] = [PHAsset]()
-    
     fileprivate let sectionInsets = UIEdgeInsets(top: 0.5, left: 0.5, bottom: 0.5, right: 0.5)
     fileprivate let itemsPerRow: CGFloat = 4
-    
+
     // MARK: - Initialize
     
     override func viewDidLoad() {
@@ -45,7 +47,7 @@ class AllAlbumsViewController: UIViewController {
         super.viewWillAppear(animated)
         self.albumsCollectionView.reloadData()
     }
-
+    
     // MARK: - Navigation control
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -165,7 +167,7 @@ extension AllAlbumsViewController: UICollectionViewDelegate, UICollectionViewDat
         if self.checkPickImage {
             guard let cell = collectionView.cellForItem(at: indexPath) as? AssetCell else { return }
             guard let selectedAsset = self.photoLibrary.getAsset(at: indexPath.row) else { return }
-            
+
             // add asset to array for CoreML
             self.pickedAssets.append(selectedAsset)
             // change Cell's UI
@@ -204,6 +206,7 @@ extension AllAlbumsViewController: UICollectionViewDelegateFlowLayout {
         cell.thumbnail.contentMode = .scaleAspectFill
         cell.thumbnail.clipsToBounds = true
         cell.playIcon.isHidden = true
+        cell.checked.isHidden = true
         
         DispatchQueue(label: "setThumbnail").async {
             self.photoLibrary.setLibrary(mode: .thumbnail, at: indexPath.row) { image, isVideo in
@@ -214,6 +217,23 @@ extension AllAlbumsViewController: UICollectionViewDelegateFlowLayout {
                     }
                 }
             }
+            // compare with DB
+            let asset = self.photoLibrary.getAsset(at: indexPath.row)
+            asset?.getURL() { url in
+                guard let url = url else { return }
+                let realm = try! Realm()
+                //let test = realm.objects(AnalysisAsset.self).filter("url = %@", url)
+                let urlString: String = url.path
+                print(urlString)
+                let test = realm.objects(AnalysisAsset.self).filter("url = %@", urlString)
+                print("123: testcount ", test.count)
+                if test.count > 0 {
+                    DispatchQueue.main.async {
+                        cell.checked.isHidden = false
+                    }
+                }
+            }
+
         }
     }
     

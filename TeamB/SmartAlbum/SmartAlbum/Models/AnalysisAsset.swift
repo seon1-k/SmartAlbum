@@ -7,28 +7,32 @@
 //
 
 import Foundation
-import Realm
+import RealmSwift
 
-class AnalysisAsset: RLMObject {
-    dynamic var url = ""
-    dynamic var location = ""
-    dynamic var creationDate = ""
-    dynamic var keyword = ""
+class AnalysisAsset: Object {
+    
+    // MARK: - Property
+    
+    dynamic var url: String = ""
+    dynamic var location: String = ""
+    dynamic var creationDate: String = ""
+    dynamic var keyword: String = ""
+    dynamic var isVideo: Bool = false
 
-    override class func primaryKey() -> (String!) {
+    // MARK: - Init
+    
+    override static func primaryKey() -> String? {
         return "url"
     }
-    
-    override init() {
-        super.init()
-    }
-    
-    init(url: String, location: String, creationDate: String, keyword: String) {
-        super.init()
+
+    convenience init(url: String, location: String, creationDate: String, keyword: String, isVideo: Bool) {
+        self.init()
         
         self.url = url
         self.location = location
         self.creationDate = creationDate
         self.keyword = keyword
+        self.isVideo = isVideo
     }
+    
 }

@@ -15,8 +15,9 @@
 		84199E811FC17475007F8C86 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84199E7F1FC17475007F8C86 /* LaunchScreen.storyboard */; };
 		84199EB91FC18758007F8C86 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84199EB81FC18758007F8C86 /* Info.plist */; };
 		845C72651FC6B929005FEB9D /* AnalysisAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845C72641FC6B929005FEB9D /* AnalysisAsset.swift */; };
+		845C72671FC6BE06005FEB9D /* PredictedAssetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845C72661FC6BE06005FEB9D /* PredictedAssetCell.swift */; };
+		845C72691FC6BF96005FEB9D /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845C72681FC6BF96005FEB9D /* RealmManager.swift */; };
 		8467BC301FC5C031006CABE8 /* PredictedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467BC2F1FC5C031006CABE8 /* PredictedViewController.swift */; };
-		8467BC341FC5C092006CABE8 /* PredictedInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467BC331FC5C092006CABE8 /* PredictedInfoCell.swift */; };
 		8467BC361FC5C219006CABE8 /* PredictedAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467BC351FC5C219006CABE8 /* PredictedAsset.swift */; };
 		846873241FC5561900DC35A8 /* MobileNet.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 846873231FC5561900DC35A8 /* MobileNet.mlmodel */; };
 		8477E4A71FC318BB00BA0CE0 /* AssetPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477E4A61FC318BB00BA0CE0 /* AssetPreviewViewController.swift */; };
@@ -39,8 +40,9 @@
 		84199E801FC17475007F8C86 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		84199EB81FC18758007F8C86 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		845C72641FC6B929005FEB9D /* AnalysisAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisAsset.swift; sourceTree = "<group>"; };
+		845C72661FC6BE06005FEB9D /* PredictedAssetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredictedAssetCell.swift; sourceTree = "<group>"; };
+		845C72681FC6BF96005FEB9D /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		8467BC2F1FC5C031006CABE8 /* PredictedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredictedViewController.swift; sourceTree = "<group>"; };
-		8467BC331FC5C092006CABE8 /* PredictedInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredictedInfoCell.swift; sourceTree = "<group>"; };
 		8467BC351FC5C219006CABE8 /* PredictedAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredictedAsset.swift; sourceTree = "<group>"; };
 		846873231FC5561900DC35A8 /* MobileNet.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = MobileNet.mlmodel; sourceTree = "<group>"; };
 		8477E4A61FC318BB00BA0CE0 /* AssetPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetPreviewViewController.swift; sourceTree = "<group>"; };
@@ -127,7 +129,7 @@
 				84CC073C1FC28934003A8C2E /* AssetCell.swift */,
 				8477E4AA1FC31AC700BA0CE0 /* FullAssetPreviewCell.swift */,
 				8408493D1FC423C0009C157E /* FullVideoCell.swift */,
-				8467BC331FC5C092006CABE8 /* PredictedInfoCell.swift */,
+				845C72661FC6BE06005FEB9D /* PredictedAssetCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -157,6 +159,7 @@
 				848A01061FC2F2D800CB490D /* PhotoLibrary.swift */,
 				8467BC351FC5C219006CABE8 /* PredictedAsset.swift */,
 				845C72641FC6B929005FEB9D /* AnalysisAsset.swift */,
+				845C72681FC6BF96005FEB9D /* RealmManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -320,12 +323,13 @@
 			files = (
 				8408493E1FC423C0009C157E /* FullVideoCell.swift in Sources */,
 				845C72651FC6B929005FEB9D /* AnalysisAsset.swift in Sources */,
+				845C72671FC6BE06005FEB9D /* PredictedAssetCell.swift in Sources */,
 				8477E4A71FC318BB00BA0CE0 /* AssetPreviewViewController.swift in Sources */,
 				84CC073D1FC28934003A8C2E /* AssetCell.swift in Sources */,
+				845C72691FC6BF96005FEB9D /* RealmManager.swift in Sources */,
 				8467BC301FC5C031006CABE8 /* PredictedViewController.swift in Sources */,
 				84199E751FC17475007F8C86 /* AppDelegate.swift in Sources */,
 				8477E4AB1FC31AC700BA0CE0 /* FullAssetPreviewCell.swift in Sources */,
-				8467BC341FC5C092006CABE8 /* PredictedInfoCell.swift in Sources */,
 				846873241FC5561900DC35A8 /* MobileNet.mlmodel in Sources */,
 				848A01071FC2F2D800CB490D /* PhotoLibrary.swift in Sources */,
 				84CC073F1FC28C3D003A8C2E /* AllAlbumsViewController.swift in Sources */,
