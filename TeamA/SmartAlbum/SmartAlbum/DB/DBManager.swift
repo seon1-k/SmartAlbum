@@ -25,7 +25,7 @@ class DBManager {
         // PHAsset 을 DB에 저장
         
         let fetchOptions = PHFetchOptions()
-        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
         let assets:PHFetchResult<PHAsset> = PHAsset.fetchAssets(with: fetchOptions)
         
         let realm = try! Realm()
@@ -146,6 +146,22 @@ class DBManager {
         return keywords
     }
     
+    static func getLastAsset(_ keyword: String?) -> PHFetchResult<PHAsset> {
+        let realm = try! Realm()
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+        
+        var identifier:String = ""
+        if keyword == nil {
+            // 분류 안된 것만 리턴
+            identifier = Array(realm.objects(Picture.self).filter("flag == 0")).first?.value(forKey: "id") as! String
+        } else {
+            identifier = Array(realm.objects(Picture.self).filter("keyword == %@", keyword!)).first?.value(forKey: "id") as! String
+        }
+        let fds:PHFetchResult<PHAsset> = PHAsset.fetchAssets(withLocalIdentifiers: [identifier], options: fetchOptions)
+        return fds
+    }
+    
     static func getAssets(_ keyword: String?) -> PHFetchResult<PHAsset> {
         //키워드에 해당하는 PHAsset 불러옴
         
@@ -158,7 +174,7 @@ class DBManager {
             // 분류 안된 것만 리턴
             identifiers = Array(realm.objects(Picture.self).filter("flag == 0").value(forKey: "id") as! [String])
         } else {
-            identifiers = Array(realm.objects(Picture.self).value(forKey: "id") as! [String])
+            identifiers = Array(realm.objects(Picture.self).filter("keyword == %@", keyword!).value(forKey: "id") as! [String])
         }
 
         let fds:PHFetchResult<PHAsset> = PHAsset.fetchAssets(withLocalIdentifiers: identifiers, options: fetchOptions)
@@ -197,6 +213,7 @@ class DBManager {
         
         var temp:[Picture] = [] // 각 달의 이미지들을 임시로 저장
         for item in items {
+//            print(item.value(forKey: "createDate"))
             // 7일간의 데이터 저장
             let itemDate = item.createDate //현재 아이템의 시간
             if startDate.isInSameMonth(date: itemDate!) {
@@ -207,10 +224,10 @@ class DBManager {
                 groupDate.append(startDate)
                 
                 startDate = startDate.getPrevMonth()
+//                print("temp:\(temp)")
                 temp = []
             }
         }
-        
         return (groupDate, groups)
     }
 }

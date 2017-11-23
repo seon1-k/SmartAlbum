@@ -29,7 +29,9 @@ class TestVC: UIViewController {
 //            print(item.modificationDate)
 //        }
         
-      //  DBManager.initData()
+//        DBManager.initData() { _ in
+//
+//        }
 //
 //        DispatchQueue.main.async {
 //            print(DBManager.getKeywords())
