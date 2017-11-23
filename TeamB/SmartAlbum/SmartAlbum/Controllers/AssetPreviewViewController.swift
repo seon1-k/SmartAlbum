@@ -76,6 +76,12 @@ class AssetPreviewViewController: UIViewController {
         return assetImage
     }
     
+    func getAssetFromId(assetUrl: String) -> PHAsset? {
+        let asset = PHAsset.fetchAssets(withLocalIdentifiers: [assetUrl], options: nil)
+        guard let result = asset.firstObject else { return nil }
+        return result
+    }
+    
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource {
@@ -104,21 +110,22 @@ extension AssetPreviewViewController: UICollectionViewDelegate, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        var asset: PHAsset?
         if self.selectedObjs.count > 0 {
+            asset = getAssetFromId(assetUrl: self.selectedObjs[indexPath.row].url)
+        } else {
+            asset = self.photoLibrary.getAsset(at: indexPath.row)
+        }
+        
+        if asset?.mediaType == .video {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FullVideoCell", for: indexPath) as! FullVideoCell
+            asset?.getURL() { url in
+                cell.videoItemUrl = url
+            }
+            return cell
+        } else { // .image
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FullAssetPreviewCell", for: indexPath) as! FullAssetPreviewCell
             return cell
-        } else {
-            let asset = self.photoLibrary.getAsset(at: indexPath.row)
-            if asset?.mediaType == .video {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FullVideoCell", for: indexPath) as! FullVideoCell
-                asset?.getURL() { url in
-                    cell.videoItemUrl = url
-                }
-                return cell
-            } else { // .image
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FullAssetPreviewCell", for: indexPath) as! FullAssetPreviewCell
-                return cell
-            }
         }
     }
     
@@ -133,10 +140,16 @@ extension AssetPreviewViewController: UICollectionViewDelegate, UICollectionView
         
         // Show analyzed data
         if self.selectedObjs.count > 0 {
-            let image = getImage(assetUrl: self.selectedObjs[indexPath.row].url)
+            let asset = getAssetFromId(assetUrl: self.selectedObjs[indexPath.row].url)
             DispatchQueue.main.async {
-                let cell = cell as! FullAssetPreviewCell
-                cell.fullAssetImg.image = image
+                if asset?.mediaType == .video {
+                    let cell = cell as! FullVideoCell
+                    cell.avPlayer?.play()
+                } else { // .image
+                    let image = self.getImage(assetUrl: self.selectedObjs[indexPath.row].url)
+                    let cell = cell as! FullAssetPreviewCell
+                    cell.fullAssetImg.image = image
+                }
             }
         } else {
             // Show media data
