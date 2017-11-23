@@ -13,7 +13,7 @@ import Vision
 
 class MLHelper {
     
-    static let imageSize:CGSize = CGSize(width: 200, height: 200) //분석을 위해 가져올 이미지 크기
+    static let imageSize:CGSize = CGSize(width: 300, height: 300) //분석을 위해 가져올 이미지 크기
     static let correctValue:Float = 0 //이 수치 이상일 경우 키워드를 입력함
     
     static func setKeyword(_ localIdentifier: String, completionHandler: @escaping (_ key:String?, _ error:String?) -> Void){
