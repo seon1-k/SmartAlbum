@@ -10,12 +10,12 @@ import UIKit
 
 class FullAssetPreviewCell: UICollectionViewCell, UIScrollViewDelegate {
     
-    // MARK:- Properties
+    // MARK: - Properties
     
     var scrollImg: UIScrollView!
     var fullAssetImg: UIImageView!
 
-    // MARK:- Initialize
+    // MARK: - Initialize
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -39,7 +39,7 @@ class FullAssetPreviewCell: UICollectionViewCell, UIScrollViewDelegate {
         super.init(coder: aDecoder)
     }
     
-    // MARK:- Set default view
+    // MARK: - Set default view
     
     func setFullImgView() {
         self.fullAssetImg = UIImageView()
@@ -65,7 +65,7 @@ class FullAssetPreviewCell: UICollectionViewCell, UIScrollViewDelegate {
         self.scrollImg.addGestureRecognizer(doubleTapGest)
     }
     
-    // MARK:- Gesture Function
+    // MARK: - Gesture Function
     
     @objc func handleDoubleTapScrollView(recognizer: UITapGestureRecognizer) {
         if scrollImg.zoomScale == 1 {

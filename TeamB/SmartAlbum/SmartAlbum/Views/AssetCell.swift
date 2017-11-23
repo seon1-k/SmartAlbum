@@ -12,18 +12,18 @@ private let highlightedColor = UIColor(red:0.12, green:0.77, blue:0.27, alpha:1.
 
 class AssetCell: UICollectionViewCell {
     
-    // MARK:- Outlets
+    // MARK: - Outlets
     
     @IBOutlet weak var thumbnail: UIImageView!
     @IBOutlet weak var playIcon: UIImageView!
     @IBOutlet weak var specialHighlightedArea: UIView!
     @IBOutlet weak var checkedImg: UIImageView!
     
-    // MARK:- Properties
+    // MARK: - Properties
     
     var shouldTintBackgroundWhenSelected = true
 
-    // MARK:- Init
+    // MARK: - Init
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -44,7 +44,7 @@ class AssetCell: UICollectionViewCell {
         }
     }
     
-    // MARK:- Help Fucntion to change UI
+    // MARK: - Help Fucntion to change UI
     
     func onSelected(_ newValue: Bool) {
         if shouldTintBackgroundWhenSelected {

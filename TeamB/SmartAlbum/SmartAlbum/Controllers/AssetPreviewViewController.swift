@@ -11,7 +11,7 @@ import AVKit
 
 class AssetPreviewViewController: UIViewController {
     
-    // MARK:- Properties
+    // MARK: - Properties
     
     @IBOutlet weak var assetsCollectionView: UICollectionView!
     
@@ -20,7 +20,7 @@ class AssetPreviewViewController: UIViewController {
     var numberOfSections = 1
     var onceOnly = false
     
-    // MARK:- Initialize
+    // MARK: - Initialize
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,13 +44,13 @@ class AssetPreviewViewController: UIViewController {
         
         self.assetsCollectionView.setContentOffset(newOffset, animated: false)
         
-        coordinator.animate(alongsideTransition: { (context) in
+        coordinator.animate(alongsideTransition: { (_) in
             self.assetsCollectionView.reloadData()
             self.assetsCollectionView.setContentOffset(newOffset, animated: false)
         }, completion: nil)
     }
 
-    // MARK:- UI Function
+    // MARK: - UI Function
     
     func setUI() {
         self.automaticallyAdjustsScrollViewInsets = false
@@ -59,7 +59,7 @@ class AssetPreviewViewController: UIViewController {
    
 }
 
-// MARK:- UICollectionViewDelegate, UICollectionViewDataSource {
+// MARK: - UICollectionViewDelegate, UICollectionViewDataSource {
 
 extension AssetPreviewViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     

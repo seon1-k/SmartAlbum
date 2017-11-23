@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 
-
 class PredictedAsset {
     
     var image: UIImage?
@@ -21,7 +20,6 @@ class PredictedAsset {
         self.keyword = keyword
         self.probability = probability
     }
-    
     
 //    var identifier: String?
 //    var location: String?

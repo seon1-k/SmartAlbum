@@ -15,7 +15,7 @@ import AVKit
 
 class FullVideoCell: UICollectionViewCell {
     
-    // MARK:- Properties
+    // MARK: - Properties
     
     var avPlayer: AVPlayer?
     var videoAsset: AVAsset?
@@ -27,7 +27,7 @@ class FullVideoCell: UICollectionViewCell {
         }
     }
     
-    // MARK:- Initialize
+    // MARK: - Initialize
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -38,7 +38,7 @@ class FullVideoCell: UICollectionViewCell {
         super.init(coder: aDecoder)
     }
     
-    // MARK:- Setup Player Function
+    // MARK: - Setup Player Function
     
     private func setupMoviePlayer() {
         // Create a new AVPlayer and AVPlayerLayer

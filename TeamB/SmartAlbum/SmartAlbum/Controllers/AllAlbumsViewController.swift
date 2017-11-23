@@ -15,7 +15,7 @@ protocol SegueProtocol {
 
 class AllAlbumsViewController: UIViewController {
     
-    // MARK:- Properties
+    // MARK: - Properties
     
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var albumsCollectionView: UICollectionView!
@@ -31,7 +31,7 @@ class AllAlbumsViewController: UIViewController {
     fileprivate let sectionInsets = UIEdgeInsets(top: 0.5, left: 0.5, bottom: 0.5, right: 0.5)
     fileprivate let itemsPerRow: CGFloat = 4
     
-    // MARK:- Initialize
+    // MARK: - Initialize
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +46,7 @@ class AllAlbumsViewController: UIViewController {
         self.albumsCollectionView.reloadData()
     }
 
-    // MARK:- Navigation control
+    // MARK: - Navigation control
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "AssetPreviewVC" {
@@ -56,17 +56,10 @@ class AllAlbumsViewController: UIViewController {
             assetPreviewVC.photoLibrary = self.photoLibrary
             assetPreviewVC.numberOfSections = self.numberOfSections
             assetPreviewVC.passedIndexPath = selectedIndexPath
-        } else if segue.identifier == "AnalysisVC" {
-            if #available(iOS 11.0, *) {
-                guard let analysisVC = segue.destination as? AnalysisViewController else { return }
-                
-                analysisVC.delegate = self
-                analysisVC.pickedImages = self.photoLibrary.convertPHAssetsToUIImages(assetArray: self.pickedAssets)
-            }
-        }
+        } 
     }
     
-    // MARK:- Help functions
+    // MARK: - Help functions
     
     func initPhotoLib() {
         // start spinner
@@ -84,11 +77,9 @@ class AllAlbumsViewController: UIViewController {
                     self.spinner.stopAnimating()
                 }
             case .denied, .restricted:
-                // TODO: Add alertview
                 print("Not allowed")
                 self.spinner.stopAnimating()
             case .notDetermined:
-                // TODO: Add alertview
                 print("Not determined yet")
                 self.spinner.stopAnimating()
             }
@@ -122,7 +113,7 @@ class AllAlbumsViewController: UIViewController {
         })
     }
     
-    // MARK:- Outlet Actions
+    // MARK: - Outlet Actions
     
     @IBAction func pressSelectDone(_ sender: UIBarButtonItem) {
         togglePickBtn()
@@ -131,7 +122,7 @@ class AllAlbumsViewController: UIViewController {
             return
         }
         self.customReloadData()
-        self.performSegue(withIdentifier: "AnalysisVC", sender: nil)
+        // self.performSegue(withIdentifier: "AnalysisVC", sender: nil)
     }
     
     @IBAction func pressPickImage(_ sender: UIBarButtonItem) {
@@ -145,7 +136,7 @@ class AllAlbumsViewController: UIViewController {
     
 }
 
-// MARK:- UICollectionViewDelegate, UICollectionViewDataSource {
+// MARK: - UICollectionViewDelegate, UICollectionViewDataSource {
 
 extension AllAlbumsViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
@@ -249,7 +240,7 @@ extension AllAlbumsViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-// MARK:- SegueProtocol 
+// MARK: - SegueProtocol
 
 extension AllAlbumsViewController: SegueProtocol {
     func deleteAllPickedAssets() {

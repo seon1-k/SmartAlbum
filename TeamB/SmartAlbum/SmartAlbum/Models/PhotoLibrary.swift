@@ -16,19 +16,19 @@ enum ViewMode {
 
 extension PHAsset {
     
-    func getURL(completionHandler : @escaping ((_ responseURL : URL?) -> Void)){
+    func getURL(completionHandler : @escaping ((_ responseURL : URL?) -> Void)) {
         if self.mediaType == .image {
             let options: PHContentEditingInputRequestOptions = PHContentEditingInputRequestOptions()
             options.canHandleAdjustmentData = {(adjustmeta: PHAdjustmentData) -> Bool in
                 return true
             }
-            self.requestContentEditingInput(with: options, completionHandler: {(contentEditingInput: PHContentEditingInput?, info: [AnyHashable : Any]) -> Void in
+            self.requestContentEditingInput(with: options, completionHandler: {(contentEditingInput: PHContentEditingInput?, _: [AnyHashable : Any]) -> Void in
                 completionHandler(contentEditingInput!.fullSizeImageURL as URL?)
             })
         } else if self.mediaType == .video {
             let options: PHVideoRequestOptions = PHVideoRequestOptions()
             options.version = .original
-            PHImageManager.default().requestAVAsset(forVideo: self, options: options, resultHandler: {(asset: AVAsset?, audioMix: AVAudioMix?, info: [AnyHashable : Any]?) -> Void in
+            PHImageManager.default().requestAVAsset(forVideo: self, options: options, resultHandler: {(asset: AVAsset?, _: AVAudioMix?, _: [AnyHashable : Any]?) -> Void in
                 if let urlAsset = asset as? AVURLAsset {
                     let localVideoUrl: URL = urlAsset.url as URL
                     completionHandler(localVideoUrl)
@@ -62,21 +62,21 @@ class PhotoLibrary {
         return fetchResult.count
     }
     
-    // MARK:- Function
+    // MARK: - Function
     
     func getAsset(at index: Int) -> PHAsset? {
         guard index < fetchResult.count else { return nil }
         return fetchResult.object(at: index) as PHAsset
     }
     
-    func setLibrary(mode selectMode: ViewMode = .full, at index: Int, completion block: @escaping (UIImage?, Bool)->()) {
-        if index < fetchResult.count  {
+    func setLibrary(mode selectMode: ViewMode = .full, at index: Int, completion block: @escaping (UIImage?, Bool) -> ()) {
+        if index < fetchResult.count {
             var size: CGSize = UIScreen.main.bounds.size
             if selectMode == .thumbnail {
                 // As the size increases, there is an error that the image in the collectionview is not shown.
                 size = CGSize(width: 100, height: 100)
             }
-            imgManager.requestImage(for: fetchResult.object(at: index) as PHAsset, targetSize: size, contentMode: PHImageContentMode.aspectFill, options: requestOptions) { (image, phAssetForVideo) in
+            imgManager.requestImage(for: fetchResult.object(at: index) as PHAsset, targetSize: size, contentMode: PHImageContentMode.aspectFill, options: requestOptions) { (image, _) in
                 // check Photo or Video
                 let asset = self.fetchResult.object(at: index)
                 var isVideo: Bool = false
