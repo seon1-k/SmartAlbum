@@ -148,4 +148,6 @@ $RECYCLE.BIN/
 !*.xcworkspace/contents.xcworkspacedata
 /*.gcno
 
+*.mlmodel
+
 # End of https://www.gitignore.io/api/macos,xcode,swift,linux,windows,cocoapods
