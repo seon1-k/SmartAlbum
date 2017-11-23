@@ -7,46 +7,280 @@
 //
 
 import UIKit
-
-var tmpPredictedAssetArray = [PredictedAsset]()
+import Photos
+import Realm
+import RealmSwift
 
 class PredictedViewController: UIViewController {
     
-    @IBOutlet weak var predictedTableView: UITableView!
+    // MARK: - IBOutlets
+    
+    @IBOutlet weak var predictedCollectionView: UICollectionView!
+    @IBOutlet weak var sortSegmented: UISegmentedControl!
+    
+    // MARK: - Property
+    
+    fileprivate var photoLibrary: PhotoLibrary!
+    fileprivate var analysisAssets: [AnalysisAsset] = [AnalysisAsset]()
+    fileprivate let sectionInsets = UIEdgeInsets(top: 0.5, left: 0.5, bottom: 0.5, right: 0.5)
+    fileprivate let itemsPerRow: CGFloat = 2
+    fileprivate let unAnalyzedCollection = 1
+    
+    let realm = RealmManager()
+    // Default value is keyword
+    var realmObjects = try! Realm().objects(AnalysisAsset.self).sorted(byKeyPath: "keyword")
+    var sortBy: String = "keyword" {
+        didSet {
+            self.realmObjects = try! Realm().objects(AnalysisAsset.self).sorted(byKeyPath: sortBy)
+            self.predictedCollectionView.reloadData()
+        }
+    }
+    var collectionNames: [String] {
+        return Set(realmObjects.value(forKeyPath: sortBy) as! [String]).sorted()
+    }
+    
+    // MARK: - Initialze
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        initTableView()
+        
+        self.photoLibrary = PhotoLibrary()
+        self.sortSegmented.selectedSegmentIndex = 2
+        
+        initCollectionView()
+        self.getAnalysisAssets()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.predictedTableView.reloadData()
+        self.predictedCollectionView.reloadData()
+    }
+    
+    // MARK: - Help function
+    
+    func getAnalysisAssets() {
+        if let objects = realm.getObjects(type: AnalysisAsset.self) {
+            self.analysisAssets = objects.toArray(ofType: AnalysisAsset.self) as [AnalysisAsset]
+        }
+    }
+    
+    func getImage(assetUrl: String) -> UIImage? {
+        let asset = PHAsset.fetchAssets(withLocalIdentifiers: [assetUrl], options: nil)
+        guard let result = asset.firstObject else { return nil }
+        
+        var assetImage: UIImage?
+        let options = PHImageRequestOptions()
+        options.isSynchronous = true
+        let size = CGSize(width: 200, height: 200)
+        PHImageManager.default().requestImage(for: result, targetSize: size, contentMode: PHImageContentMode.aspectFill, options: options) { (image, _) in
+            assetImage = image
+        }
+        
+        return assetImage
+    }
+    
+    
+    // MARK: - Outlet Function
+    
+    @IBAction func indexChanged(_ sender: UISegmentedControl) {
+        switch self.sortSegmented.selectedSegmentIndex {
+        case 0:
+            print("sortSegment 0: ", self.sortSegmented.selectedSegmentIndex)
+            self.sortBy = "creationDate"
+        case 1:
+            print("sortSegment 1: ", self.sortSegmented.selectedSegmentIndex)
+            self.sortBy = "location"
+        case 2:
+            print("sortSegment 2: ", self.sortSegmented.selectedSegmentIndex)
+            self.sortBy = "keyword"
+        default:
+            print("default")
+        }
+    }
+}
+
+// MARK: - UICollectionViewDelegate, UICollectionViewDataSource
+
+extension PredictedViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func initCollectionView() {
+        self.predictedCollectionView.delegate = self
+        self.predictedCollectionView.dataSource = self
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.collectionNames.count + self.unAnalyzedCollection
+    }
+    
+    func setupCell(cell: UICollectionViewCell, indexPath: IndexPath, type: String) {
+        switch(type) {
+        case "PredictedAssetCell":
+            setupPredictedCell(cell: cell as! PredictedAssetCell, indexPath: indexPath)
+        case "LastSpecialCell":
+            setupLastSpecialCell(cell: cell as! LastSpecialCell, indexPath: indexPath)
+        default:
+            break
+        }
+    }
+    
+    // LastSpecialCell
+    func setupLastSpecialCell(cell: LastSpecialCell, indexPath: IndexPath) {
+        // compare with DB
+        var count = self.photoLibrary.count - self.analysisAssets.count
+        /*
+        for index in 0..<self.photoLibrary.count {
+            let asset = self.photoLibrary.getAsset(at: index)
+            
+            asset?.getURL() { url in
+                guard let url = url else { return }
+                let realm = try! Realm()
+                //let test = realm.objects(AnalysisAsset.self).filter("url = %@", url)
+                let urlString: String = url.path
+                // Sort tan dogs with names starting with "B" by name
+                //let sortedDogs = realm.objects(AnalysisAsset.self).sorted(byKeyPath: "location")
+                let test = realm.objects(AnalysisAsset.self).filter("url = %@", urlString)
+                if test.count > 0 {
+                    count += 1
+                }
+            }
+        }
+        */
+        print("lastcell count", count)
+        cell.firstLabel.text = "분류되지 않은 사진들"
+        cell.countLabel.text = String(count)
+    }
+    
+    
+    // PredictedCell
+    func setupPredictedCell(cell: PredictedAssetCell, indexPath: IndexPath) {
+        
+        // compare with DB
+        let asset = self.photoLibrary.getAsset(at: indexPath.row)
+        /*
+         var sortBy: String = "creationDate"
+         switch self.sortSegmented.selectedSegmentIndex {
+         case 0:
+         sortBy = "creationDate"
+         case 1:
+         sortBy = "location"
+         case 2:
+         sortBy = "keyword"
+         default:
+         sortBy = "keyword"
+         }*/
+        
+        cell.firstLabel.text = self.collectionNames[indexPath.row]
+        print(self.collectionNames[indexPath.row])
+        print(String(self.realmObjects.filter("\(self.sortBy) == %@", self.collectionNames[indexPath.row]).count))
+        cell.thirdLabel.text = String(self.realmObjects.filter("\(self.sortBy) == %@", self.collectionNames[indexPath.row]).count)
+        print(collectionNames)
+        print(collectionNames[indexPath.row])
+        let url = realmObjects.filter("\(self.sortBy) == %@", collectionNames[indexPath.row])[0].url
+        cell.thumbnailImgView.image = getImage(assetUrl: url)
+        print(realmObjects.filter("\(self.sortBy) == %@", collectionNames[indexPath.row])[0].url)
+        
+        
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        // not analysis
+        let cellID = indexPath.row < self.collectionNames.count ? "PredictedAssetCell" : "LastSpecialCell"
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath)
+        setupCell(cell: cell, indexPath: indexPath, type: cellID)
+        
+        
+        /*
+         
+         // get data from DB
+         let realm = try! Realm()
+         let sortedObjs = realm.objects(AnalysisAsset.self).sorted(byKeyPath: sortBy).toArray(ofType: AnalysisAsset.self) as [AnalysisAsset]
+         
+         if self.sortSegmented.selectedSegmentIndex == 0 {
+         cell.firstLabel.text = sortedObjs[indexPath.row].creationDate
+         cell.secondLabel.text = sortedObjs[indexPath.row].keyword
+         cell.thirdLabel.text = sortedObjs[indexPath.row].location
+         } else if self.sortSegmented.selectedSegmentIndex == 1 {
+         cell.firstLabel.text = sortedObjs[indexPath.row].location
+         cell.secondLabel.text = sortedObjs[indexPath.row].creationDate
+         cell.thirdLabel.text = sortedObjs[indexPath.row].keyword
+         } else if self.sortSegmented.selectedSegmentIndex == 2 {
+         cell.firstLabel.text = sortedObjs[indexPath.row].keyword
+         cell.secondLabel.text = sortedObjs[indexPath.row].creationDate
+         cell.thirdLabel.text = sortedObjs[indexPath.row].location
+         }
+         */
+        
+        /*
+         let sortedDogs = realm.objects(AnalysisAsset.self).sorted(byKeyPath: "location")
+         asset?.getURL() { url in
+         guard let url = url else { return }
+         let realm = try! Realm()
+         //let test = realm.objects(AnalysisAsset.self).filter("url = %@", url)
+         let urlString: String = url.path
+         print(urlString)
+         // Sort tan dogs with names starting with "B" by name
+         if
+         print("123: testcount ", test.count)
+         if test.count > 0 {
+         DispatchQueue.main.async {
+         cell.checked.isHidden = false
+         }
+         }
+         }
+         */
+        
+        return cell
+    }
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("Prediceted: get selected collectionview itemindex \(indexPath.row)")
     }
     
 }
 
-extension PredictedViewController: UITableViewDelegate, UITableViewDataSource {
+// MARK: - UICollectionViewDelegateFlowLayout
+
+extension PredictedViewController: UICollectionViewDelegateFlowLayout {
     
-    func initTableView() {
-        self.predictedTableView.delegate = self
-        self.predictedTableView.dataSource = self
+    func collectionView(_ collectionView: UICollectionView,
+                        willDisplay cell: UICollectionViewCell,
+                        forItemAt indexPath: IndexPath) {
+
+        if indexPath.row < self.collectionNames.count {
+            
+            let cell = cell as! PredictedAssetCell
+            let url = realmObjects.filter("\(self.sortBy) == %@", collectionNames[indexPath.row])[0].url
+            cell.thumbnailImgView.imageFromAssetURL(assetURL: url)
+
+        }
+            
+        // cell.firstLabel.text = "asdasdsd"
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = self.predictedTableView.dequeueReusableCell(withIdentifier: "PredictedInfoCell", for: indexPath) as! PredictedInfoCell
-        cell.predictedImgView.image = tmpPredictedAssetArray[indexPath.row].image
-        cell.predictedKeywordLabel.text = tmpPredictedAssetArray[indexPath.row].keyword
-        cell.predictedPrbLabel.text = String(tmpPredictedAssetArray[indexPath.row].probability!)
-        return cell
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let paddingSpace = sectionInsets.left * (itemsPerRow+1)
+        let availableWidth = view.frame.width - paddingSpace
+        let widthPerItem = availableWidth / itemsPerRow
+        
+        return CGSize(width: widthPerItem, height: widthPerItem)
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tmpPredictedAssetArray.count
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
+        return sectionInsets
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 200
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return sectionInsets.left
     }
-    
 }

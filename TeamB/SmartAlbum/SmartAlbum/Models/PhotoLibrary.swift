@@ -65,6 +65,8 @@ class PhotoLibrary {
         formatter.dateFormat = "yyyy.MM.dd"
         
         setDB()
+        
+        print(Realm.Configuration.defaultConfiguration.description)
     }
 
     var count: Int {
@@ -79,7 +81,7 @@ class PhotoLibrary {
     }
     
     func setDB() {
-        for index in 0..<10 {
+        for index in 0..<5 {
             imgManager.requestImage(for: fetchResult.object(at: index) as PHAsset, targetSize: UIScreen.main.bounds.size, contentMode: PHImageContentMode.aspectFill, options: requestOptions) { (image, _) in
                 let asset = self.fetchResult.object(at: index)
                 
@@ -116,18 +118,17 @@ class PhotoLibrary {
                 
                 if let ciImage = CIImage(image: uiImage) {
                     self.analysisController.getInfo(image: ciImage) { result in
-                        print(result)
                         keyword = result.0
                         confidence = result.1
                     }
                 }
                 
                  let analysisAsset = AnalysisAsset(url: url,isVideo: isVideo, location: location, creationDate: creationDate, keyword: keyword, confidence: confidence)
-                
-                try! self.realm.write {
-                    print("DB Set")
-                    self.realm.add(analysisAsset, update: true)
-                }
+                print(analysisAsset)
+//                try! self.realm.write {
+//                    print("DB Set")
+//                    self.realm.add(analysisAsset, update: true)
+//                }
             }
         }
     }
@@ -189,4 +190,6 @@ class PhotoLibrary {
         }
         return resultArray
     }
+    
+   
 }

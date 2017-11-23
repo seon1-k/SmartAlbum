@@ -10,6 +10,7 @@ import Foundation
 import RealmSwift
 
 class AnalysisAsset: Object {
+
     
     // MARK: - Property
     dynamic var url = String()

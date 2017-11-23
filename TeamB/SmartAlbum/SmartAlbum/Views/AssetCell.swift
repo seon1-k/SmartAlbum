@@ -14,6 +14,7 @@ class AssetCell: UICollectionViewCell {
     
     // MARK: - Outlets
     
+    @IBOutlet weak var checked: UIImageView!
     @IBOutlet weak var thumbnail: UIImageView!
     @IBOutlet weak var playIcon: UIImageView!
     @IBOutlet weak var specialHighlightedArea: UIView!
