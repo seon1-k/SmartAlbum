@@ -158,7 +158,7 @@ class DBManager {
         
         let realm = try! Realm()
         let fetchOptions = PHFetchOptions()
-        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
         
         var identifiers:[String] = []
         if keyword == nil || keyword == "" {
@@ -174,7 +174,7 @@ class DBManager {
     
     static func getAssets(_ ids:[String]) -> PHFetchResult<PHAsset> {
         let fetchOptions = PHFetchOptions()
-        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
         let fds:PHFetchResult<PHAsset> = PHAsset.fetchAssets(withLocalIdentifiers: ids, options: fetchOptions)
         return fds
     }
@@ -182,7 +182,7 @@ class DBManager {
     static func getAssetsForSearch(_ keyword: String) -> PHFetchResult<PHAsset> {
         let realm = try! Realm()
         let fetchOptions = PHFetchOptions()
-        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
         
         let identifiers:[String] = Array(realm.objects(Picture.self).filter("keyword CONTAIN %@", keyword).value(forKey: "id") as! [String])
         let fds:PHFetchResult<PHAsset> = PHAsset.fetchAssets(withLocalIdentifiers: identifiers, options: fetchOptions)
@@ -206,7 +206,7 @@ class DBManager {
         let groupKey:[String] = Array(Set(realm.objects(Picture.self).value(forKey: "keyword") as! [String]))
         
         let fetchOptions = PHFetchOptions()
-        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
         
         var groupAssets:[PHFetchResult<PHAsset>] = []
         for keyword in groupKey {
@@ -240,7 +240,7 @@ class DBManager {
         var temp:[String] = [] // 각 달의 이미지 id들을 임시로 저장
         for item in items {
 //            print(item.value(forKey: "createDate"))
-            // 7일간의 데이터 저장
+            // 월단위 데이터 저장
             let itemDate = item.createDate //현재 아이템의 시간
             if startDate.isInSameMonth(date: itemDate!) {
                 temp.append(item.value(forKey: "id") as! String)
@@ -256,6 +256,7 @@ class DBManager {
                 startDate = startDate.getPrevMonth()
 //                print("temp:\(temp)")
                 temp = []
+                temp.append(item.value(forKey: "id") as! String)
             }
         }
         return (groupKey, groupAssets)
