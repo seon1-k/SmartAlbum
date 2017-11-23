@@ -56,6 +56,9 @@ class PredictedViewController: UIViewController {
         self.predictedCollectionView.reloadData()
     }
     
+    // MARK: - Set Text Search View
+    
+
     // MARK: - Help function
     
     func getAnalysisAssets() {
@@ -63,7 +66,6 @@ class PredictedViewController: UIViewController {
             self.analysisAssets = objects.toArray(ofType: AnalysisAsset.self) as [AnalysisAsset]
         }
     }
-    
     
     // MARK: - Outlet Function
     
@@ -164,7 +166,9 @@ extension PredictedViewController: UICollectionViewDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("Prediceted: get selected collectionview itemindex \(indexPath.row)")
-        self.performSegue(withIdentifier: "AnalyzedVC", sender: indexPath)
+        if indexPath.row < collectionNames.count {
+            self.performSegue(withIdentifier: "AnalyzedVC", sender: indexPath)
+        }
     }
     
 }

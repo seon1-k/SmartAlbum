@@ -148,6 +148,7 @@
                                 <action selector="indexChanged:" destination="9pv-A4-QxB" eventType="valueChanged" id="jyR-T6-4XS"/>
                             </connections>
                         </segmentedControl>
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="SCC-gu-Ufo"/>
                     </navigationItem>
                     <connections>
                         <outlet property="predictedCollectionView" destination="KMC-bD-3va" id="wpu-Jg-ro3"/>
