@@ -27,7 +27,7 @@ class DBManager {
         
         var items:[Picture] = []
         //        assets.count
-        for i in 0..<300 {
+        for i in 0..<500 {
             let asset = assets[i]
             let pic = Picture(asset: asset)
             MLHelper.setKeyword(asset.localIdentifier) { (key, error) in
@@ -242,23 +242,46 @@ class DBManager {
 //            print(item.value(forKey: "createDate"))
             // 월단위 데이터 저장
             let itemDate = item.createDate //현재 아이템의 시간
+//            print("itemDate:\(item.createDate)")
+            
             if startDate.isInSameMonth(date: itemDate!) {
                 temp.append(item.value(forKey: "id") as! String)
             } else {
-                //다음 달로
-//                groups.append(temp)
+                //다음 달 아이템이 들어오면
                 
                 if temp.count != 0 {
                     groupAssets.append(getAssets(temp))
+                    temp = []
                     groupKey.append(startDate.getMonthString())
                 }
                 
                 startDate = startDate.getPrevMonth()
-//                print("temp:\(temp)")
-                temp = []
-                temp.append(item.value(forKey: "id") as! String)
+                if startDate.isInSameMonth(date: itemDate!) {
+                    temp.append(item.value(forKey: "id") as! String)
+                }
             }
+            
+            
+            
+//            if startDate.isInSameMonth(date: itemDate!) {
+//                temp.append(item.value(forKey: "id") as! String)
+//            } else {
+//                //다음 달로
+////                groups.append(temp)
+//                if temp.count != 0 {
+//                    groupAssets.append(getAssets(temp))
+//                    groupKey.append(startDate.getMonthString())
+//                }
+//
+//                startDate = startDate.getPrevMonth()
+////                print("temp:\(temp)")
+//                temp = []
+//                if startDate.isInSameMonth(date: itemDate!) {
+//                    temp.append(item.value(forKey: "id") as! String)
+//                }
+//            }
         }
+        print("GroupKEy:\(groupKey)")
         return (groupKey, groupAssets)
     }
     
