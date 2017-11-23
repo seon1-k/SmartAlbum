@@ -85,28 +85,36 @@ class DBManager {
 //        completionHandler(true)
 //    }
     
-    static func updateData() {
+    static func updateData(completionHandler: @escaping (Bool) -> Void) {
         // 사진의 modificationDate 값을 기준으로, 가장 최근에 keyword를 입힌 시점보다 최근에 수정된 이미지 파일은 keyword 업데이트
+        // 첫 실행이 아닐 경우 무조건 updateData
         let realm = try! Realm()
         let fetchOptions = PHFetchOptions()
         fetchOptions.sortDescriptors = [NSSortDescriptor(key: "modificationDate", ascending: false)]
         let fetch:PHFetchResult<PHAsset> = PHAsset.fetchAssets(with: fetchOptions)
         
 //        print("updateDate:\(UserDefaults.standard.value(forKey: "updateDate"))")
+        
+        var fetchedArray:PHFetchResult<PHAsset> = PHFetchResult<PHAsset>()
         var count = 0
         for i in 0..<fetch.count {
             let item = fetch.object(at: i)
 //            print(item.modificationDate)
             if item.modificationDate! < UserDefaults.standard.value(forKey: "updateDate") as! Date {
+//                fetchedArray = Array(fetch)[0..<i]
                 break
             }
             
-            try! realm.write {
-                let pic = Picture(asset: item)
-                realm.add(pic)
-            }
+//            try! realm.write {
+//                let pic = Picture(asset: item)
+//                realm.add(pic)
+//            }
+            
+            
             count += 1
         }
+        
+//        initData(assets: PHFetchResult<PHAsset>(fetchedArray), completionHandler: <#T##(Bool) -> Void#>)
         
         // 삭제된 사진은 DB에서 지워야함.? -> 일단 보류
         
@@ -156,6 +164,13 @@ class DBManager {
         return fds
     }
     
+    static func getAssets(_ ids:[String]) -> PHFetchResult<PHAsset> {
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+        let fds:PHFetchResult<PHAsset> = PHAsset.fetchAssets(withLocalIdentifiers: ids, options: fetchOptions)
+        return fds
+    }
+    
     static func getAssetsForSearch(_ keyword: String) -> PHFetchResult<PHAsset> {
         let realm = try! Realm()
         let fetchOptions = PHFetchOptions()
@@ -176,35 +191,39 @@ class DBManager {
         }
     }
     
-    static func groupByDate() -> (groupDate:[Date], groups:[[Picture]]) {
+    static func groupByDate() -> (groupDate:[String], groupAssets:[PHFetchResult<PHAsset>]) {
         // 주 단위
         let realm = try! Realm()
         let items = realm.objects(Picture.self).sorted(byKeyPath: "createDate", ascending: false) //날짜 역순으로 가져온다
         
-        var groups:[[Picture]] = [] //월단위 이미지 그룹
-        var groupDate:[Date] = [] // 각 그룹의 기준 날짜
+//        var groups:[[String]] = [] //월단위 이미지 그룹
+        var groupAssets:[PHFetchResult<PHAsset>] = []
+        var groupDate:[String] = [] // 각 그룹의 기준 날짜
+        
         
         var startDate:Date = Date()
         
-        var temp:[Picture] = [] // 각 달의 이미지들을 임시로 저장
+        var temp:[String] = [] // 각 달의 이미지 id들을 임시로 저장
         for item in items {
 //            print(item.value(forKey: "createDate"))
             // 7일간의 데이터 저장
             let itemDate = item.createDate //현재 아이템의 시간
             if startDate.isInSameMonth(date: itemDate!) {
-                temp.append(item)
+                temp.append(item.value(forKey: "id") as! String)
             } else {
                 //다음 달로
-                groups.append(temp)
-                groupDate.append(startDate)
+//                groups.append(temp)
+                groupAssets.append(getAssets(temp))
+                groupDate.append(startDate.getMonthString())
                 
                 startDate = startDate.getPrevMonth()
 //                print("temp:\(temp)")
                 temp = []
             }
         }
-        return (groupDate, groups)
+        return (groupDate, groupAssets)
     }
+    
 }
 
 extension Date {
@@ -229,6 +248,12 @@ extension Date {
     
     func getPrevMonth() -> Date {
         return Calendar.current.date(byAdding: .month, value: -1, to: self)!
+    }
+    
+    func getMonthString() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM"
+        return formatter.string(from: self)
     }
 }
 
