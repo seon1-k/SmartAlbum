@@ -283,7 +283,7 @@
                                                                 <constraint firstAttribute="width" constant="40" id="EdT-O0-uek"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_green_checked" translatesAutoresizingMaskIntoConstraints="NO" id="hCn-sE-eka">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_black_checked" translatesAutoresizingMaskIntoConstraints="NO" id="hCn-sE-eka">
                                                             <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="20" id="7f6-fx-BKP"/>
@@ -447,7 +447,7 @@
         <scene sceneID="diZ-3S-nJe">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="8Kt-yH-LWM" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="분류 사진" image="first" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="분류 사진" image="icon_syncronize" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="sdX-ns-xvU">
                         <autoresizingMask key="autoresizingMask"/>
@@ -497,14 +497,14 @@
         </scene>
     </scenes>
     <resources>
-        <image name="first" width="30" height="30"/>
         <image name="icon_album" width="30" height="30"/>
+        <image name="icon_black_checked" width="30" height="30"/>
         <image name="icon_checked" width="128" height="128"/>
-        <image name="icon_green_checked" width="24" height="24"/>
         <image name="icon_play" width="256" height="256"/>
+        <image name="icon_syncronize" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="CIL-vA-odt"/>
+        <segue reference="uv3-77-rIr"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
 </document>

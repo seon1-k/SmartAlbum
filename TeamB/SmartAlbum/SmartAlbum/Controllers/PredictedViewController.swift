@@ -57,6 +57,8 @@ class PredictedViewController: UIViewController {
         initCollectionView()
         setupSearchController()
         self.getAnalysisAssets()
+        
+        print(monthNams)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -169,6 +171,7 @@ extension PredictedViewController: UICollectionViewDelegate, UICollectionViewDat
     // LastSpecialCell
     func setupLastSpecialCell(cell: LastSpecialCell, indexPath: IndexPath) {
         // compare with DB
+        self.getAnalysisAssets()
         var count = self.photoLibrary.count - self.analysisAssets.count
         count = count < 0 ? 0 : count
         cell.firstLabel.text = "분류되지 않은 사진들"
