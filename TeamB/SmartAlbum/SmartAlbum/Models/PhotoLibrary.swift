@@ -48,7 +48,7 @@ class PhotoLibrary {
     fileprivate var fetchOptions: PHFetchOptions
     fileprivate var fetchResult: PHFetchResult<PHAsset>
     let analysisController = AnalysisController()
-    let realm = try! Realm()
+//    let realm = try! Realm()
     let formatter = DateFormatter()
     let locationService = LocationServices()
     
@@ -66,7 +66,7 @@ class PhotoLibrary {
         
         setDB()
         
-        print(Realm.Configuration.defaultConfiguration.description)
+//        print(Realm.Configuration.defaultConfiguration.description)
     }
 
     var count: Int {
@@ -81,7 +81,7 @@ class PhotoLibrary {
     }
     
     func setDB() {
-        for index in 0..<20 {
+        for index in 0..<10 {
             imgManager.requestImage(for: fetchResult.object(at: index) as PHAsset, targetSize: UIScreen.main.bounds.size, contentMode: PHImageContentMode.aspectFill, options: requestOptions) { (image, _) in
                 let asset = self.fetchResult.object(at: index)
                 
@@ -117,16 +117,12 @@ class PhotoLibrary {
                 }
                 
                 if let ciImage = CIImage(image: uiImage) {
-                    let analysisAsset = AnalysisAsset(url: url,isVideo: isVideo, location: location, creationDate: creationDate, keyword: keyword, confidence: confidence)
-                    print(analysisAsset)
-                    
+
                     self.analysisController.getInfo(image: ciImage) { result in
                         keyword = result.0
                         confidence = result.1
-                    }
-                    try! self.realm.write {
-                        print("DB Set")
-                        self.realm.add(analysisAsset, update: true)
+                        
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "setData"), object: nil, userInfo: ["url": url, "isVideo": isVideo, "location": location, "creationDate": creationDate, "keyword": keyword, "confidence": confidence])
                     }
                 }
             }

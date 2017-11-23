@@ -10,6 +10,7 @@
 		3E71B6701CE01C7F7D171849 /* Pods_SmartAlbum.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 631A6A2542147627B1E5A5A6 /* Pods_SmartAlbum.framework */; };
 		4E0F47B61FC6BC8D000DF5FC /* AnalysisController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0F47B51FC6BC8D000DF5FC /* AnalysisController.swift */; };
 		4E0F47B91FC72578000DF5FC /* LocationServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0F47B81FC72578000DF5FC /* LocationServices.swift */; };
+		4E0F47BB1FC72E2E000DF5FC /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0F47BA1FC72E2E000DF5FC /* RealmManager.swift */; };
 		8408493E1FC423C0009C157E /* FullVideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8408493D1FC423C0009C157E /* FullVideoCell.swift */; };
 		84199E751FC17475007F8C86 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84199E741FC17475007F8C86 /* AppDelegate.swift */; };
 		84199E7C1FC17475007F8C86 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84199E7A1FC17475007F8C86 /* Main.storyboard */; };
@@ -18,7 +19,6 @@
 		84199EB91FC18758007F8C86 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84199EB81FC18758007F8C86 /* Info.plist */; };
 		845C72651FC6B929005FEB9D /* AnalysisAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845C72641FC6B929005FEB9D /* AnalysisAsset.swift */; };
 		845C72671FC6BE06005FEB9D /* PredictedAssetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845C72661FC6BE06005FEB9D /* PredictedAssetCell.swift */; };
-		845C72691FC6BF96005FEB9D /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845C72681FC6BF96005FEB9D /* RealmManager.swift */; };
 		8467BC301FC5C031006CABE8 /* PredictedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467BC2F1FC5C031006CABE8 /* PredictedViewController.swift */; };
 		8467BC361FC5C219006CABE8 /* PredictedAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8467BC351FC5C219006CABE8 /* PredictedAsset.swift */; };
 		846873241FC5561900DC35A8 /* MobileNet.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 846873231FC5561900DC35A8 /* MobileNet.mlmodel */; };
@@ -39,6 +39,7 @@
 		2D17B4F40F10F9F6D9058CA0 /* Pods-SmartAlbum.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartAlbum.release.xcconfig"; path = "Pods/Target Support Files/Pods-SmartAlbum/Pods-SmartAlbum.release.xcconfig"; sourceTree = "<group>"; };
 		4E0F47B51FC6BC8D000DF5FC /* AnalysisController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisController.swift; sourceTree = "<group>"; };
 		4E0F47B81FC72578000DF5FC /* LocationServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServices.swift; sourceTree = "<group>"; };
+		4E0F47BA1FC72E2E000DF5FC /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		631A6A2542147627B1E5A5A6 /* Pods_SmartAlbum.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SmartAlbum.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8408493D1FC423C0009C157E /* FullVideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullVideoCell.swift; sourceTree = "<group>"; };
 		84199E711FC17475007F8C86 /* SmartAlbum.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartAlbum.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -49,7 +50,6 @@
 		84199EB81FC18758007F8C86 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		845C72641FC6B929005FEB9D /* AnalysisAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisAsset.swift; sourceTree = "<group>"; };
 		845C72661FC6BE06005FEB9D /* PredictedAssetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredictedAssetCell.swift; sourceTree = "<group>"; };
-		845C72681FC6BF96005FEB9D /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		8467BC2F1FC5C031006CABE8 /* PredictedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredictedViewController.swift; sourceTree = "<group>"; };
 		8467BC351FC5C219006CABE8 /* PredictedAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredictedAsset.swift; sourceTree = "<group>"; };
 		846873231FC5561900DC35A8 /* MobileNet.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = MobileNet.mlmodel; sourceTree = "<group>"; };
@@ -81,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				4E0F47B81FC72578000DF5FC /* LocationServices.swift */,
+				4E0F47BA1FC72E2E000DF5FC /* RealmManager.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -114,10 +115,10 @@
 		84199E731FC17475007F8C86 /* SmartAlbum */ = {
 			isa = PBXGroup;
 			children = (
-				4E0F47B71FC72564000DF5FC /* Util */,
 				84199E741FC17475007F8C86 /* AppDelegate.swift */,
 				84C8E2EC1FC7225300B23D8E /* HelperFunction.swift */,
 				84C8E2EE1FC723F500B23D8E /* Extensions.swift */,
+				4E0F47B71FC72564000DF5FC /* Util */,
 				84199EBA1FC18903007F8C86 /* Models */,
 				84199EB11FC186EF007F8C86 /* Views */,
 				84199EB41FC1871A007F8C86 /* Controllers */,
@@ -185,7 +186,6 @@
 				848A01061FC2F2D800CB490D /* PhotoLibrary.swift */,
 				8467BC351FC5C219006CABE8 /* PredictedAsset.swift */,
 				845C72641FC6B929005FEB9D /* AnalysisAsset.swift */,
-				845C72681FC6BF96005FEB9D /* RealmManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -353,7 +353,6 @@
 				8477E4A71FC318BB00BA0CE0 /* AssetPreviewViewController.swift in Sources */,
 				84CC073D1FC28934003A8C2E /* AssetCell.swift in Sources */,
 				84C8E2ED1FC7225300B23D8E /* HelperFunction.swift in Sources */,
-				845C72691FC6BF96005FEB9D /* RealmManager.swift in Sources */,
 				8467BC301FC5C031006CABE8 /* PredictedViewController.swift in Sources */,
 				84199E751FC17475007F8C86 /* AppDelegate.swift in Sources */,
 				84C8E2EB1FC70C7000B23D8E /* LastSpecialCell.swift in Sources */,
@@ -365,6 +364,7 @@
 				84CC073F1FC28C3D003A8C2E /* AllAlbumsViewController.swift in Sources */,
 				84C8E2EF1FC723F500B23D8E /* Extensions.swift in Sources */,
 				84CC073B1FC18C03003A8C2E /* SecondViewController.swift in Sources */,
+				4E0F47BB1FC72E2E000DF5FC /* RealmManager.swift in Sources */,
 				4E0F47B91FC72578000DF5FC /* LocationServices.swift in Sources */,
 				8467BC361FC5C219006CABE8 /* PredictedAsset.swift in Sources */,
 			);
