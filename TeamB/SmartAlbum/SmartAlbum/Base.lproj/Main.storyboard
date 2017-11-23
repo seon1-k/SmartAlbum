@@ -225,6 +225,7 @@
                     </view>
                     <connections>
                         <outlet property="analyzedCollectionView" destination="a5C-Xj-K8t" id="JfF-ku-94b"/>
+                        <segue destination="MMV-92-wxw" kind="show" identifier="AssetPreviewVC" id="CIL-vA-odt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tmx-B0-YMq" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -416,7 +417,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u8e-I7-Tw2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2771" y="-541"/>
+            <point key="canvasLocation" x="4277" y="-123"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -448,6 +449,14 @@
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="sdX-ns-xvU">
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -492,5 +501,8 @@
         <image name="icon_play" width="256" height="256"/>
         <image name="second" width="30" height="30"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="uv3-77-rIr"/>
+    </inferredMetricsTieBreakers>
     <color key="tintColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
 </document>

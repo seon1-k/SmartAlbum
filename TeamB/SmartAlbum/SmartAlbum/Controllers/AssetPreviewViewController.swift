@@ -8,6 +8,7 @@
 
 import UIKit
 import AVKit
+import Photos
 
 class AssetPreviewViewController: UIViewController {
     
@@ -19,6 +20,7 @@ class AssetPreviewViewController: UIViewController {
     var passedIndexPath = IndexPath()
     var numberOfSections = 1
     var onceOnly = false
+    var selectedObjs: [AnalysisAsset] = [AnalysisAsset]()
     
     // MARK: - Initialize
     
@@ -49,14 +51,31 @@ class AssetPreviewViewController: UIViewController {
             self.assetsCollectionView.setContentOffset(newOffset, animated: false)
         }, completion: nil)
     }
-
+    
     // MARK: - UI Function
     
     func setUI() {
         self.automaticallyAdjustsScrollViewInsets = false
         self.assetsCollectionView.backgroundColor = UIColor.black
     }
-   
+    
+    // MARK: - Helper
+    
+    func getImage(assetUrl: String) -> UIImage? {
+        let asset = PHAsset.fetchAssets(withLocalIdentifiers: [assetUrl], options: nil)
+        guard let result = asset.firstObject else { return nil }
+        
+        var assetImage: UIImage?
+        let options = PHImageRequestOptions()
+        options.isSynchronous = true
+        let size: CGSize = UIScreen.main.bounds.size
+        PHImageManager.default().requestImage(for: result, targetSize: size, contentMode: PHImageContentMode.aspectFill, options: options) { (image, _) in
+            assetImage = image
+        }
+        
+        return assetImage
+    }
+    
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource {
@@ -78,20 +97,28 @@ extension AssetPreviewViewController: UICollectionViewDelegate, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if self.selectedObjs.count > 0 {
+            return self.selectedObjs.count
+        }
         return self.photoLibrary.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let asset = self.photoLibrary.getAsset(at: indexPath.row)
-        if asset?.mediaType == .video {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FullVideoCell", for: indexPath) as! FullVideoCell
-            asset?.getURL() { url in
-                cell.videoItemUrl = url
-            }
-            return cell
-        } else { // .image
+        if self.selectedObjs.count > 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FullAssetPreviewCell", for: indexPath) as! FullAssetPreviewCell
             return cell
+        } else {
+            let asset = self.photoLibrary.getAsset(at: indexPath.row)
+            if asset?.mediaType == .video {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FullVideoCell", for: indexPath) as! FullVideoCell
+                asset?.getURL() { url in
+                    cell.videoItemUrl = url
+                }
+                return cell
+            } else { // .image
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FullAssetPreviewCell", for: indexPath) as! FullAssetPreviewCell
+                return cell
+            }
         }
     }
     
@@ -103,15 +130,25 @@ extension AssetPreviewViewController: UICollectionViewDelegate, UICollectionView
             self.assetsCollectionView.scrollToItem(at: passedIndexPath, at: .left, animated: false)
             onceOnly = true
         }
-        // Show media data
-        if let asset = self.photoLibrary.getAsset(at: indexPath.row) {
+        
+        // Show analyzed data
+        if self.selectedObjs.count > 0 {
+            let image = getImage(assetUrl: self.selectedObjs[indexPath.row].url)
             DispatchQueue.main.async {
-                if asset.mediaType == .video {
-                    let cell = cell as! FullVideoCell
-                    cell.avPlayer?.play()
-                } else { // .image
-                    let cell = cell as! FullAssetPreviewCell
-                    cell.fullAssetImg.image = self.photoLibrary.getPhoto(at: indexPath.row)
+                let cell = cell as! FullAssetPreviewCell
+                cell.fullAssetImg.image = image
+            }
+        } else {
+            // Show media data
+            if let asset = self.photoLibrary.getAsset(at: indexPath.row) {
+                DispatchQueue.main.async {
+                    if asset.mediaType == .video {
+                        let cell = cell as! FullVideoCell
+                        cell.avPlayer?.play()
+                    } else { // .image
+                        let cell = cell as! FullAssetPreviewCell
+                        cell.fullAssetImg.image = self.photoLibrary.getPhoto(at: indexPath.row)
+                    }
                 }
             }
         }
@@ -140,17 +177,25 @@ extension AssetPreviewViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0.0
     }
-   
+    
 }
 
 extension AssetPreviewViewController {
     // to pause video when dragging
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         let indexPath = self.assetsCollectionView.indexPathsForVisibleItems.first
-        if let asset = self.photoLibrary.getAsset(at: (indexPath?.row)!),
-            asset.mediaType == .video {
-            let cell = self.assetsCollectionView.cellForItem(at: indexPath!) as! FullVideoCell
-            cell.avPlayer?.pause()
+        
+        if self.selectedObjs.count > 0 {
+            if self.selectedObjs[(indexPath?.row)!].isVideo {
+                let cell = self.assetsCollectionView.cellForItem(at: indexPath!) as! FullVideoCell
+                cell.avPlayer?.pause()
+            }
+        } else {
+            if let asset = self.photoLibrary.getAsset(at: (indexPath?.row)!),
+                asset.mediaType == .video {
+                let cell = self.assetsCollectionView.cellForItem(at: indexPath!) as! FullVideoCell
+                cell.avPlayer?.pause()
+            }
         }
     }
 }

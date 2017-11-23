@@ -64,20 +64,6 @@ class PredictedViewController: UIViewController {
         }
     }
     
-    func getImage(assetUrl: String) -> UIImage? {
-        let asset = PHAsset.fetchAssets(withLocalIdentifiers: [assetUrl], options: nil)
-        guard let result = asset.firstObject else { return nil }
-        
-        var assetImage: UIImage?
-        let options = PHImageRequestOptions()
-        options.isSynchronous = true
-        let size = CGSize(width: 200, height: 200)
-        PHImageManager.default().requestImage(for: result, targetSize: size, contentMode: PHImageContentMode.aspectFill, options: options) { (image, _) in
-            assetImage = image
-        }
-        
-        return assetImage
-    }
     
     // MARK: - Outlet Function
     

@@ -28,6 +28,20 @@ class AnalyzedViewController: UIViewController {
         }
     }
     
+    // MARK: - Navigation control
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "AssetPreviewVC" {
+            guard let assetPreviewVC = segue.destination as? AssetPreviewViewController else { return }
+            guard let selectedIndexPath = sender as? IndexPath else { return }
+            
+            assetPreviewVC.numberOfSections = self.numberOfSections
+            assetPreviewVC.passedIndexPath = selectedIndexPath
+            assetPreviewVC.selectedObjs = self.selectedObjs
+            
+        }
+    }
+    
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource {
@@ -53,9 +67,8 @@ extension AnalyzedViewController: UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("!232131")
         // show full image
-        //    self.performSegue(withIdentifier: "AssetPreviewVC", sender: indexPath)
+        self.performSegue(withIdentifier: "AssetPreviewVC", sender: indexPath)
     }
 }
 
