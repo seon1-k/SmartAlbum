@@ -21,37 +21,15 @@ import Photos
 import MapKit
 
 class DBManager {
-    static func initData(completionHandler: @escaping (Bool) -> Void) {
-        // PHAsset 을 DB에 저장
-        
-        let fetchOptions = PHFetchOptions()
-        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-        let assets:PHFetchResult<PHAsset> = PHAsset.fetchAssets(with: fetchOptions)
-        
+    
+    static func initData(assets: PHFetchResult<PHAsset>, completionHandler: @escaping (Bool) -> Void) {
         let realm = try! Realm()
         
-        try! realm.write {
-            realm.deleteAll()
-        }
-        
         var items:[Picture] = []
-//        assets.count
+        //        assets.count
         for i in 0..<300 {
             let asset = assets.object(at: i)
             let pic = Picture(asset: asset)
-            
-//            if let loc = asset.location {
-//                LocationServices.getCity(location: loc) { (city, error) in
-//                    if error == nil {
-//                        let location = Location()
-//                        location.latitude = loc.coordinate.latitude
-//                        location.longtitude = loc.coordinate.longitude
-//                        location.city = city!
-//                        pic.location = location
-//                    }
-//                }
-//            }
-            
             MLHelper.setKeyword(asset.localIdentifier) { (key, error) in
                 if error == nil {
                     //                    print("keyword \(i)")
@@ -67,29 +45,26 @@ class DBManager {
         }
         
         try! realm.write {
-//            realm.deleteAll()
+            realm.deleteAll()
             realm.add(items)
             print("add complete")
-//
+            //
             UserDefaults.standard.set(Date(), forKey: "updateDate")
             completionHandler(true)
         }
+    }
+    
+    static func initData(completionHandler: @escaping (Bool) -> Void) {
+        // PHAsset 을 DB에 저장
         
-        // city 값 업데이트
-//        let items2 = realm.objects(Picture.self).filter("location != nil")
-//        print("count:\(items2.count)")
-//
-//        for item in items2 {
-//            let loc = CLLocation(latitude: (item.location?.latitude)!, longitude: (item.location?.longtitude)!)
-//            LocationServices.getCity(location: loc){ (city, error) in
-//                print("city:\(city!)")
-//                try! realm.write {
-//                 item.location?.city = city!
-//                }
-//            }
-//        }
-//        print("add location complete")
-//        completionHandler(true)
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        let assets:PHFetchResult<PHAsset> = PHAsset.fetchAssets(with: fetchOptions)
+        
+        initData(assets: assets) { _ in
+            completionHandler(true)
+        }
+       
     }
     
 //    static func addLocation(completionHandler: @escaping (Bool) -> Void){

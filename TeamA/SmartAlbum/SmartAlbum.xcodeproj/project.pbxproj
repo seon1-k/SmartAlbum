@@ -470,7 +470,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = SB46A3BWSY;
+				DEVELOPMENT_TEAM = MB55TJY5E4;
 				INFOPLIST_FILE = SmartAlbum/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = s1s1s1.tistory.com.SmartAlbum;
@@ -486,7 +486,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = SB46A3BWSY;
+				DEVELOPMENT_TEAM = MB55TJY5E4;
 				INFOPLIST_FILE = SmartAlbum/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = s1s1s1.tistory.com.SmartAlbum;
