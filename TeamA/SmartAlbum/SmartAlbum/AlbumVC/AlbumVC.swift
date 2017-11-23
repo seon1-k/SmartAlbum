@@ -109,9 +109,6 @@ extension AlbumVC:UICollectionViewDelegate,UICollectionViewDataSource,UICollecti
         
         cell.representedAssetIdentifier = asset.localIdentifier
         print(asset.localIdentifier)
-        MLHelper.setKeyword(asset.localIdentifier) { keyword in
-            print("keyword:\(keyword)")
-        }
         imageManager.requestImage(for: asset, targetSize: CGSize(width: 100, height: 100), contentMode: .aspectFill, options: nil, resultHandler: { image, _ in
             
             cell.pictureImgView.image = image
