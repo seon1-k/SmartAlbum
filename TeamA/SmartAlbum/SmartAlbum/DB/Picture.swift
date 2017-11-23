@@ -30,11 +30,27 @@ class Picture:Object {
         self.id = asset.localIdentifier
         self.createDate = asset.creationDate
         self.modifyDate = asset.modificationDate
-        if let lati = asset.location?.coordinate.latitude, let longti = asset.location?.coordinate.longitude {
-            self.location = Location()
-            self.location?.latitude = lati
-            self.location?.longtitude = longti
+        if let loc = asset.location {
+            self.location = Location(loc)
         }
+        
+//        if let lati = asset.location?.coordinate.latitude, let longti = asset.location?.coordinate.longitude {
+//            let loc = Location()
+//            loc.latitude = lati
+//            loc.longtitude = longti
+//            self.location = loc
+//
+////            let realm = try! Realm()
+////            LocationServices.getCity(location: asset.location!) { (city, error) in
+////                if error == nil {
+////                    try! realm.write {
+////                        print("city:\(city!)")
+////                        loc.city = city!
+////                        self.location = loc
+////                    }
+////                }
+////            }
+//        }
     }
 }
 
@@ -42,4 +58,10 @@ class Location:Object {
     @objc dynamic var latitude:Double = 0.0
     @objc dynamic var longtitude:Double = 0.0
     @objc dynamic var city:String = "" // 도시
+    
+    convenience init(_ loc: CLLocation) {
+        self.init()
+        self.latitude = loc.coordinate.latitude
+        self.longtitude = loc.coordinate.longitude
+    }
 }

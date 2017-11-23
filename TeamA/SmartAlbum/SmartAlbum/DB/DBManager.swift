@@ -30,35 +30,85 @@ class DBManager {
         
         let realm = try! Realm()
         
+        try! realm.write {
+            realm.deleteAll()
+        }
+        
         var items:[Picture] = []
 //        assets.count
-        for i in 0..<100 {
+        for i in 0..<300 {
             let asset = assets.object(at: i)
             let pic = Picture(asset: asset)
             
+//            if let loc = asset.location {
+//                LocationServices.getCity(location: loc) { (city, error) in
+//                    if error == nil {
+//                        let location = Location()
+//                        location.latitude = loc.coordinate.latitude
+//                        location.longtitude = loc.coordinate.longitude
+//                        location.city = city!
+//                        pic.location = location
+//                    }
+//                }
+//            }
+            
             MLHelper.setKeyword(asset.localIdentifier) { (key, error) in
-//                print("key:\(key!)")
                 if error == nil {
-//                    print("keyword \(i)")
+                    //                    print("keyword \(i)")
                     pic.flag = 1
                     pic.keyword = key!
                 } else {
-//                    print("error in coreML")
+                    //                    print("error in coreML")
                 }
-//                print("append \(i)")
+                
+                
                 items.append(pic)
             }
         }
         
         try! realm.write {
-            realm.deleteAll()
+//            realm.deleteAll()
             realm.add(items)
             print("add complete")
-            
+//
             UserDefaults.standard.set(Date(), forKey: "updateDate")
             completionHandler(true)
         }
+        
+        // city 값 업데이트
+//        let items2 = realm.objects(Picture.self).filter("location != nil")
+//        print("count:\(items2.count)")
+//
+//        for item in items2 {
+//            let loc = CLLocation(latitude: (item.location?.latitude)!, longitude: (item.location?.longtitude)!)
+//            LocationServices.getCity(location: loc){ (city, error) in
+//                print("city:\(city!)")
+//                try! realm.write {
+//                 item.location?.city = city!
+//                }
+//            }
+//        }
+//        print("add location complete")
+//        completionHandler(true)
     }
+    
+//    static func addLocation(completionHandler: @escaping (Bool) -> Void){
+//        let realm = try! Realm()
+//        let items = realm.objects(Picture.self).filter("location != nil")
+//        print("count:\(items.count)")
+//
+//        try! realm.write {
+//            for item in items {
+//                let loc = CLLocation(latitude: (item.location?.latitude)!, longitude: (item.location?.longtitude)!)
+//                LocationServices.getCity(location: loc){ (city, error) in
+//                    print("city:\(city!)")
+//                    item.location?.city = city!
+//                }
+//            }
+//        }
+//        print("add location complete")
+//        completionHandler(true)
+//    }
     
     static func updateData() {
         // 사진의 modificationDate 값을 기준으로, 가장 최근에 keyword를 입힌 시점보다 최근에 수정된 이미지 파일은 keyword 업데이트

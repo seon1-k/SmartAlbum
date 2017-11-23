@@ -20,6 +20,7 @@ class LocationServices {
             
             if error == nil {
                 if let placeMark = placemarks?.first {
+//                    print(placeMark)
                     if let city = placeMark.locality {
                         completion(city, nil)
                     }
