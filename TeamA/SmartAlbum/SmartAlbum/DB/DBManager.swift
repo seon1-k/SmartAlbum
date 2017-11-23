@@ -22,13 +22,13 @@ import MapKit
 
 class DBManager {
     
-    static func initData(assets: PHFetchResult<PHAsset>, completionHandler: @escaping (Bool) -> Void) {
+    static func initData(assets: [PHAsset], completionHandler: @escaping (Bool) -> Void) {
         let realm = try! Realm()
         
         var items:[Picture] = []
         //        assets.count
         for i in 0..<300 {
-            let asset = assets.object(at: i)
+            let asset = assets[i]
             let pic = Picture(asset: asset)
             MLHelper.setKeyword(asset.localIdentifier) { (key, error) in
                 if error == nil {
@@ -50,6 +50,13 @@ class DBManager {
             print("add complete")
             //
             UserDefaults.standard.set(Date(), forKey: "updateDate")
+            completionHandler(true)
+        }
+    }
+    
+    static func initData(assets: PHFetchResult<PHAsset>, completionHandler: @escaping (Bool) -> Void) {
+        let assets2 = assets.objects(at: IndexSet(0..<assets.count))
+        initData(assets: assets2) { _ in
             completionHandler(true)
         }
     }
@@ -88,20 +95,20 @@ class DBManager {
     static func updateData(completionHandler: @escaping (Bool) -> Void) {
         // 사진의 modificationDate 값을 기준으로, 가장 최근에 keyword를 입힌 시점보다 최근에 수정된 이미지 파일은 keyword 업데이트
         // 첫 실행이 아닐 경우 무조건 updateData
-        let realm = try! Realm()
+//        let realm = try! Realm()
         let fetchOptions = PHFetchOptions()
         fetchOptions.sortDescriptors = [NSSortDescriptor(key: "modificationDate", ascending: false)]
         let fetch:PHFetchResult<PHAsset> = PHAsset.fetchAssets(with: fetchOptions)
         
-//        print("updateDate:\(UserDefaults.standard.value(forKey: "updateDate"))")
+        print("updateDate:\(UserDefaults.standard.value(forKey: "updateDate"))")
         
-        var fetchedArray:PHFetchResult<PHAsset> = PHFetchResult<PHAsset>()
-        var count = 0
+        var fetchedArray:[PHAsset] = []
         for i in 0..<fetch.count {
             let item = fetch.object(at: i)
-//            print(item.modificationDate)
+            print(item.modificationDate)
             if item.modificationDate! < UserDefaults.standard.value(forKey: "updateDate") as! Date {
 //                fetchedArray = Array(fetch)[0..<i]
+                fetchedArray = fetch.objects(at: IndexSet(0..<i))
                 break
             }
             
@@ -109,41 +116,42 @@ class DBManager {
 //                let pic = Picture(asset: item)
 //                realm.add(pic)
 //            }
-            
-            
-            count += 1
         }
         
+        initData(assets: fetchedArray) { _ in
+            print("\(fetchedArray.count) of items updated.")
+            UserDefaults.standard.set(Date(), forKey: "updateDate")
+            completionHandler(true)
+        }
 //        initData(assets: PHFetchResult<PHAsset>(fetchedArray), completionHandler: <#T##(Bool) -> Void#>)
         
         // 삭제된 사진은 DB에서 지워야함.? -> 일단 보류
         
-        print("new item:\(count)")
-        UserDefaults.standard.set(Date(), forKey: "updateDate")
-    }
-    
-    static func getKeywords() -> [String] {
-        //키워드 값들 목록 반환
-        let realm = try! Realm()
-        let keywords:[String] = Array(Set(realm.objects(Picture.self).value(forKey: "keyword") as! [String]))
-        return keywords
-    }
-    
-    static func getLastAsset(_ keyword: String?) -> PHFetchResult<PHAsset> {
-        let realm = try! Realm()
-        let fetchOptions = PHFetchOptions()
-        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
         
-        var identifier:String = ""
-        if keyword == nil || keyword == "" {
-            // 분류 안된 것만 리턴
-            identifier = Array(realm.objects(Picture.self).filter("flag == 0")).last?.value(forKey: "id") as! String
-        } else {
-            identifier = Array(realm.objects(Picture.self).filter("keyword == %@", keyword!)).last?.value(forKey: "id") as! String
-        }
-        let fds:PHFetchResult<PHAsset> = PHAsset.fetchAssets(withLocalIdentifiers: [identifier], options: fetchOptions)
-        return fds
     }
+    
+//    static func getKeywords() -> [String] {
+//        //키워드 값들 목록 반환
+//        let realm = try! Realm()
+//        let keywords:[String] = Array(Set(realm.objects(Picture.self).value(forKey: "keyword") as! [String]))
+//        return keywords
+//    }
+    
+//    static func getLastAsset(_ keyword: String?) -> PHFetchResult<PHAsset> {
+//        let realm = try! Realm()
+//        let fetchOptions = PHFetchOptions()
+//        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+//
+//        var identifier:String = ""
+//        if keyword == nil || keyword == "" {
+//            // 분류 안된 것만 리턴
+//            identifier = Array(realm.objects(Picture.self).filter("flag == 0")).last?.value(forKey: "id") as! String
+//        } else {
+//            identifier = Array(realm.objects(Picture.self).filter("keyword == %@", keyword!)).last?.value(forKey: "id") as! String
+//        }
+//        let fds:PHFetchResult<PHAsset> = PHAsset.fetchAssets(withLocalIdentifiers: [identifier], options: fetchOptions)
+//        return fds
+//    }
     
     static func getAssets(_ keyword: String?) -> PHFetchResult<PHAsset> {
         //키워드에 해당하는 PHAsset 불러옴
@@ -181,7 +189,7 @@ class DBManager {
         return fds
     }
     
-    static func groupByCity() {
+    static func groupByCity() -> (groupKey:[String], groupAssets:[PHFetchResult<PHAsset>])  {
         // 시 단위 그루핑
         let realm = try! Realm()
         let locations = Array(realm.objects(Location.self))
@@ -189,16 +197,42 @@ class DBManager {
         for loc in locations {
             print("city:\(loc)")
         }
+        
+        return ([], [])
     }
     
-    static func groupByDate() -> (groupDate:[String], groupAssets:[PHFetchResult<PHAsset>]) {
+    static func groupByKeyWord() -> (groupKey:[String], groupAssets:[PHFetchResult<PHAsset>]) {
+        let realm = try! Realm()
+        let groupKey:[String] = Array(Set(realm.objects(Picture.self).value(forKey: "keyword") as! [String]))
+        
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+        
+        var groupAssets:[PHFetchResult<PHAsset>] = []
+        for keyword in groupKey {
+            var identifiers:[String] = []
+            if keyword == "" {
+                // 분류 안된 것만 리턴
+                identifiers = Array(realm.objects(Picture.self).filter("flag == 0").value(forKey: "id") as! [String])
+            } else {
+                identifiers = Array(realm.objects(Picture.self).filter("keyword == %@", keyword).value(forKey: "id") as! [String])
+            }
+            let fds:PHFetchResult<PHAsset> = PHAsset.fetchAssets(withLocalIdentifiers: identifiers, options: fetchOptions)
+            groupAssets.append(fds)
+        }
+        
+        return (groupKey, groupAssets)
+        
+    }
+    
+    static func groupByDate() -> (groupKey:[String], groupAssets:[PHFetchResult<PHAsset>]) {
         // 주 단위
         let realm = try! Realm()
         let items = realm.objects(Picture.self).sorted(byKeyPath: "createDate", ascending: false) //날짜 역순으로 가져온다
         
 //        var groups:[[String]] = [] //월단위 이미지 그룹
         var groupAssets:[PHFetchResult<PHAsset>] = []
-        var groupDate:[String] = [] // 각 그룹의 기준 날짜
+        var groupKey:[String] = [] // 각 그룹의 기준 날짜
         
         
         var startDate:Date = Date()
@@ -216,7 +250,7 @@ class DBManager {
                 
                 if temp.count != 0 {
                     groupAssets.append(getAssets(temp))
-                    groupDate.append(startDate.getMonthString())
+                    groupKey.append(startDate.getMonthString())
                 }
                 
                 startDate = startDate.getPrevMonth()
@@ -224,7 +258,7 @@ class DBManager {
                 temp = []
             }
         }
-        return (groupDate, groupAssets)
+        return (groupKey, groupAssets)
     }
     
 }
