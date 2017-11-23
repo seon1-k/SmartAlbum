@@ -13,6 +13,11 @@
 		74366F0C1FC6B88900CE6300 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74366F0A1FC6B88900CE6300 /* Main.storyboard */; };
 		74366F0E1FC6B88900CE6300 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74366F0D1FC6B88900CE6300 /* Assets.xcassets */; };
 		74366F111FC6B88900CE6300 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74366F0F1FC6B88900CE6300 /* LaunchScreen.storyboard */; };
+		74366F1A1FC6BD2700CE6300 /* AlbumDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74366F191FC6BD2700CE6300 /* AlbumDataModel.swift */; };
+		74366F1C1FC6BD2D00CE6300 /* AlbumListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74366F1B1FC6BD2D00CE6300 /* AlbumListCell.swift */; };
+		74366F1E1FC6BD3700CE6300 /* AlbumListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74366F1D1FC6BD3700CE6300 /* AlbumListVC.swift */; };
+		74366F211FC6BD6900CE6300 /* PictureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74366F201FC6BD6900CE6300 /* PictureCell.swift */; };
+		74366F231FC6BDB100CE6300 /* AlbumVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74366F221FC6BDB100CE6300 /* AlbumVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +29,11 @@
 		74366F0D1FC6B88900CE6300 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		74366F101FC6B88900CE6300 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		74366F121FC6B88900CE6300 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		74366F191FC6BD2700CE6300 /* AlbumDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDataModel.swift; sourceTree = "<group>"; };
+		74366F1B1FC6BD2D00CE6300 /* AlbumListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumListCell.swift; sourceTree = "<group>"; };
+		74366F1D1FC6BD3700CE6300 /* AlbumListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumListVC.swift; sourceTree = "<group>"; };
+		74366F201FC6BD6900CE6300 /* PictureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureCell.swift; sourceTree = "<group>"; };
+		74366F221FC6BDB100CE6300 /* AlbumVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumVC.swift; sourceTree = "<group>"; };
 		F066B75137EAE8C052DF8F30 /* Pods_SmartAlbum.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SmartAlbum.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8A9DCD180C3BB914CC637F1 /* Pods-SmartAlbum.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartAlbum.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SmartAlbum/Pods-SmartAlbum.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -61,6 +71,8 @@
 		74366F051FC6B88900CE6300 /* SmartAlbum */ = {
 			isa = PBXGroup;
 			children = (
+				74366F1F1FC6BD5500CE6300 /* AlbumVC */,
+				74366F181FC6BD1200CE6300 /* AlbumList */,
 				74366F061FC6B88900CE6300 /* AppDelegate.swift */,
 				74366F081FC6B88900CE6300 /* ViewController.swift */,
 				74366F0A1FC6B88900CE6300 /* Main.storyboard */,
@@ -69,6 +81,25 @@
 				74366F121FC6B88900CE6300 /* Info.plist */,
 			);
 			path = SmartAlbum;
+			sourceTree = "<group>";
+		};
+		74366F181FC6BD1200CE6300 /* AlbumList */ = {
+			isa = PBXGroup;
+			children = (
+				74366F191FC6BD2700CE6300 /* AlbumDataModel.swift */,
+				74366F1B1FC6BD2D00CE6300 /* AlbumListCell.swift */,
+				74366F1D1FC6BD3700CE6300 /* AlbumListVC.swift */,
+			);
+			path = AlbumList;
+			sourceTree = "<group>";
+		};
+		74366F1F1FC6BD5500CE6300 /* AlbumVC */ = {
+			isa = PBXGroup;
+			children = (
+				74366F201FC6BD6900CE6300 /* PictureCell.swift */,
+				74366F221FC6BDB100CE6300 /* AlbumVC.swift */,
+			);
+			path = AlbumVC;
 			sourceTree = "<group>";
 		};
 		CD8BE36C72FC3F6995325E21 /* Pods */ = {
@@ -166,9 +197,14 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-SmartAlbum/Pods-SmartAlbum-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -230,7 +266,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				74366F091FC6B88900CE6300 /* ViewController.swift in Sources */,
+				74366F1E1FC6BD3700CE6300 /* AlbumListVC.swift in Sources */,
+				74366F211FC6BD6900CE6300 /* PictureCell.swift in Sources */,
 				74366F071FC6B88900CE6300 /* AppDelegate.swift in Sources */,
+				74366F1A1FC6BD2700CE6300 /* AlbumDataModel.swift in Sources */,
+				74366F1C1FC6BD2D00CE6300 /* AlbumListCell.swift in Sources */,
+				74366F231FC6BDB100CE6300 /* AlbumVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

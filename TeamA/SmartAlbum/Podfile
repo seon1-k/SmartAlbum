@@ -6,5 +6,6 @@ target 'SmartAlbum' do
   use_frameworks!
 
   # Pods for SmartAlbum
+  pod 'RealmSwift'
 
 end
