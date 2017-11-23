@@ -36,7 +36,7 @@ class PredictedViewController: UIViewController {
         }
     }
     var collectionNames: [String] {
-        return Set(realmObjects.value(forKeyPath: sortBy) as! [String]).sorted()
+        return Set(realmObjects.value(forKeyPath: sortBy) as! [String]).sorted { $0 > $1 }
     }
     
     // MARK: - Initialze
@@ -146,10 +146,11 @@ extension PredictedViewController: UICollectionViewDelegate, UICollectionViewDat
     
     // PredictedCell
     func setupPredictedCell(cell: PredictedAssetCell, indexPath: IndexPath) {
+        let data = self.realmObjects.filter("\(self.sortBy) == %@", self.collectionNames[indexPath.row])
         DispatchQueue.main.async {
             cell.firstLabel.text = self.collectionNames[indexPath.row]
-            cell.thirdLabel.text = String(self.realmObjects.filter("\(self.sortBy) == %@", self.collectionNames[indexPath.row]).count)
-            if let url = self.realmObjects.filter("\(self.sortBy) == %@", self.collectionNames[indexPath.row]).first?.url {
+            cell.thirdLabel.text = String(data.count)
+            if let url = data.first?.url {
                 cell.thumbnailImgView.imageFromAssetURL(assetURL: url)
             }
         }
@@ -183,7 +184,6 @@ extension PredictedViewController: UICollectionViewDelegateFlowLayout {
                         willDisplay cell: UICollectionViewCell,
                         forItemAt indexPath: IndexPath) {
         
-        // cell.firstLabel.text = "asdasdsd"
     }
     
     func collectionView(_ collectionView: UICollectionView,
