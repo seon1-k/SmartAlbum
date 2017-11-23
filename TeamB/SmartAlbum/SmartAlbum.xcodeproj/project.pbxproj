@@ -29,6 +29,7 @@
 		84C8E2ED1FC7225300B23D8E /* HelperFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C8E2EC1FC7225300B23D8E /* HelperFunction.swift */; };
 		84C8E2EF1FC723F500B23D8E /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C8E2EE1FC723F500B23D8E /* Extensions.swift */; };
 		84C8E2F11FC733C500B23D8E /* AnalyzedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C8E2F01FC733C500B23D8E /* AnalyzedViewController.swift */; };
+		84C8E2F31FC7582700B23D8E /* AnalyzedThumbnailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C8E2F21FC7582700B23D8E /* AnalyzedThumbnailCell.swift */; };
 		84CC073D1FC28934003A8C2E /* AssetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CC073C1FC28934003A8C2E /* AssetCell.swift */; };
 		84CC073F1FC28C3D003A8C2E /* AllAlbumsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CC073E1FC28C3D003A8C2E /* AllAlbumsViewController.swift */; };
 /* End PBXBuildFile section */
@@ -59,6 +60,7 @@
 		84C8E2EC1FC7225300B23D8E /* HelperFunction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperFunction.swift; sourceTree = "<group>"; };
 		84C8E2EE1FC723F500B23D8E /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		84C8E2F01FC733C500B23D8E /* AnalyzedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyzedViewController.swift; sourceTree = "<group>"; };
+		84C8E2F21FC7582700B23D8E /* AnalyzedThumbnailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyzedThumbnailCell.swift; sourceTree = "<group>"; };
 		84CC073C1FC28934003A8C2E /* AssetCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetCell.swift; sourceTree = "<group>"; };
 		84CC073E1FC28C3D003A8C2E /* AllAlbumsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllAlbumsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -153,6 +155,7 @@
 				8408493D1FC423C0009C157E /* FullVideoCell.swift */,
 				845C72661FC6BE06005FEB9D /* PredictedAssetCell.swift */,
 				84C8E2EA1FC70C7000B23D8E /* LastSpecialCell.swift */,
+				84C8E2F21FC7582700B23D8E /* AnalyzedThumbnailCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -346,6 +349,7 @@
 			files = (
 				8408493E1FC423C0009C157E /* FullVideoCell.swift in Sources */,
 				845C72651FC6B929005FEB9D /* AnalysisAsset.swift in Sources */,
+				84C8E2F31FC7582700B23D8E /* AnalyzedThumbnailCell.swift in Sources */,
 				845C72671FC6BE06005FEB9D /* PredictedAssetCell.swift in Sources */,
 				8477E4A71FC318BB00BA0CE0 /* AssetPreviewViewController.swift in Sources */,
 				84CC073D1FC28934003A8C2E /* AssetCell.swift in Sources */,

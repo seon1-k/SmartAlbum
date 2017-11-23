@@ -100,9 +100,16 @@ class PredictedViewController: UIViewController {
         if segue.identifier == "AnalyzedVC" {
             guard let analyzedVC = segue.destination as? AnalyzedViewController else { return }
             guard let selectedIndexPath = sender as? IndexPath else { return }
-            print(self.realmObjects.filter("\(self.sortBy) == %@", self.collectionNames[selectedIndexPath.row]))
             
-            analyzedVC.selectedObjs = self.realmObjects.filter("\(self.sortBy) == %@", self.collectionNames[selectedIndexPath.row])
+            let collectionName = self.collectionNames[selectedIndexPath.row]
+            let datas = self.realmObjects.filter("\(self.sortBy) == %@", collectionName).toArray(ofType: AnalysisAsset.self) as [AnalysisAsset]
+            var selectedObjs: [AnalysisAsset] = [AnalysisAsset]()
+            for data in datas {
+                let tmp = AnalysisAsset(url: data.url, isVideo: data.isVideo, location: data.location, creationDate: data.creationDate, keyword: data.keyword, confidence: data.confidence)
+                selectedObjs.append(tmp)
+            }
+            analyzedVC.selectedObjs = selectedObjs
+            analyzedVC.titleTxt = collectionName
         }
     }
 }

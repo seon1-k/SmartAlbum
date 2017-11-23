@@ -173,14 +173,14 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="a5C-Xj-K8t">
                                 <rect key="frame" x="0.0" y="64" width="414" height="623"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="AMS-jj-euf">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="AMS-jj-euf">
                                     <size key="itemSize" width="194" height="204"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="YR0-dw-IWZ">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AnalyzedThumbnailCell" id="YR0-dw-IWZ" customClass="AnalyzedThumbnailCell" customModule="SmartAlbum" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="194" height="204"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -207,6 +207,10 @@
                                             <constraint firstItem="rQZ-Oo-7Vy" firstAttribute="centerX" secondItem="YR0-dw-IWZ" secondAttribute="centerX" id="jTT-V5-Cqy"/>
                                             <constraint firstItem="EA7-1F-9BQ" firstAttribute="leading" secondItem="YR0-dw-IWZ" secondAttribute="leading" id="yKk-Nw-MKS"/>
                                         </constraints>
+                                        <connections>
+                                            <outlet property="analyzedThumbnailImg" destination="EA7-1F-9BQ" id="IDN-5m-wdy"/>
+                                            <outlet property="playImg" destination="rQZ-Oo-7Vy" id="FAc-Ya-ge7"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
@@ -219,6 +223,9 @@
                             <constraint firstAttribute="trailing" secondItem="a5C-Xj-K8t" secondAttribute="trailing" id="pU4-Fe-RB5"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="analyzedCollectionView" destination="a5C-Xj-K8t" id="JfF-ku-94b"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tmx-B0-YMq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
