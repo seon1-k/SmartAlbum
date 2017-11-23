@@ -36,8 +36,8 @@ class DBManager {
 //            pic.locY = Double((location?.coordinate.longitude)!)
             
             let loc = Location()
-            loc.latitude = Double(asset.location?.coordinate.latitude)
-            loc.latitude = Double(asset.location?.coordinate.latitude)
+            loc.latitude = Double((asset.location?.coordinate.latitude)!)
+            loc.latitude = Double((asset.location?.coordinate.latitude)!)
             
             
             
@@ -50,6 +50,26 @@ class DBManager {
             realm.deleteAll()
             realm.add(items)
         }
+    }
+    
+    static func getKeywords() -> [String] {
+        //키워드 값들 목록 반환
+        let realm = try! Realm()
+        let keywords:[String] = Array(Set(realm.objects(Picture.self).value(forKey: "keyword") as! [String]))
+        return keywords
+    }
+    
+    static func getAssets(_ keyword: String) -> PHFetchResult<PHAsset> {
+        //키워드에 해당하는 PHAsset 불러옴
+        
+        let realm = try! Realm()
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+        
+        let identifiers:[String] = Array(realm.objects(Picture.self).value(forKey: "id") as! [String])
+
+        let fds:PHFetchResult<PHAsset> = PHAsset.fetchAssets(withLocalIdentifiers: identifiers, options: fetchOptions)
+        return fds
     }
     
     static func groupByDate() {
