@@ -13,7 +13,12 @@ import RealmSwift
 class TestVC: UIViewController {
     
     override func viewDidLoad() {
-        print(Realm.Configuration.defaultConfiguration.fileURL!)
+//        print(Realm.Configuration.defaultConfiguration.fileURL!)
+//        
+//        let result = DBManager.groupByDate()
+//        print(result.groupDate[0])
+//        print(result.groups[0])
+        
         
 //        UserDefaults.standard.set(Date(), forKey: "updateDate")
         

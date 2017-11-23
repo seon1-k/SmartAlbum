@@ -149,8 +149,6 @@ class DBManager {
     static func getAssets(_ keyword: String?) -> PHFetchResult<PHAsset> {
         //키워드에 해당하는 PHAsset 불러옴
         
-        
-        
         let realm = try! Realm()
         let fetchOptions = PHFetchOptions()
         fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
@@ -167,6 +165,16 @@ class DBManager {
         return fds
     }
     
+    static func getAssetsForSearch(_ keyword: String) -> PHFetchResult<PHAsset> {
+        let realm = try! Realm()
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+        
+        let identifiers:[String] = Array(realm.objects(Picture.self).filter("keyword CONTAIN %@", keyword).value(forKey: "id") as! [String])
+        let fds:PHFetchResult<PHAsset> = PHAsset.fetchAssets(withLocalIdentifiers: identifiers, options: fetchOptions)
+        return fds
+    }
+    
     static func groupByCity() {
         // 시 단위 그루핑
         let realm = try! Realm()
@@ -177,30 +185,33 @@ class DBManager {
         }
     }
     
-    static func groupByDate() {
+    static func groupByDate() -> (groupDate:[Date], groups:[[Picture]]) {
         // 주 단위
         let realm = try! Realm()
-        let items = realm.objects(Picture.self).sorted(byKeyPath: "date", ascending: false) //날짜 역순으로 가져온다
+        let items = realm.objects(Picture.self).sorted(byKeyPath: "createDate", ascending: false) //날짜 역순으로 가져온다
         
-        var groups:[[Picture]] = [] //일주일 단위 이미지 그룹
+        var groups:[[Picture]] = [] //월단위 이미지 그룹
         var groupDate:[Date] = [] // 각 그룹의 기준 날짜
         
         var startDate:Date = Date()
         
-        var i = 0
+        var temp:[Picture] = [] // 각 달의 이미지들을 임시로 저장
         for item in items {
             // 7일간의 데이터 저장
             let itemDate = item.createDate //현재 아이템의 시간
-            if startDate.isInSameWeek(date: itemDate!) {
-                groups[i].append(item)
+            if startDate.isInSameMonth(date: itemDate!) {
+                temp.append(item)
             } else {
-                //다음 주로
-                groupDate[i] = startDate
+                //다음 달로
+                groups.append(temp)
+                groupDate.append(startDate)
                 
-                i += 1
-                
+                startDate = startDate.getPrevMonth()
+                temp = []
             }
         }
+        
+        return (groupDate, groups)
     }
 }
 
@@ -222,6 +233,10 @@ extension Date {
     }
     var isInToday: Bool {
         return Calendar.current.isDateInToday(self)
+    }
+    
+    func getPrevMonth() -> Date {
+        return Calendar.current.date(byAdding: .month, value: -1, to: self)!
     }
 }
 
