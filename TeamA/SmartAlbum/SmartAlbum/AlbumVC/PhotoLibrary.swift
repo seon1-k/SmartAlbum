@@ -10,10 +10,8 @@ import Foundation
 import UIKit
 import Photos
 enum MediaType{
-    
     case Image
     case Video
-    
 }
 
 class PhotoLibrary: NSObject{
@@ -46,5 +44,29 @@ class PhotoLibrary: NSObject{
         })
         return resultImage
     }
+    
+    
+//        func getAlbums() {
+//            let options:PHFetchOptions = PHFetchOptions()
+//            self.albumsList  = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .any, options: options)
+//            // 앨범 정보
+//            guard let albums = albumsList else{return}
+//            for i in 0 ..< albums.count{
+//                let collection = albums[i]
+//                // . localizedTitle = 앨범 타이틀
+//                let title : String = collection.localizedTitle!
+//    
+//                if(collection.estimatedAssetCount != nil){
+//                    // . estimatedAssetCount = 앨범 내 사진 수
+//                    let assetsFetchResult: PHFetchResult = PHAsset.fetchAssets(in: collection, options: nil)
+//                    print("assetsFetchResult.count=\(assetsFetchResult.count)")
+//    
+//                    let count : Int = collection.estimatedAssetCount
+//                    //  print(count)
+//                    print(title)
+//                }else{
+//                }
+//            }
+//        }
     
 }

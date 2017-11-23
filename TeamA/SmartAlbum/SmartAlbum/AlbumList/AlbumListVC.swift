@@ -8,33 +8,51 @@
 
 import UIKit
 import Photos
+
+enum SortType {
+    case Date
+    case Keyword
+    case Location
+    
+}
+
+private struct UI {
+    static let baseMargin = CGFloat(8)
+    static let imageSize = CGSize(width: 15, height: 15)
+    static let countLabelSize = CGSize(width: 50, height: UI.imageSize.height)
+}
+
 class AlbumListVC: UIViewController {
     var collectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     var albumsList : PHFetchResult<PHAssetCollection>?
     let PHImageManager = PHCachingImageManager()
-    let keywords:[String] = DBManager.getKeywords()
+    var albumName:[String]!
+    var sortedAsset:[PHFetchResult<PHAsset>] = []
+    var sortType: SortType = .Keyword
 
-
+    // init
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-     //   getAlbums()
+     
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         
           self.navigationController?.navigationBar.prefersLargeTitles = true
     }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+       
+        self.albumName = DBManager.groupByKeyWord().groupKey
+        self.sortedAsset = DBManager.groupByKeyWord().groupAssets
+    
         setupUI()
         setupConstraints()
         setupBinding()
         //let realm
-        
     }
     
     private func setupUI(){
@@ -43,7 +61,7 @@ class AlbumListVC: UIViewController {
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationController? .navigationItem.largeTitleDisplayMode = .never
         albumsList = PHFetchResult()
-        albumsList = DBManager.getAssets(nil) as! PHFetchResult<PHAssetCollection>
+        albumsList = DBManager.getAssets(nil) as? PHFetchResult<PHAssetCollection>
         
         // UI - collectionView
         
@@ -78,24 +96,37 @@ class AlbumListVC: UIViewController {
     
     @objc private func didTapLeftTabBarButtonItem(){
         
-        let alert = UIAlertController(title: "새로운 앨범", message: "이 앨범의 이름을 입력하십시오", preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "취소", style: .default, handler: nil)
-        let saveAction = UIAlertAction(title: "저장", style: .default) { (alert) in
+        let alert = UIAlertController(title: "분류기준", message:nil, preferredStyle: .actionSheet)
+        let dateAction = UIAlertAction(title:"날짜", style: .default) { (action) in
             
+            self.albumName = DBManager.groupByDate().groupKey
+            self.sortedAsset = DBManager.groupByDate().groupAssets
+            self.sortType = .Date
+            self.collectionView.reloadData()
         }
-        alert.addTextField { (textField) in
-            textField.placeholder = "제목"
+        let locationAction = UIAlertAction(title:"위치", style: .default) { (action) in
+            
+            
+            self.albumName = DBManager.groupByCity().groupKey
+            self.sortedAsset = DBManager.groupByCity().groupAssets
+            self.sortType = .Location
+            self.collectionView.reloadData()
+        }
+        let keywordAction = UIAlertAction(title:"키워드", style: .default) { (action) in
+            
+            self.albumName = DBManager.groupByKeyWord().groupKey
+            self.sortedAsset = DBManager.groupByKeyWord().groupAssets
+            self.sortType = .Keyword
+            self.collectionView.reloadData()
         }
         
-        alert.addAction(cancelAction)
-        alert.addAction(saveAction)
+        alert.addAction(dateAction)
+        alert.addAction(locationAction)
+        alert.addAction(keywordAction)
         self.present(alert, animated: true, completion: nil)
-        
         
     }
     @objc private func didTapRightTabBarButtonItem(){
-        
-        
         
         let search = UISearchController (searchResultsController : nil)
         search.searchResultsUpdater = self
@@ -105,35 +136,7 @@ class AlbumListVC: UIViewController {
         self.navigationItem.searchController = search
         self.navigationItem.searchController?.isActive = true
         definesPresentationContext = true
-        
-        
-        
     }
-    
-//    func getAlbums() {
-//        let options:PHFetchOptions = PHFetchOptions()
-//        self.albumsList  = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .any, options: options)
-//        // 앨범 정보
-//        guard let albums = albumsList else{return}
-//        for i in 0 ..< albums.count{
-//            let collection = albums[i]
-//            // . localizedTitle = 앨범 타이틀
-//            let title : String = collection.localizedTitle!
-//
-//            if(collection.estimatedAssetCount != nil){
-//                // . estimatedAssetCount = 앨범 내 사진 수
-//                let assetsFetchResult: PHFetchResult = PHAsset.fetchAssets(in: collection, options: nil)
-//                print("assetsFetchResult.count=\(assetsFetchResult.count)")
-//
-//                let count : Int = collection.estimatedAssetCount
-//                //  print(count)
-//                print(title)
-//            }else{
-//            }
-//        }
-//    }
-    
-    
 }
 
 extension AlbumListVC:UICollectionViewDelegate,UICollectionViewDataSource{
@@ -144,22 +147,33 @@ extension AlbumListVC:UICollectionViewDelegate,UICollectionViewDataSource{
         
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return keywords.count
+        return albumName.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         //메서드로뺴내기
         let cell  = collectionView.dequeueReusableCell(withReuseIdentifier:String(describing:AlbumListCell.self), for: indexPath) as! AlbumListCell
-        cell.titleLbl.text = keywords[indexPath.row]
+        cell.titleLbl.text = albumName[indexPath.row]
         
-        let lastAsset = DBManager.getLastAsset(keywords[indexPath.row])
-            PHImageManager.requestImage(for: lastAsset[0], targetSize: CGSize(width:100, height: 100), contentMode: .aspectFill, options: nil, resultHandler: { image, _ in
+        let assets: PHFetchResult<PHAsset>
+        switch sortType {
+        case .Date:
+            assets = sortedAsset[indexPath.row]
+            break
+        case .Location:
+            assets = sortedAsset[indexPath.row]
+            break
+        case .Keyword:
+            assets = sortedAsset[indexPath.row]
+            break
+        }
+        
+        PHImageManager.requestImage(for: assets.lastObject!, targetSize: CGSize(width:100, height: 100), contentMode: .aspectFill, options: nil, resultHandler: { image, _ in
 
                     DispatchQueue.main.async {
                         cell.albumImgView.image = image
-                        cell.albumCountLbl.text = "\(DBManager.getAssets(self.keywords[indexPath.row]).count)"
+                        cell.albumCountLbl.text = "\(DBManager.getAssets(self.albumName[indexPath.row]).count)"
 
-                    
                 }
             })
         
@@ -171,9 +185,9 @@ extension AlbumListVC:UICollectionViewDelegate,UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
       
       
-        let asset = DBManager.getAssets(keywords[indexPath.row])
+        let asset = DBManager.getAssets(albumName[indexPath.row])
         
-        let vc = AlbumVC(asset:asset, title:keywords[indexPath.row])
+        let vc = AlbumVC(asset:asset, title:albumName[indexPath.row])
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }
@@ -190,16 +204,10 @@ extension AlbumListVC: UICollectionViewDelegateFlowLayout{
 extension AlbumListVC: UISearchResultsUpdating,UISearchBarDelegate{
     
     func updateSearchResults(for searchController: UISearchController) {
-        
-        
-        
-        
+ 
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-       
-        
-        
     }
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.dismiss(animated: true, completion: nil)

@@ -21,18 +21,24 @@ class AlbumVC: BaseVC {
     
     var searchBtn:UIButton = UIButton(type: UIButtonType.system)
     
+    // init
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
-    
     convenience init(asset: PHFetchResult<PHAsset>, title:String) {
         self.init()
         self.allPhotos = asset
         self.navigationItem.title = title
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
+   
     override func viewDidLoad() {
         super.viewDidLoad()
 
