@@ -30,6 +30,17 @@ class DBManager {
         for i in 0..<500 {
             let asset = assets[i]
             let pic = Picture(asset: asset)
+            
+//            if let loc = asset.location {
+//                LocationServices.getCity(location: loc) { city, error in
+//                    if error == nil {
+//                        pic.city = city!
+//                    }
+//                }
+//            }
+            
+            // 에러 포인트. 4번 이상 실행하면 에러 안남. coreML 버그인가...
+            // [coreml] MLModelAsset: modelWithError: load failed with error Error Domain=com.apple.CoreML Code=0 "Error in declaring network."
             MLHelper.setKeyword(asset.localIdentifier) { (key, error) in
                 if error == nil {
                     //                    print("keyword \(i)")
@@ -72,6 +83,38 @@ class DBManager {
             completionHandler(true)
         }
        
+    }
+    
+    static func addLocation() {
+//        let realm = try! Realm()
+//
+//        let items = realm.objects(Picture.self).filter("location != nil")
+//        print("items.count:\(items.count)")
+//
+//        var i = 0
+//        for item in items {
+//            let id = item.value(forKey: "id") as! String
+//            let asset = PHAsset.fetchAssets(withLocalIdentifiers: [id], options: nil).firstObject
+//
+//            if let loc = asset?.location {
+//                LocationServices.getCity(location: loc) { city, error in
+//                    if error == nil {
+//                        try! realm.write {
+//                            i += 1
+//                            print("city \(i)")
+//                            item.city = city!
+//                        }
+//                    } else {
+//                        print("ERROR!")
+//                    }
+//                }
+//            }
+//        }
+        
+        LocationServices.getCity{ _ in
+            print("add location finished")
+        }
+        
     }
     
 //    static func addLocation(completionHandler: @escaping (Bool) -> Void){
@@ -189,14 +232,60 @@ class DBManager {
         return fds
     }
     
+//    static func addCity(completionHandler: @escaping ([String]) -> Void) {
+//        //DB에 도시 정보 추가
+//
+//        let realm = try! Realm()
+//        try! realm.write {
+//            let locations = Array(realm.objects(Location.self))
+//            for loc in locations {
+//                let lo = CLLocation(latitude: loc.latitude, longitude: loc.longtitude)
+//
+//                LocationServices.getCity(location: lo) { (city, error) in
+//                    loc.city = city!
+//                    //                    print("city:\(city!)")
+//                }
+//            }
+//            let citys = Array(Set(realm.objects(Location.self).value(forKey: "city") as! [String]))
+//            completionHandler(citys)
+//        }
+//    }
+    
     static func groupByCity() -> (groupKey:[String], groupAssets:[PHFetchResult<PHAsset>])  {
         // 시 단위 그루핑
         let realm = try! Realm()
-        let locations = Array(realm.objects(Location.self))
-//        print(locations)
-        for loc in locations {
-            print("city:\(loc)")
+        
+        addLocation()
+        
+        DispatchQueue.main.async {
+            let citys = Array(Set(realm.object(Location.self).))
         }
+        
+//        let ids:[String] = Array(realm.objects(Picture.self).filter("location != nil").value(forKey: "id") as! [String])
+//        let locations:[Location] = Array(realm.objects(Location.self))
+//
+//        let pictures = realm.objects(Picture.self).filter("location != nil")
+//        let locations = Array(pictures.value(forKey: "location") as! [Location])
+//
+//        var citys:[String] = []
+//
+//        LocationServices.getCitys(loc: locations) { (arr, error) in
+//            citys = arr!
+//        }
+        
+//        for loc in locations {
+//            LocationServices.getCity(loc: loc) { (city, error) in
+//                citys.append(city!)
+////                print("citys:\(citys)")
+//            }
+//        }
+        
+//        print("citys:\(citys)")
+        
+//        addCity() { citys in
+////            let citys = Array(Set(realm.objects(Location.self).value(forKey: "city") as! [String]))
+//            print("citys:\(citys)")
+//        }
         
         return ([], [])
     }
@@ -239,7 +328,6 @@ class DBManager {
         
         var temp:[String] = [] // 각 달의 이미지 id들을 임시로 저장
         for item in items {
-//            print(item.value(forKey: "createDate"))
             // 월단위 데이터 저장
             let itemDate = item.createDate //현재 아이템의 시간
 //            print("itemDate:\(item.createDate)")
@@ -248,40 +336,25 @@ class DBManager {
                 temp.append(item.value(forKey: "id") as! String)
             } else {
                 //다음 달 아이템이 들어오면
-                
                 if temp.count != 0 {
                     groupAssets.append(getAssets(temp))
                     temp = []
+//                print("month itemDate:\(item.createDate)")
+//                print("month:\(startDate.getMonthString())")
                     groupKey.append(startDate.getMonthString())
                 }
-                
+            
                 startDate = startDate.getPrevMonth()
                 if startDate.isInSameMonth(date: itemDate!) {
                     temp.append(item.value(forKey: "id") as! String)
                 }
             }
-            
-            
-            
-//            if startDate.isInSameMonth(date: itemDate!) {
-//                temp.append(item.value(forKey: "id") as! String)
-//            } else {
-//                //다음 달로
-////                groups.append(temp)
-//                if temp.count != 0 {
-//                    groupAssets.append(getAssets(temp))
-//                    groupKey.append(startDate.getMonthString())
-//                }
-//
-//                startDate = startDate.getPrevMonth()
-////                print("temp:\(temp)")
-//                temp = []
-//                if startDate.isInSameMonth(date: itemDate!) {
-//                    temp.append(item.value(forKey: "id") as! String)
-//                }
-//            }
         }
-        print("GroupKEy:\(groupKey)")
+        
+        if temp.count != 0 {
+            groupAssets.append(getAssets(temp))
+            groupKey.append(startDate.getMonthString())
+        }
         return (groupKey, groupAssets)
     }
     
