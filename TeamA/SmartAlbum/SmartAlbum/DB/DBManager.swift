@@ -213,8 +213,11 @@ class DBManager {
             } else {
                 //다음 달로
 //                groups.append(temp)
-                groupAssets.append(getAssets(temp))
-                groupDate.append(startDate.getMonthString())
+                
+                if temp.count != 0 {
+                    groupAssets.append(getAssets(temp))
+                    groupDate.append(startDate.getMonthString())
+                }
                 
                 startDate = startDate.getPrevMonth()
 //                print("temp:\(temp)")
