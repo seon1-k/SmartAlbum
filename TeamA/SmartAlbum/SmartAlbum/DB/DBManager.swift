@@ -152,7 +152,7 @@ class DBManager {
         fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
         
         var identifier:String = ""
-        if keyword == nil {
+        if keyword == nil || keyword == "" {
             // 분류 안된 것만 리턴
             identifier = Array(realm.objects(Picture.self).filter("flag == 0")).last?.value(forKey: "id") as! String
         } else {
@@ -170,7 +170,7 @@ class DBManager {
         fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
         
         var identifiers:[String] = []
-        if keyword == nil {
+        if keyword == nil || keyword == "" {
             // 분류 안된 것만 리턴
             identifiers = Array(realm.objects(Picture.self).filter("flag == 0").value(forKey: "id") as! [String])
         } else {
