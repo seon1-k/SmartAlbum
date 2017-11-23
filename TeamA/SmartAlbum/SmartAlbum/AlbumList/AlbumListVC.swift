@@ -256,7 +256,7 @@ extension AlbumListVC: UISearchResultsUpdating,UISearchBarDelegate{
             let realm = try! Realm()
             var keyWord: [String] = []
             
-            keyWord = Array(realm.objects(Picture.self).filter("keyword contains %@",searchText).value(forKey: "keyword") as! [String])
+            keyWord = Array(Set(realm.objects(Picture.self).filter("keyword contains %@",searchText).value(forKey: "keyword") as! [String]))
             
             for index in keyWord {
                 let  keyWordId = Array(Set(realm.objects(Picture.self).filter("keyword == %@",index).value(forKey: "id") as! [String]))
