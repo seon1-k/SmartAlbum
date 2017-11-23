@@ -35,7 +35,7 @@ class AlbumVC: BaseVC {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationController?.navigationBar.prefersLargeTitles = false
     }
     
    
@@ -62,11 +62,6 @@ class AlbumVC: BaseVC {
         
     }
     
-    private  func fetchAllPhotos() {
-       
-        collectionView.reloadData()
-        
-    }
 }
 
 extension AlbumVC:UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{

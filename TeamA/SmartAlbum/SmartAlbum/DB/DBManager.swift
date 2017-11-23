@@ -27,7 +27,7 @@ class DBManager {
         
         var items:[Picture] = []
         //        assets.count
-        for i in 0..<500 {
+        for i in 0..<300 {
             let asset = assets[i]
             let pic = Picture(asset: asset)
             MLHelper.setKeyword(asset.localIdentifier) { (key, error) in
@@ -217,6 +217,8 @@ class DBManager {
             } else {
                 identifiers = Array(realm.objects(Picture.self).filter("keyword == %@", keyword).value(forKey: "id") as! [String])
             }
+            
+            
             let fds:PHFetchResult<PHAsset> = PHAsset.fetchAssets(withLocalIdentifiers: identifiers, options: fetchOptions)
             groupAssets.append(fds)
         }

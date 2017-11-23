@@ -8,7 +8,7 @@
 
 import UIKit
 import Photos
-
+import RealmSwift
 enum SortType {
     case Date
     case Keyword
@@ -132,7 +132,7 @@ class AlbumListVC: UIViewController {
         search.searchResultsUpdater = self
         search.searchBar.delegate = self
         search.obscuresBackgroundDuringPresentation = false
-        search.hidesNavigationBarDuringPresentation = true
+       //search.hidesNavigationBarDuringPresentation = true
         self.navigationItem.searchController = search
         self.navigationItem.searchController?.isActive = true
         definesPresentationContext = true
@@ -151,13 +151,13 @@ extension AlbumListVC:UICollectionViewDelegate,UICollectionViewDataSource{
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        //메서드로뺴내기
+        
         let cell  = collectionView.dequeueReusableCell(withReuseIdentifier:String(describing:AlbumListCell.self), for: indexPath) as! AlbumListCell
         cell.titleLbl.text = albumName[indexPath.row]
-        
+        print(cell.titleLbl.text)
         let assets = sortedAsset[indexPath.row]
         
-        
+        print(assets.count)
         PHImageManager.requestImage(for: assets.firstObject!, targetSize: CGSize(width:100, height: 100), contentMode: .aspectFill, options: nil, resultHandler: { image, _ in
 
                     DispatchQueue.main.async {
@@ -174,7 +174,14 @@ extension AlbumListVC:UICollectionViewDelegate,UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
       
-      
+        self.dismiss(animated: true, completion: nil)
+        //되는거빼고 다지우기
+        self.navigationItem.searchController?.obscuresBackgroundDuringPresentation = true
+        
+        self.navigationItem.searchController?.isActive = false
+        self.navigationItem.searchController = nil
+        definesPresentationContext = false
+        self.navigationItem.searchController?.obscuresBackgroundDuringPresentation = true
         let asset = sortedAsset[indexPath.row]
         
         let vc = AlbumVC(asset:asset, title:albumName[indexPath.row])
@@ -196,17 +203,48 @@ extension AlbumListVC: UISearchResultsUpdating,UISearchBarDelegate{
     func updateSearchResults(for searchController: UISearchController) {
  
     }
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        self.navigationItem.searchController?.obscuresBackgroundDuringPresentation = false
+    }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+       
+        if(searchText == ""){
+            self.albumName = DBManager.groupByKeyWord().groupKey
+            self.sortedAsset = DBManager.groupByKeyWord().groupAssets
+            
+        }else{
+            var tempAssets:[PHFetchResult<PHAsset>] = []
+            var tempAlbumName:[String] = []
+            let realm = try! Realm()
+            var keyWord: [String] = []
+            
+            keyWord = Array(realm.objects(Picture.self).filter("keyword contains %@",searchText).value(forKey: "keyword") as! [String])
+            
+            for index in keyWord {
+                let  keyWordId = Array(Set(realm.objects(Picture.self).filter("keyword == %@",index).value(forKey: "id") as! [String]))
+                //let id = Array(realm.objects(Picture.self).filter("keyword",index).value(forKey: "id") as! [String])
+                let fetchResult:PHFetchResult<PHAsset> = PHAsset.fetchAssets(withLocalIdentifiers:keyWordId, options:  PhotoLibrary().getFetchOptions())
+                
+                tempAssets.append(fetchResult)
+                tempAlbumName.append(index)
+            }
+            sortedAsset = tempAssets
+            albumName = tempAlbumName
+        }
+        collectionView.reloadData()
+        
+    }
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
     }
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.dismiss(animated: true, completion: nil)
         //되는거빼고 다지우기
         self.navigationItem.searchController?.obscuresBackgroundDuringPresentation = true
-        self.navigationItem.searchController?.dismiss(animated: true, completion: nil)
+    
         self.navigationItem.searchController?.isActive = false
         self.navigationItem.searchController = nil
-        self.navigationController?.popToRootViewController(animated: true)
         definesPresentationContext = false
         self.navigationItem.searchController?.obscuresBackgroundDuringPresentation = true
     }
