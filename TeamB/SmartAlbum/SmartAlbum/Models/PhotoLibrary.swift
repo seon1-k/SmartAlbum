@@ -81,7 +81,7 @@ class PhotoLibrary {
     }
     
     func setDB() {
-        for index in 0..<5 {
+        for index in 0..<20 {
             imgManager.requestImage(for: fetchResult.object(at: index) as PHAsset, targetSize: UIScreen.main.bounds.size, contentMode: PHImageContentMode.aspectFill, options: requestOptions) { (image, _) in
                 let asset = self.fetchResult.object(at: index)
                 
@@ -117,18 +117,18 @@ class PhotoLibrary {
                 }
                 
                 if let ciImage = CIImage(image: uiImage) {
+                    let analysisAsset = AnalysisAsset(url: url,isVideo: isVideo, location: location, creationDate: creationDate, keyword: keyword, confidence: confidence)
+                    print(analysisAsset)
+                    
                     self.analysisController.getInfo(image: ciImage) { result in
                         keyword = result.0
                         confidence = result.1
                     }
+                    try! self.realm.write {
+                        print("DB Set")
+                        self.realm.add(analysisAsset, update: true)
+                    }
                 }
-                
-                 let analysisAsset = AnalysisAsset(url: url,isVideo: isVideo, location: location, creationDate: creationDate, keyword: keyword, confidence: confidence)
-                print(analysisAsset)
-//                try! self.realm.write {
-//                    print("DB Set")
-//                    self.realm.add(analysisAsset, update: true)
-//                }
             }
         }
     }

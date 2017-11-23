@@ -97,6 +97,19 @@ class PredictedViewController: UIViewController {
             print("default")
         }
     }
+    
+    // MARK: - Navigation control
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "AnalyzedVC" {
+            guard let analyzedVC = segue.destination as? AnalyzedViewController else { return }
+            guard let selectedIndexPath = sender as? IndexPath else { return }
+            print(self.realmObjects.filter("\(self.sortBy) == %@", self.collectionNames[selectedIndexPath.row]))
+            
+            analyzedVC.selectedObjs = self.realmObjects.filter("\(self.sortBy) == %@", self.collectionNames[selectedIndexPath.row])
+            
+        }
+    }
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
@@ -156,19 +169,6 @@ extension PredictedViewController: UICollectionViewDelegate, UICollectionViewDat
         
         // compare with DB
         let asset = self.photoLibrary.getAsset(at: indexPath.row)
-        /*
-         var sortBy: String = "creationDate"
-         switch self.sortSegmented.selectedSegmentIndex {
-         case 0:
-         sortBy = "creationDate"
-         case 1:
-         sortBy = "location"
-         case 2:
-         sortBy = "keyword"
-         default:
-         sortBy = "keyword"
-         }*/
-        
         cell.firstLabel.text = self.collectionNames[indexPath.row]
         print(self.collectionNames[indexPath.row])
         print(String(self.realmObjects.filter("\(self.sortBy) == %@", self.collectionNames[indexPath.row]).count))
@@ -191,45 +191,10 @@ extension PredictedViewController: UICollectionViewDelegate, UICollectionViewDat
         
         
         /*
-         
          // get data from DB
          let realm = try! Realm()
          let sortedObjs = realm.objects(AnalysisAsset.self).sorted(byKeyPath: sortBy).toArray(ofType: AnalysisAsset.self) as [AnalysisAsset]
-         
-         if self.sortSegmented.selectedSegmentIndex == 0 {
-         cell.firstLabel.text = sortedObjs[indexPath.row].creationDate
-         cell.secondLabel.text = sortedObjs[indexPath.row].keyword
-         cell.thirdLabel.text = sortedObjs[indexPath.row].location
-         } else if self.sortSegmented.selectedSegmentIndex == 1 {
-         cell.firstLabel.text = sortedObjs[indexPath.row].location
-         cell.secondLabel.text = sortedObjs[indexPath.row].creationDate
-         cell.thirdLabel.text = sortedObjs[indexPath.row].keyword
-         } else if self.sortSegmented.selectedSegmentIndex == 2 {
-         cell.firstLabel.text = sortedObjs[indexPath.row].keyword
-         cell.secondLabel.text = sortedObjs[indexPath.row].creationDate
-         cell.thirdLabel.text = sortedObjs[indexPath.row].location
-         }
          */
-        
-        /*
-         let sortedDogs = realm.objects(AnalysisAsset.self).sorted(byKeyPath: "location")
-         asset?.getURL() { url in
-         guard let url = url else { return }
-         let realm = try! Realm()
-         //let test = realm.objects(AnalysisAsset.self).filter("url = %@", url)
-         let urlString: String = url.path
-         print(urlString)
-         // Sort tan dogs with names starting with "B" by name
-         if
-         print("123: testcount ", test.count)
-         if test.count > 0 {
-         DispatchQueue.main.async {
-         cell.checked.isHidden = false
-         }
-         }
-         }
-         */
-        
         return cell
     }
     
@@ -239,8 +204,9 @@ extension PredictedViewController: UICollectionViewDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("Prediceted: get selected collectionview itemindex \(indexPath.row)")
+        self.performSegue(withIdentifier: "AnalyzedVC", sender: indexPath)
     }
-    
+
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
@@ -255,7 +221,8 @@ extension PredictedViewController: UICollectionViewDelegateFlowLayout {
             
             let cell = cell as! PredictedAssetCell
             let url = realmObjects.filter("\(self.sortBy) == %@", collectionNames[indexPath.row])[0].url
-            cell.thumbnailImgView.imageFromAssetURL(assetURL: url)
+            let test = "file:///var/mobile/Media/DCIM/103APPLE/IMG_3471.JPG"
+            cell.thumbnailImgView.imageFromAssetURL(assetURL: test)
 
         }
             
