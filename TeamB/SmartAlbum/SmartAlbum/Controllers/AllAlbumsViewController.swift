@@ -225,6 +225,8 @@ extension AllAlbumsViewController: UICollectionViewDelegateFlowLayout {
                 //let test = realm.objects(AnalysisAsset.self).filter("url = %@", url)
                 let urlString: String = url.path
                 print(urlString)
+                // Sort tan dogs with names starting with "B" by name
+                //let sortedDogs = realm.objects(AnalysisAsset.self).sorted(byKeyPath: "location")
                 let test = realm.objects(AnalysisAsset.self).filter("url = %@", urlString)
                 print("123: testcount ", test.count)
                 if test.count > 0 {

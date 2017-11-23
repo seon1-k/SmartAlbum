@@ -64,7 +64,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
-                                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29931940184049077" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.19565998849693247" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstItem="04W-fD-ETP" firstAttribute="leading" secondItem="nHy-Ez-stJ" secondAttribute="leading" constant="10" id="03s-cW-i5N"/>
                                                         <constraint firstItem="49p-ac-eSk" firstAttribute="centerX" secondItem="nHy-Ez-stJ" secondAttribute="centerX" id="2Wu-B9-oJN"/>
@@ -100,6 +100,38 @@
                                             <outlet property="thumbnailImgView" destination="Kx3-c8-ptk" id="sQG-aX-Jr8"/>
                                         </connections>
                                     </collectionViewCell>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="LastSpecialCell" id="gc1-We-uTx" customClass="LastSpecialCell" customModule="SmartAlbum" customModuleProvider="target">
+                                        <rect key="frame" x="261" y="0.0" width="153" height="181"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="153" height="181"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aOB-np-Tlv">
+                                                    <rect key="frame" x="55" y="53" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zbh-l4-k0N">
+                                                    <rect key="frame" x="55" y="107" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="aOB-np-Tlv" firstAttribute="centerY" secondItem="gc1-We-uTx" secondAttribute="centerY" multiplier="0.7" id="Cpx-S7-pUG"/>
+                                            <constraint firstItem="aOB-np-Tlv" firstAttribute="centerX" secondItem="gc1-We-uTx" secondAttribute="centerX" id="Yj9-N7-072"/>
+                                            <constraint firstItem="Zbh-l4-k0N" firstAttribute="centerY" secondItem="gc1-We-uTx" secondAttribute="centerY" multiplier="1.3" id="biY-r2-t5E"/>
+                                            <constraint firstItem="Zbh-l4-k0N" firstAttribute="centerX" secondItem="gc1-We-uTx" secondAttribute="centerX" id="tGH-it-62F"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="countLabel" destination="Zbh-l4-k0N" id="xEn-FR-8zn"/>
+                                            <outlet property="firstLabel" destination="aOB-np-Tlv" id="IWp-Be-sTm"/>
+                                        </connections>
+                                    </collectionViewCell>
                                 </cells>
                             </collectionView>
                         </subviews>
@@ -111,9 +143,25 @@
                             <constraint firstItem="KMC-bD-3va" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" id="RBc-yu-jSe"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="464-Mh-URZ"/>
+                    <navigationItem key="navigationItem" id="464-Mh-URZ">
+                        <nil key="title"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="YiO-vx-1C1">
+                            <rect key="frame" x="123.66666666666669" y="7" width="167" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title=" 날  짜 "/>
+                                <segment title="위  치"/>
+                                <segment title="키 워 드"/>
+                            </segments>
+                            <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <connections>
+                                <action selector="indexChanged:" destination="9pv-A4-QxB" eventType="valueChanged" id="jyR-T6-4XS"/>
+                            </connections>
+                        </segmentedControl>
+                    </navigationItem>
                     <connections>
                         <outlet property="predictedCollectionView" destination="KMC-bD-3va" id="wpu-Jg-ro3"/>
+                        <outlet property="sortSegmented" destination="YiO-vx-1C1" id="qS2-NI-LVr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>

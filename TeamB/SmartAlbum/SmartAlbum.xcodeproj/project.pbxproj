@@ -23,6 +23,9 @@
 		8477E4A71FC318BB00BA0CE0 /* AssetPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477E4A61FC318BB00BA0CE0 /* AssetPreviewViewController.swift */; };
 		8477E4AB1FC31AC700BA0CE0 /* FullAssetPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477E4AA1FC31AC700BA0CE0 /* FullAssetPreviewCell.swift */; };
 		848A01071FC2F2D800CB490D /* PhotoLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848A01061FC2F2D800CB490D /* PhotoLibrary.swift */; };
+		84C8E2EB1FC70C7000B23D8E /* LastSpecialCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C8E2EA1FC70C7000B23D8E /* LastSpecialCell.swift */; };
+		84C8E2ED1FC7225300B23D8E /* HelperFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C8E2EC1FC7225300B23D8E /* HelperFunction.swift */; };
+		84C8E2EF1FC723F500B23D8E /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C8E2EE1FC723F500B23D8E /* Extensions.swift */; };
 		84CC073B1FC18C03003A8C2E /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CC073A1FC18C03003A8C2E /* SecondViewController.swift */; };
 		84CC073D1FC28934003A8C2E /* AssetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CC073C1FC28934003A8C2E /* AssetCell.swift */; };
 		84CC073F1FC28C3D003A8C2E /* AllAlbumsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CC073E1FC28C3D003A8C2E /* AllAlbumsViewController.swift */; };
@@ -48,6 +51,9 @@
 		8477E4A61FC318BB00BA0CE0 /* AssetPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetPreviewViewController.swift; sourceTree = "<group>"; };
 		8477E4AA1FC31AC700BA0CE0 /* FullAssetPreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullAssetPreviewCell.swift; sourceTree = "<group>"; };
 		848A01061FC2F2D800CB490D /* PhotoLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLibrary.swift; sourceTree = "<group>"; };
+		84C8E2EA1FC70C7000B23D8E /* LastSpecialCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastSpecialCell.swift; sourceTree = "<group>"; };
+		84C8E2EC1FC7225300B23D8E /* HelperFunction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperFunction.swift; sourceTree = "<group>"; };
+		84C8E2EE1FC723F500B23D8E /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		84CC073A1FC18C03003A8C2E /* SecondViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		84CC073C1FC28934003A8C2E /* AssetCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetCell.swift; sourceTree = "<group>"; };
 		84CC073E1FC28C3D003A8C2E /* AllAlbumsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllAlbumsViewController.swift; sourceTree = "<group>"; };
@@ -95,6 +101,8 @@
 			isa = PBXGroup;
 			children = (
 				84199E741FC17475007F8C86 /* AppDelegate.swift */,
+				84C8E2EC1FC7225300B23D8E /* HelperFunction.swift */,
+				84C8E2EE1FC723F500B23D8E /* Extensions.swift */,
 				84199EBA1FC18903007F8C86 /* Models */,
 				84199EB11FC186EF007F8C86 /* Views */,
 				84199EB41FC1871A007F8C86 /* Controllers */,
@@ -130,6 +138,7 @@
 				8477E4AA1FC31AC700BA0CE0 /* FullAssetPreviewCell.swift */,
 				8408493D1FC423C0009C157E /* FullVideoCell.swift */,
 				845C72661FC6BE06005FEB9D /* PredictedAssetCell.swift */,
+				84C8E2EA1FC70C7000B23D8E /* LastSpecialCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -326,13 +335,16 @@
 				845C72671FC6BE06005FEB9D /* PredictedAssetCell.swift in Sources */,
 				8477E4A71FC318BB00BA0CE0 /* AssetPreviewViewController.swift in Sources */,
 				84CC073D1FC28934003A8C2E /* AssetCell.swift in Sources */,
+				84C8E2ED1FC7225300B23D8E /* HelperFunction.swift in Sources */,
 				845C72691FC6BF96005FEB9D /* RealmManager.swift in Sources */,
 				8467BC301FC5C031006CABE8 /* PredictedViewController.swift in Sources */,
 				84199E751FC17475007F8C86 /* AppDelegate.swift in Sources */,
+				84C8E2EB1FC70C7000B23D8E /* LastSpecialCell.swift in Sources */,
 				8477E4AB1FC31AC700BA0CE0 /* FullAssetPreviewCell.swift in Sources */,
 				846873241FC5561900DC35A8 /* MobileNet.mlmodel in Sources */,
 				848A01071FC2F2D800CB490D /* PhotoLibrary.swift in Sources */,
 				84CC073F1FC28C3D003A8C2E /* AllAlbumsViewController.swift in Sources */,
+				84C8E2EF1FC723F500B23D8E /* Extensions.swift in Sources */,
 				84CC073B1FC18C03003A8C2E /* SecondViewController.swift in Sources */,
 				8467BC361FC5C219006CABE8 /* PredictedAsset.swift in Sources */,
 			);
