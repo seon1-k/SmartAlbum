@@ -20,6 +20,8 @@
 		74366F231FC6BDB100CE6300 /* AlbumVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74366F221FC6BDB100CE6300 /* AlbumVC.swift */; };
 		74366F261FC6BE5500CE6300 /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74366F251FC6BE5500CE6300 /* DBManager.swift */; };
 		74366F281FC6BE8600CE6300 /* Picture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74366F271FC6BE8600CE6300 /* Picture.swift */; };
+		74366F2D1FC6DBD400CE6300 /* MLHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74366F2C1FC6DBD400CE6300 /* MLHelper.swift */; };
+		74366F2F1FC6DBDA00CE6300 /* MobileNet.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 74366F2E1FC6DBDA00CE6300 /* MobileNet.mlmodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +40,8 @@
 		74366F221FC6BDB100CE6300 /* AlbumVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumVC.swift; sourceTree = "<group>"; };
 		74366F251FC6BE5500CE6300 /* DBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
 		74366F271FC6BE8600CE6300 /* Picture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Picture.swift; sourceTree = "<group>"; };
+		74366F2C1FC6DBD400CE6300 /* MLHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLHelper.swift; sourceTree = "<group>"; };
+		74366F2E1FC6DBDA00CE6300 /* MobileNet.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = MobileNet.mlmodel; sourceTree = "<group>"; };
 		F066B75137EAE8C052DF8F30 /* Pods_SmartAlbum.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SmartAlbum.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8A9DCD180C3BB914CC637F1 /* Pods-SmartAlbum.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartAlbum.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SmartAlbum/Pods-SmartAlbum.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -75,6 +79,7 @@
 		74366F051FC6B88900CE6300 /* SmartAlbum */ = {
 			isa = PBXGroup;
 			children = (
+				74366F2B1FC6DBC000CE6300 /* ML */,
 				74366F241FC6BE4F00CE6300 /* DB */,
 				74366F1F1FC6BD5500CE6300 /* AlbumVC */,
 				74366F181FC6BD1200CE6300 /* AlbumList */,
@@ -114,6 +119,15 @@
 				74366F271FC6BE8600CE6300 /* Picture.swift */,
 			);
 			path = DB;
+			sourceTree = "<group>";
+		};
+		74366F2B1FC6DBC000CE6300 /* ML */ = {
+			isa = PBXGroup;
+			children = (
+				74366F2C1FC6DBD400CE6300 /* MLHelper.swift */,
+				74366F2E1FC6DBDA00CE6300 /* MobileNet.mlmodel */,
+			);
+			path = ML;
 			sourceTree = "<group>";
 		};
 		CD8BE36C72FC3F6995325E21 /* Pods */ = {
@@ -279,6 +293,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74366F2D1FC6DBD400CE6300 /* MLHelper.swift in Sources */,
 				74366F281FC6BE8600CE6300 /* Picture.swift in Sources */,
 				74366F091FC6B88900CE6300 /* ViewController.swift in Sources */,
 				74366F1E1FC6BD3700CE6300 /* AlbumListVC.swift in Sources */,
@@ -286,6 +301,7 @@
 				74366F261FC6BE5500CE6300 /* DBManager.swift in Sources */,
 				74366F071FC6B88900CE6300 /* AppDelegate.swift in Sources */,
 				74366F1A1FC6BD2700CE6300 /* AlbumDataModel.swift in Sources */,
+				74366F2F1FC6DBDA00CE6300 /* MobileNet.mlmodel in Sources */,
 				74366F1C1FC6BD2D00CE6300 /* AlbumListCell.swift in Sources */,
 				74366F231FC6BDB100CE6300 /* AlbumVC.swift in Sources */,
 			);
@@ -426,6 +442,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MB55TJY5E4;
 				INFOPLIST_FILE = SmartAlbum/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = s1s1s1.tistory.com.SmartAlbum;
@@ -441,6 +458,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MB55TJY5E4;
 				INFOPLIST_FILE = SmartAlbum/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = s1s1s1.tistory.com.SmartAlbum;

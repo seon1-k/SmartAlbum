@@ -31,18 +31,19 @@ class DBManager {
             pic.id = asset.localIdentifier
             pic.date = asset.creationDate
             
-//            let location = asset.location
-//            pic.locX = Double((location?.coordinate.latitude)!)
-//            pic.locY = Double((location?.coordinate.longitude)!)
-            
             let loc = Location()
             loc.latitude = Double((asset.location?.coordinate.latitude)!)
             loc.latitude = Double((asset.location?.coordinate.latitude)!)
             
-            
-            
             pic.flag = 0
             pic.keyword = ""
+            MLHelper.setKeyword(pic.id) { keyword in
+                if keyword != "" {
+                    pic.flag = 1
+                    pic.keyword = keyword
+                }
+            }
+            
             items.append(pic)
         }
         
