@@ -10,16 +10,10 @@ import UIKit
 import Photos
 class AlbumListVC: UIViewController {
     private var collectionView: UICollectionView =  UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-    private var searchField:UITextField = UITextField()
-    private var searchBtn:UIButton = UIButton(type: UIButtonType.system)
     var albumsList : PHFetchResult<PHAssetCollection>?
     let PHImageManager = PHCachingImageManager()
     
-    
-    
-    
-    
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -51,25 +45,6 @@ class AlbumListVC: UIViewController {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top:20, left: 20, bottom: 20, right: 20)
         self.collectionView.collectionViewLayout = layout
-        
-        // UI - searchField
-        searchField.borderStyle = .roundedRect
-        searchField.layer.borderColor = UIColor.gray.cgColor
-        searchField.layer.borderWidth = 1.0
-        
-        // UI - searchField
-        let imageView = UIImageView();
-        let image = UIImage(named: "search");
-        imageView.image = image;
-        imageView.frame = CGRect(x: 10, y: 5, width: 20, height: 20)
-        searchField.addSubview(imageView)
-        let leftView = UIView.init(frame: CGRect(x: 10, y: 0, width: 30, height: 30))
-        searchField.leftView = leftView;
-        searchField.leftViewMode = UITextFieldViewMode.always
-        // UI - searchBtn
-        searchBtn.setTitle("찾기", for: .normal)
-        searchBtn.titleLabel?.textColor = UIColor.black
-        //UI - addSubview
         view.addSubview(collectionView)
         
     }
@@ -128,14 +103,9 @@ class AlbumListVC: UIViewController {
     
     func getAlbums() {
         let options:PHFetchOptions = PHFetchOptions()
-        //        let fetchOptions2 = PHFetchOptions()
-        //        fetchOptions2.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
         self.albumsList  = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .any, options: options)
         // 앨범 정보
-        
-        
         guard let albums = albumsList else{return}
-        
         for i in 0 ..< albums.count{
             let collection = albums[i]
             // . localizedTitle = 앨범 타이틀
@@ -177,8 +147,8 @@ extension AlbumListVC:UICollectionViewDelegate,UICollectionViewDataSource{
         let fetchOptions = PHFetchOptions()
         fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
         
-        let fds = PHAsset.fetchAssets(in:albumsList![indexPath.row], options: fetchOptions)
-        let last = fds.lastObject
+        let fetchResult  = PHAsset.fetchAssets(in:albumsList![indexPath.row], options: fetchOptions)
+        let last = fetchResult.lastObject
         
         if let lastAsset = last {
             let options = PHImageRequestOptions()
@@ -205,8 +175,8 @@ extension AlbumListVC:UICollectionViewDelegate,UICollectionViewDataSource{
         
         let fetchOptions = PHFetchOptions()
         fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
-        let fds = PHAsset.fetchAssets(in:albumsList![indexPath.row], options: fetchOptions)
-        let vc = AlbumVC(asset:fds, title:albumsList![indexPath.row].localizedTitle!)
+        let fetchResult = PHAsset.fetchAssets(in:albumsList![indexPath.row], options: fetchOptions)
+        let vc = AlbumVC(asset:fetchResult, title:albumsList![indexPath.row].localizedTitle!)
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }

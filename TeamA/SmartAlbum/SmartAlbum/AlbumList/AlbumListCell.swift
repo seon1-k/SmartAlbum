@@ -13,7 +13,6 @@ class AlbumListCell: UICollectionViewCell {
     var albumImgView: UIImageView = UIImageView()
     var titleLbl: UILabel = UILabel()
     var albumCountLbl: UILabel = UILabel()
-    // var nameLabel:UILabel = UILabel()
     var representedAssetIdentifier: String!
     
     required init?(coder aDecoder: NSCoder) {

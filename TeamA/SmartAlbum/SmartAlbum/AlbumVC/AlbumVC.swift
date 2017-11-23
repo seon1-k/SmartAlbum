@@ -10,8 +10,8 @@ import UIKit
 import Photos
 import PhotosUI
 
-class AlbumVC: UIViewController {
-    
+class AlbumVC: BaseVC {
+    var pageViewController : UIPageViewController!
     private let layout = UICollectionViewFlowLayout()
     public var allPhotos: PHFetchResult<PHAsset>!
     private let imageManager = PHCachingImageManager()
@@ -35,12 +35,10 @@ class AlbumVC: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
-        setUpConstraints()
-        fetchAllPhotos()
+
     }
     
-    private func setupUI(){
+    override func setupUI(){
         
         collectionView.register(PictureCell.self, forCellWithReuseIdentifier:PictureCell.indentifier)
         collectionView.backgroundColor = UIColor.white
@@ -69,7 +67,8 @@ class AlbumVC: UIViewController {
         view.addSubview(collectionView)
         
     }
-    private func setUpConstraints(){
+    
+    override func setupContstrains(){
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.topAnchor.constraint(equalTo:view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
         collectionView.bottomAnchor.constraint(equalTo:view.safeAreaLayoutGuide.bottomAnchor).isActive = true
@@ -79,9 +78,7 @@ class AlbumVC: UIViewController {
     }
     
     private  func fetchAllPhotos() {
-        //    let allPhotosOptions = PHFetchOptions()
-        //    allPhotosOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
-        //    allPhotos = PHAsset.fetchAssets(with: allPhotosOptions)
+       
         collectionView.reloadData()
         
     }
@@ -108,13 +105,11 @@ extension AlbumVC:UICollectionViewDelegate,UICollectionViewDataSource,UICollecti
         let asset = allPhotos.object(at: indexPath.item)
         
         cell.representedAssetIdentifier = asset.localIdentifier
-        print(asset.localIdentifier)
+        
         imageManager.requestImage(for: asset, targetSize: CGSize(width: 100, height: 100), contentMode: .aspectFill, options: nil, resultHandler: { image, _ in
             
             cell.pictureImgView.image = image
-            
-            
-            
+        
         })
         return cell
         
@@ -134,7 +129,17 @@ extension AlbumVC:UICollectionViewDelegate,UICollectionViewDataSource,UICollecti
         return 1
     }
     
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+       // let pageVC = ViewerVC
+//        let pageController  = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+      //  self.present(pageController, animated: false, completion: nil)
+        let pageVC = Viewer(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+         let contentVC = ContentVC()
+        pageVC.setViewControllers([contentVC], direction: .forward, animated: true, completion: nil)
+        
+        
+    }
     
 }
 
