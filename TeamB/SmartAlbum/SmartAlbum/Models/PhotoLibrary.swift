@@ -48,7 +48,6 @@ class PhotoLibrary {
     fileprivate var fetchOptions: PHFetchOptions
     fileprivate var fetchResult: PHFetchResult<PHAsset>
     let analysisController = AnalysisController()
-//    let realm = try! Realm()
     let formatter = DateFormatter()
     let locationService = LocationServices()
     
@@ -76,32 +75,43 @@ class PhotoLibrary {
         return fetchResult.object(at: index) as PHAsset
     }
     
+    func checkPhotoAnalysis(url: String) -> Bool {
+        let realm = try! Realm()
+        let isChecked = (realm.objects(AnalysisAsset.self).filter("url = %@", url).count > 0)
+        
+        return isChecked
+    }
+    
     func setDB() {
 
         for index in 0..<fetchResult.count {
             
             print(index)
             imgManager.requestImage(for: fetchResult.object(at: index) as PHAsset, targetSize: CGSize(), contentMode: PHImageContentMode.aspectFill, options: requestOptions) { (image, _) in
-
                 let asset = self.fetchResult.object(at: index)
+                var url = String()
+                url = asset.localIdentifier
                 
-                guard let uiImage = image else {
-                    fatalError("no image")
+                if self.checkPhotoAnalysis(url: url) {
+                    print("pass")
+                    return
                 }
                 
                 var location = String()
                 let isVideo = (asset.mediaType == .video)
-                var url = String()
                 var creationDate = String()
                 var keyword = String()
                 var confidence = Double()
+                
+                guard let uiImage = image else {
+                    fatalError("no image")
+                }
                 
                 if let latitude = asset.location?.coordinate.latitude, let longtitude = asset.location?.coordinate.longitude {
                     self.locationService.getCity(lati: latitude, longti: longtitude) {result in
                         location = result
                     }
                 }
-                url = asset.localIdentifier
                 
                 if let imageDate = asset.creationDate {
                     creationDate = self.formatter.string(from: imageDate)
