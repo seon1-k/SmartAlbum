@@ -20,7 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
        rootVC = AlbumListVC(nibName: nil, bundle: nil)
         let navigationController = UINavigationController(rootViewController: rootVC)
-        
         self.window?.rootViewController = navigationController
         self.window?.backgroundColor = UIColor.white
         self.window?.makeKeyAndVisible()
@@ -29,34 +28,57 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             case .authorized:
                 
                 
-                if UserDefaults.standard.bool(forKey: "launchedBefore") {
-                    //첫 실행 아님. 업데이트
-                    print("not first launch")
-                    DBManager.updateData() { _ in
-                        DispatchQueue.main.async {
-                            self.rootVC?.indicator.stopAnimating()
-                            self.rootVC?.collectionView.reloadData()
+                
+                PHPhotoLibrary.requestAuthorization { (status) in
+                    switch status {
+                    case .authorized:
+                        
+                        
+                        if UserDefaults.standard.bool(forKey: "launchedBefore") {
+                            //첫 실행 아님. 업데이트
+                            print("not first launch")
+                            DBManager.updateData() { _ in
+                                DispatchQueue.main.async {
+                                    //       self.rootVC?.indicator.stopAnimating()
+                                    self.rootVC?.collectionView.reloadData()
+                                }
+                            }
+                        }else {
+                            //첫 실행
+                            print("first launch")
+                            DBManager.initData(isFirst: true){_ in
+                                UserDefaults.standard.set(true, forKey: "launchedBefore")
+                                
+                                DispatchQueue.main.async {
+                                    //       self.rootVC?.indicator.stopAnimating()
+                                    self.rootVC?.collectionView.reloadData()
+                                }
+                            }
                         }
-                    }
-                }else {
-                    //첫 실행
-                    print("first launch")
-                    DBManager.initData(isFirst: true){_ in
-                    UserDefaults.standard.set(true, forKey: "launchedBefore")
                         
                         DispatchQueue.main.async {
-                            self.rootVC?.indicator.stopAnimating()
-                            self.rootVC?.collectionView.reloadData()
+                            
+                            self.rootVC.indicator.stopAnimating()
+                            self.rootVC.collectionView.reloadData()
                         }
-                  }
+                    case .denied, .restricted:
+                        print("Not allowed")
+                        self.rootVC.indicator.stopAnimating()
+                    case .notDetermined:
+                        print("Not determined yet")
+                        self.rootVC.indicator.stopAnimating()
+                    }
                 }
+                
+                
+                
 
             case .denied, .restricted:
                 print("Not allowed")
-               self.rootVC?.indicator.stopAnimating()
+              // self.rootVC?.indicator.stopAnimating()
             case .notDetermined:
                 print("Not determined yet")
-                self.rootVC?.indicator.stopAnimating()
+            //self.rootVC?.indicator.stopAnimating()
             }
         }
         return true
