@@ -10,7 +10,6 @@ import UIKit
 
 class PictureCell: UICollectionViewCell {
     static let indentifier: String = String(describing: PictureCell.self)
-    var representedAssetIdentifier: String!
     let pictureImgView: UIImageView = UIImageView()
     
     

@@ -150,15 +150,17 @@ class AlbumListVC: UIViewController {
 //            print("citys\(citys)")
             
            
+            self.albumName = DBManager.groupByCity().groupKey
+            self.sortedAsset = DBManager.groupByCity().groupAssets
+            self.sortType = .Keyword
+            self.collectionView.reloadData()
         }
         let keywordAction = UIAlertAction(title:"키워드", style: .default) { (action) in
-            
             self.albumName = DBManager.groupByKeyWord().groupKey
             self.sortedAsset = DBManager.groupByKeyWord().groupAssets
             self.sortType = .Keyword
             self.collectionView.reloadData()
         }
-        
         alert.addAction(dateAction)
         alert.addAction(locationAction)
         alert.addAction(keywordAction)
@@ -171,7 +173,6 @@ class AlbumListVC: UIViewController {
         search.searchResultsUpdater = self
         search.searchBar.delegate = self
         search.obscuresBackgroundDuringPresentation = false
-       //search.hidesNavigationBarDuringPresentation = true
         self.navigationItem.searchController = search
         self.navigationItem.searchController?.isActive = true
         definesPresentationContext = true
@@ -179,7 +180,6 @@ class AlbumListVC: UIViewController {
 }
 
 extension AlbumListVC:UICollectionViewDelegate,UICollectionViewDataSource{
-    
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -193,30 +193,21 @@ extension AlbumListVC:UICollectionViewDelegate,UICollectionViewDataSource{
         
         let cell  = collectionView.dequeueReusableCell(withReuseIdentifier:String(describing:AlbumListCell.self), for: indexPath) as! AlbumListCell
         cell.titleLbl.text = albumName[indexPath.row]
-        print(cell.titleLbl.text)
         let assets = sortedAsset[indexPath.row]
-        
-        print(assets.count)
         PHImageManager.requestImage(for: assets.firstObject!, targetSize: CGSize(width:100, height: 100), contentMode: .aspectFill, options: nil, resultHandler: { image, _ in
 
                     DispatchQueue.main.async {
                         cell.albumImgView.image = image
                         cell.albumCountLbl.text =  "\(assets.count)"
-
                 }
             })
-        
-        //}
         return cell
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-      
         self.dismiss(animated: true, completion: nil)
         //되는거빼고 다지우기
         self.navigationItem.searchController?.obscuresBackgroundDuringPresentation = true
-        
         self.navigationItem.searchController?.isActive = false
         self.navigationItem.searchController = nil
         definesPresentationContext = false
@@ -233,7 +224,6 @@ extension AlbumListVC: UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         return CGSize(width:UIScreen.main.bounds.width/2 - 30, height:UIScreen.main.bounds.width/2 + 10)
-        
     }
 }
 
