@@ -29,6 +29,27 @@ class LocationServices {
 //        }
 //    }
     
+    static func getCity(location:CLLocation, completion: @escaping (_ city:String?, _ error:Error?) -> ()) {
+//        let location = CLLocation(latitude: loc.value(forKey: "latitude") as! Double, longitude: loc.value(forKey: "longtitude") as! Double)
+        let geoCoder = CLGeocoder()
+        geoCoder.reverseGeocodeLocation(location) { placemarks, error in
+            
+            if error == nil {
+                if let placeMark = placemarks?.first {
+                    if let city = placeMark.locality {
+                        completion(city, nil)
+                    } else {
+                        completion(nil, nil)
+                    }
+                } else {
+                    completion(nil, nil)
+                }
+            } else {
+                completion(nil, error)
+            }
+        }
+    }
+    
     static func getCitys(loc:[Location], id:String, completion: @escaping (_ citys:[String]?, _ error:String?) -> ()) {
         var citys:[String] = []
         for l in loc {
@@ -50,131 +71,131 @@ class LocationServices {
     
     }
     
-    static func getCity(locations: [Location], completion: @escaping (_ citys:[String]?) -> ()) {
-        var citys:[String] = []
-        for location in locations {
-            let geoCoder = CLGeocoder()
-            let loc = CLLocation(latitude: location.value(forKey: "latitude") as! Double, longitude: location.value(forKey: "longtitude") as! Double)
-            geoCoder.reverseGeocodeLocation(loc) { placemarks, error in
-                if error == nil {
-                    let placeArray = placemarks
-                    var placeMark: CLPlacemark!
-                    placeMark = placeArray?[0]
-                    
-                    guard let address = placeMark.locality else {
-                        completion(nil)
-                        return
-                    }
-                    citys.append(address)
-                    if location == locations.last {
-                        completion(citys)
-                    }
-                }
-            }
-        }
-    }
-    
-    
-    static func getCity(completion: @escaping (Bool) -> ()) {
-        let realm = try! Realm()
-//        let items = realm.objects(Picture.self).filter("location != nil")
-        let items = realm.objects(Location.self)
-        
-        for item in items {
-//            let id = item.value(forKey: "id") as! String
-//            let asset = PHAsset.fetchAssets(withLocalIdentifiers: [id], options: nil).firstObject
-            
-//            if let loc = asset?.location {
+//    static func getCity(locations: [Location], completion: @escaping (_ citys:[String]?) -> ()) {
+//        var citys:[String] = []
+//        for location in locations {
+//            let geoCoder = CLGeocoder()
+//            let loc = CLLocation(latitude: location.value(forKey: "latitude") as! Double, longitude: location.value(forKey: "longtitude") as! Double)
+//            geoCoder.reverseGeocodeLocation(loc) { placemarks, error in
+//                if error == nil {
+//                    let placeArray = placemarks
+//                    var placeMark: CLPlacemark!
+//                    placeMark = placeArray?[0]
 //
-//            }
-            
-            let location = CLLocation(latitude: item.value(forKey: "latitude") as! Double, longitude: item.value(forKey: "longtitude") as! Double)
-            let geoCoder = CLGeocoder()
-            geoCoder.reverseGeocodeLocation(location) { placemarks, error in
-                if error == nil {
-                    let placeArray = placemarks
-                    var placeMark: CLPlacemark!
-                    placeMark = placeArray?[0]
 //                    guard let address = placeMark.locality else {
+//                        completion(nil)
 //                        return
 //                    }
-                    
-//                    if let city = placeMark.locality {
+//                    citys.append(address)
+//                    if location == locations.last {
+//                        completion(citys)
+//                    }
+//                }
+//            }
+//        }
+//    }
+//
+//
+//    static func getCity(completion: @escaping (Bool) -> ()) {
+//        let realm = try! Realm()
+////        let items = realm.objects(Picture.self).filter("location != nil")
+//        let items = realm.objects(Location.self)
+//
+//        for item in items {
+////            let id = item.value(forKey: "id") as! String
+////            let asset = PHAsset.fetchAssets(withLocalIdentifiers: [id], options: nil).firstObject
+//
+////            if let loc = asset?.location {
+////
+////            }
+//
+//            let location = CLLocation(latitude: item.value(forKey: "latitude") as! Double, longitude: item.value(forKey: "longtitude") as! Double)
+//            let geoCoder = CLGeocoder()
+//            geoCoder.reverseGeocodeLocation(location) { placemarks, error in
+//                if error == nil {
+//                    let placeArray = placemarks
+//                    var placeMark: CLPlacemark!
+//                    placeMark = placeArray?[0]
+////                    guard let address = placeMark.locality else {
+////                        return
+////                    }
+//
+////                    if let city = placeMark.locality {
+////                        try! realm.write {
+////                            item.city = address
+////                        }
+////                    }
+//
+//                    if placeMark.locality != nil {
 //                        try! realm.write {
-//                            item.city = address
+//                            item.city = placeMark.locality!
+//                        }
+//                    } else if placeMark.subLocality != nil {
+//                        try! realm.write {
+//                            item.city = placeMark.subLocality!
+//                        }
+//                    } else {
+//                        try! realm.write {
+//                            item.city = "error"
 //                        }
 //                    }
-
-                    if placeMark.locality != nil {
-                        try! realm.write {
-                            item.city = placeMark.locality!
-                        }
-                    } else if placeMark.subLocality != nil {
-                        try! realm.write {
-                            item.city = placeMark.subLocality!
-                        }
-                    } else {
-                        try! realm.write {
-                            item.city = "error"
-                        }
-                    }
-                }
-            }
-            completion(true)
-        }
-            
-        
-        
-//        let location = CLLocation(latitude: CLLocationDegrees(lati), longitude: CLLocationDegrees(longti))
-//        let location = CLLocation(latitude: loc.latitude, longitude: loc.longtitude)
-//        let geoCoder = CLGeocoder()
-//
-//        geoCoder.reverseGeocodeLocation(location) { placemarks, error in
-//
-//            if error == nil {
-//                if let placeMark = placemarks?.first {
-////                    print(placeMark)
-//                    if let city = placeMark.locality {
-//                        completion(city, nil)
-//                    }
 //                }
 //            }
-
-//            if error != nil {
-//                completion(nil, "error")
-//            }
-//            if let placeArray = placemarks {
-//                if placeArray.count > 0 {
-//                    let placeMark: CLPlacemark = placeArray[0]
-//                    guard let city = placeMark.locality else {
-//                        return
-//                    }
-//                    //            print("city:\(city)")
-//                    completion(city, nil)
-//                } else {
-//                    completion(nil, "error")
-//                }
-//            }
-//        }
-
-//        let request = VNCoreMLRequest(model: model){ request, error in
-//            guard let results = request.results as? [VNClassificationObservation], let topResult = results.first else {
-//                fatalError("error in VNCoreMLRequest")
-//            }
-//
-//            if topResult.confidence >= correctValue {
-//                completionHandler(topResult.identifier, nil)
-//            }
+//            completion(true)
 //        }
 //
-//        let handler = VNImageRequestHandler(ciImage: CIImage(image: image!)!)
-//        DispatchQueue.global(qos: .userInteractive).async {
-//            do {
-//                try handler.perform([request])
-//            } catch {
-//                print(error)
-//                completionHandler(nil, "error")
-//            }
-//        }
-    }
+//
+//
+////        let location = CLLocation(latitude: CLLocationDegrees(lati), longitude: CLLocationDegrees(longti))
+////        let location = CLLocation(latitude: loc.latitude, longitude: loc.longtitude)
+////        let geoCoder = CLGeocoder()
+////
+////        geoCoder.reverseGeocodeLocation(location) { placemarks, error in
+////
+////            if error == nil {
+////                if let placeMark = placemarks?.first {
+//////                    print(placeMark)
+////                    if let city = placeMark.locality {
+////                        completion(city, nil)
+////                    }
+////                }
+////            }
+//
+////            if error != nil {
+////                completion(nil, "error")
+////            }
+////            if let placeArray = placemarks {
+////                if placeArray.count > 0 {
+////                    let placeMark: CLPlacemark = placeArray[0]
+////                    guard let city = placeMark.locality else {
+////                        return
+////                    }
+////                    //            print("city:\(city)")
+////                    completion(city, nil)
+////                } else {
+////                    completion(nil, "error")
+////                }
+////            }
+////        }
+//
+////        let request = VNCoreMLRequest(model: model){ request, error in
+////            guard let results = request.results as? [VNClassificationObservation], let topResult = results.first else {
+////                fatalError("error in VNCoreMLRequest")
+////            }
+////
+////            if topResult.confidence >= correctValue {
+////                completionHandler(topResult.identifier, nil)
+////            }
+////        }
+////
+////        let handler = VNImageRequestHandler(ciImage: CIImage(image: image!)!)
+////        DispatchQueue.global(qos: .userInteractive).async {
+////            do {
+////                try handler.perform([request])
+////            } catch {
+////                print(error)
+////                completionHandler(nil, "error")
+////            }
+////        }
+//    }
 }

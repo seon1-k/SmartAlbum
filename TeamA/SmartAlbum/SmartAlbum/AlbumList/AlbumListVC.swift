@@ -105,6 +105,7 @@ class AlbumListVC: UIViewController {
             self.collectionView.reloadData()
         }
         let locationAction = UIAlertAction(title:"위치", style: .default) { (action) in
+           
             self.albumName = DBManager.groupByCity().groupKey
             self.sortedAsset = DBManager.groupByCity().groupAssets
             self.sortType = .Keyword
