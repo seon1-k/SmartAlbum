@@ -69,20 +69,18 @@ extension ViewerVC: UICollectionViewDelegate,UICollectionViewDataSource,UICollec
         let asset = photos.object(at: indexPath.item)
         
         if let date = asset.creationDate{
-              navigationItem.title = "\(date)"
+            navigationItem.title = "\(Date.getFottatDate(date: date))"
         }
       
         imageManager.requestImage(for: asset, targetSize: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height), contentMode: .aspectFill, options: nil, resultHandler: { image, _ in
-            
+
             cell.pictureImgView.image = image
-           
         })
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
@@ -92,7 +90,6 @@ extension ViewerVC: UICollectionViewDelegate,UICollectionViewDataSource,UICollec
             scrollFlag = true
         }
     }
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return self.view.bounds.size
     }
