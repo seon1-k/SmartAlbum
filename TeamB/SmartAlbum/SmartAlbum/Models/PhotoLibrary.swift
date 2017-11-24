@@ -93,8 +93,8 @@ class PhotoLibrary {
                 var url = String()
                 url = asset.localIdentifier
                 
+                // for pass DB file
 //                if self.checkPhotoAnalysis(url: url) {
-//                    print("pass")
 //                    return
 //                }
                 
@@ -122,11 +122,11 @@ class PhotoLibrary {
     
                 if let ciImage = CIImage(image: uiImage) {
 
-//                    self.analysisController.detectFace(image: ciImage) { result in
-//                        if result > 0 {
-//                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "detectEmmotion"), object: nil, userInfo: ["url": url, "isVideo": isVideo, "location": location, "creationDate": creationDate, "ciImage": ciImage])
-//                        }
-//                    }
+                    self.analysisController.detectFace(image: ciImage) { result in
+                        if result > 0 {
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "detectEmmotion"), object: nil, userInfo: ["url": url, "isVideo": isVideo, "location": location, "creationDate": creationDate, "ciImage": ciImage])
+                        }
+                    }
                     
                     self.analysisController.getInfo(image: ciImage) { result in
                         keyword = result.0
