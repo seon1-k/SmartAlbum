@@ -94,9 +94,9 @@ class PhotoLibrary {
                 url = asset.localIdentifier
                 
                 // for pass DB file
-//                if self.checkPhotoAnalysis(url: url) {
-//                    return
-//                }
+                if self.checkPhotoAnalysis(url: url) {
+                    return
+                }
                 
                 var location = String()
                 let isVideo = (asset.mediaType == .video)

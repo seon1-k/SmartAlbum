@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -124,7 +125,7 @@
                                 </cells>
                             </collectionView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="YiO-vx-1C1">
-                                <rect key="frame" x="123.66666666666669" y="75" width="167" height="29"/>
+                                <rect key="frame" x="30" y="75" width="354" height="29"/>
                                 <segments>
                                     <segment title=" 날  짜 "/>
                                     <segment title="위  치"/>
@@ -141,7 +142,9 @@
                             <constraint firstItem="YiO-vx-1C1" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" constant="11" id="7R0-we-pJ9"/>
                             <constraint firstItem="YiO-vx-1C1" firstAttribute="centerX" secondItem="tsR-hK-woN" secondAttribute="centerX" id="9zp-Ai-RJE"/>
                             <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="KMC-bD-3va" secondAttribute="bottom" id="Atu-7t-n5q"/>
+                            <constraint firstItem="YiO-vx-1C1" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" constant="10" id="BEv-a4-PsA"/>
                             <constraint firstAttribute="trailing" secondItem="KMC-bD-3va" secondAttribute="trailing" id="DIX-rF-W0H"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="YiO-vx-1C1" secondAttribute="trailing" constant="10" id="FkE-Sh-NUi"/>
                             <constraint firstItem="KMC-bD-3va" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" id="QUQ-EH-hLg"/>
                             <constraint firstItem="KMC-bD-3va" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" constant="50" id="zdP-a6-zs8"/>
                         </constraints>

@@ -38,7 +38,7 @@ class PredictedViewController: UIViewController {
     var collectionNames: [String] {
         return Set(realmObjects.value(forKeyPath: sortBy) as! [String]).sorted { $0 > $1 }
     }
-
+    
     // searcg variable
     let searchController = UISearchController(searchResultsController: nil)
     var filteredData = [String]()
@@ -66,7 +66,7 @@ class PredictedViewController: UIViewController {
     func setupSearchController() {
         self.searchController.searchResultsUpdater = self
         self.searchController.searchBar.delegate = self
-
+        
         self.searchController.hidesNavigationBarDuringPresentation = false
         self.searchController.dimsBackgroundDuringPresentation = false
         
@@ -80,7 +80,7 @@ class PredictedViewController: UIViewController {
         
         self.navigationItem.titleView = titleView
     }
-
+    
     // MARK: - Help function
     
     func getAnalysisAssets() {
@@ -103,6 +103,7 @@ class PredictedViewController: UIViewController {
         case 2:
             self.sortBy = "keyword"
         default:
+            self.sortBy = "keyword"
         }
     }
     
@@ -129,6 +130,7 @@ class PredictedViewController: UIViewController {
             analyzedVC.titleTxt = collectionName
         }
     }
+    
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
@@ -151,17 +153,17 @@ extension PredictedViewController: UICollectionViewDelegate, UICollectionViewDat
         switch(type) {
         case "PredictedAssetCell":
             if let cell = cell as? PredictedAssetCell {
-                setupPredictedCell(cell: cell, indexPath: indexPath)
+                self.setupPredictedCell(cell: cell, indexPath: indexPath)
             }
         case "LastSpecialCell":
             if let cell = cell as? LastSpecialCell {
-                setupLastSpecialCell(cell: cell, indexPath: indexPath)
+                self.setupLastSpecialCell(cell: cell, indexPath: indexPath)
             }
         default:
             break
         }
     }
-    
+
     // LastSpecialCell
     func setupLastSpecialCell(cell: LastSpecialCell, indexPath: IndexPath) {
         // compare with DB
@@ -169,7 +171,7 @@ extension PredictedViewController: UICollectionViewDelegate, UICollectionViewDat
         var count = self.photoLibrary.count - self.analysisAssets.count
         count = count < 0 ? 0 : count
         cell.firstLabel.text = "분류되지 않은 사진들"
-        cell.countLabel.text = String(count)
+        cell.countLabel.text = String(count) + " 장"
     }
     
     // PredictedCell
@@ -178,20 +180,24 @@ extension PredictedViewController: UICollectionViewDelegate, UICollectionViewDat
             if filteredData.count > indexPath.row {
                 let data = self.realmObjects.filter("\(self.sortBy) == %@", self.filteredData[indexPath.row])
                 if data.count > 0 {
-                    cell.firstLabel.text = self.filteredData[indexPath.row]
-                    cell.thirdLabel.text = String(data.count)
-                    if let url = data.first?.url {
-                        cell.thumbnailImgView.imageFromAssetURL(assetURL: url)
+                    DispatchQueue.main.async {
+                        cell.firstLabel.text = self.filteredData[indexPath.row]
+                        cell.thirdLabel.text = String(data.count) + " 장"
+                        if let url = data.first?.url {
+                            cell.thumbnailImgView.imageFromAssetURL(assetURL: url)
+                        }
                     }
                 }
             }
         } else {
             let data = self.realmObjects.filter("\(self.sortBy) == %@", self.collectionNames[indexPath.row])
-            DispatchQueue.main.async {
-                cell.firstLabel.text = self.collectionNames[indexPath.row]
-                cell.thirdLabel.text = String(data.count)
-                if let url = data.first?.url {
-                    cell.thumbnailImgView.imageFromAssetURL(assetURL: url)
+            if collectionNames.count > indexPath.row {
+                DispatchQueue.main.async {
+                    cell.firstLabel.text = self.collectionNames[indexPath.row]
+                    cell.thirdLabel.text = String(data.count) + " 장"
+                    if let url = data.first?.url {
+                        cell.thumbnailImgView.imageFromAssetURL(assetURL: url)
+                    }
                 }
             }
         }
