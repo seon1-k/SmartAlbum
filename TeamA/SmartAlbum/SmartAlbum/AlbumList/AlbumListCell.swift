@@ -25,27 +25,20 @@ class AlbumListCell: UICollectionViewCell {
         setupConstraints()
         
     }
-    
-    
-    
-    
+
     private func setupUI(){
-        
-        //UI - contentView
         
         // UI - albumView
         albumImgView.contentMode = .scaleAspectFill
         albumImgView.clipsToBounds = true
         albumImgView.layer.cornerRadius = 10
         albumImgView.layer.masksToBounds = true
-        // UI - addSubview
-        
         
         titleLbl.textAlignment = .left
-        titleLbl.font = .systemFont(ofSize: 13)
+        titleLbl.font = .systemFont(ofSize: 15)
         
         albumCountLbl.textColor = UIColor.lightGray
-        albumCountLbl.font = .systemFont(ofSize: 13)
+        albumCountLbl.font = .systemFont(ofSize: 15)
         contentView.addSubview(albumImgView)
         contentView.addSubview(titleLbl)
         contentView.addSubview(albumCountLbl)
@@ -55,24 +48,18 @@ class AlbumListCell: UICollectionViewCell {
     
     private func setupConstraints(){
         
-        // let  marginGuide = contentView.layoutMarginsGuide
-        // Constraints - albumImgView
         albumImgView.translatesAutoresizingMaskIntoConstraints = false
-        
         albumImgView.leadingAnchor.constraint(equalTo:contentView.leadingAnchor, constant: 0).isActive = true
-        
         albumImgView.heightAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 1, constant: 0).isActive = true
         albumImgView.topAnchor.constraint(equalTo:contentView.topAnchor).isActive = true
         albumImgView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 1
             , constant: 0).isActive = true
-        
         // Constraints - titleLbl
         titleLbl.translatesAutoresizingMaskIntoConstraints = false
         titleLbl.topAnchor.constraint(equalTo: albumImgView.bottomAnchor).isActive = true
         titleLbl.leadingAnchor.constraint(equalTo: albumImgView.leadingAnchor, constant:
             0).isActive = true
         titleLbl.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant:0).isActive = true
-        
         albumCountLbl.translatesAutoresizingMaskIntoConstraints = false
         albumCountLbl.topAnchor.constraint(equalTo: titleLbl.bottomAnchor, constant: 0).isActive = true
         albumCountLbl.leadingAnchor.constraint(equalTo:titleLbl.leadingAnchor, constant:0).isActive = true

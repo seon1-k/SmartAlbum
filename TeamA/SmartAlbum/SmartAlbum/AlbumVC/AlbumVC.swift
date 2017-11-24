@@ -2,7 +2,7 @@
 //  AlbumVC.swift
 //  SmartAlbum
 //
-//  Created by 진호놀이터 on 2017. 11. 19..
+//  Created by 진호놀이터 on 2017. 11. 24..
 //  Copyright © 2017년 진호놀이터. All rights reserved.
 //
 
@@ -13,7 +13,7 @@ import PhotosUI
 class AlbumVC: BaseVC {
     var pageViewController : UIPageViewController!
     private let layout = UICollectionViewFlowLayout()
-    public var allPhotos: PHFetchResult<PHAsset>!
+    public var  photos: PHFetchResult<PHAsset>!
     private let imageManager = PHCachingImageManager()
     private var collectionView: UICollectionView  = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
@@ -30,7 +30,7 @@ class AlbumVC: BaseVC {
     }
     convenience init(asset: PHFetchResult<PHAsset>, title:String) {
         self.init()
-        self.allPhotos = asset
+        self.photos = asset
         self.navigationItem.title = title
     }
     
@@ -59,9 +59,7 @@ class AlbumVC: BaseVC {
         collectionView.bottomAnchor.constraint(equalTo:view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         collectionView.leadingAnchor.constraint(equalTo:view.leadingAnchor).isActive = true
         collectionView.trailingAnchor.constraint(equalTo:view.trailingAnchor).isActive = true
-        
     }
-    
 }
 
 extension AlbumVC:UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
@@ -70,16 +68,14 @@ extension AlbumVC:UICollectionViewDelegate,UICollectionViewDataSource,UICollecti
         return 1
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return allPhotos.count
+        return photos.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier:String(describing: PictureCell.self), for: indexPath) as! PictureCell
         
         cell.contentView.backgroundColor = UIColor.blue
-        let asset = allPhotos.object(at: indexPath.item)
-        
-        cell.representedAssetIdentifier = asset.localIdentifier
+        let asset = photos.object(at: indexPath.item)
         
         imageManager.requestImage(for: asset, targetSize: CGSize(width: 100, height: 100), contentMode: .aspectFill, options: nil, resultHandler: { image, _ in
             
@@ -103,11 +99,8 @@ extension AlbumVC:UICollectionViewDelegate,UICollectionViewDataSource,UICollecti
         return 1
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        let vc = ViewerVC(asset:allPhotos, index: indexPath.row)
+        let vc = ViewerVC(asset:photos, index: indexPath.row)
         self.navigationController?.pushViewController(vc, animated: true)
-    
-    
     }
 }
 
