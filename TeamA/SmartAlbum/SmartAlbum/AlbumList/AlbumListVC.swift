@@ -17,7 +17,7 @@ enum SortType {
 }
 
 private struct UI {
-    static let baseMargin = CGFloat(8)
+    static let baseMargin = CGFloat(20)
     static let imageSize = CGSize(width: 15, height: 15)
     static let countLabelSize = CGSize(width: 50, height: UI.imageSize.height)
 }
@@ -29,6 +29,7 @@ class AlbumListVC: UIViewController {
     var albumName:[String]!
     var sortedAsset:[PHFetchResult<PHAsset>] = []
     var sortType: SortType = .Keyword
+    var indicator:UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
 
     // init
     required init?(coder aDecoder: NSCoder) {
@@ -84,7 +85,6 @@ class AlbumListVC: UIViewController {
         collectionView.bottomAnchor.constraint(equalTo:view.bottomAnchor).isActive = true
         collectionView.leadingAnchor.constraint(equalTo:view.leadingAnchor).isActive = true
         collectionView.trailingAnchor.constraint(equalTo:view.trailingAnchor).isActive = true
-        
     }
     
     private func setupBinding(){
@@ -120,7 +120,6 @@ class AlbumListVC: UIViewController {
         alert.addAction(locationAction)
         alert.addAction(keywordAction)
         self.present(alert, animated: true, completion: nil)
-        
     }
     @objc private func didTapRightTabBarButtonItem(){
         
@@ -138,7 +137,6 @@ extension AlbumListVC:UICollectionViewDelegate,UICollectionViewDataSource{
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
-        
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return albumName.count
@@ -148,12 +146,13 @@ extension AlbumListVC:UICollectionViewDelegate,UICollectionViewDataSource{
         
         let cell  = collectionView.dequeueReusableCell(withReuseIdentifier:String(describing:AlbumListCell.self), for: indexPath) as! AlbumListCell
         cell.titleLbl.text = albumName[indexPath.row]
-        let assets = sortedAsset[indexPath.row]
-        PHImageManager.requestImage(for: assets.firstObject!, targetSize: CGSize(width:100, height: 100), contentMode: .aspectFill, options: nil, resultHandler: { image, _ in
+        let imagSize = cell.albumImgView.bounds.size
+        guard let firstAsset = sortedAsset[indexPath.row].firstObject else {return cell}
+        PHImageManager.requestImage(for: firstAsset, targetSize:imagSize, contentMode: .aspectFill, options: nil, resultHandler: { image, _ in
 
                     DispatchQueue.main.async {
                         cell.albumImgView.image = image
-                        cell.albumCountLbl.text =  "\(assets.count)"
+                        cell.albumCountLbl.text =  "\(self.sortedAsset[indexPath.row].count)"
                 }
             })
         return cell
@@ -161,14 +160,12 @@ extension AlbumListVC:UICollectionViewDelegate,UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.dismiss(animated: true, completion: nil)
-        //되는거빼고 다지우기
         self.navigationItem.searchController?.obscuresBackgroundDuringPresentation = true
         self.navigationItem.searchController?.isActive = false
         self.navigationItem.searchController = nil
         definesPresentationContext = false
         self.navigationItem.searchController?.obscuresBackgroundDuringPresentation = true
         let asset = sortedAsset[indexPath.row]
-        
         let vc = AlbumVC(asset:asset, title:albumName[indexPath.row])
         self.navigationController?.pushViewController(vc, animated: true)
     }
@@ -198,23 +195,18 @@ extension AlbumListVC: UISearchResultsUpdating,UISearchBarDelegate{
             self.sortedAsset = DBManager.groupByKeyWord().groupAssets
             
         }else{
-            var tempAssets:[PHFetchResult<PHAsset>] = []
-            var tempAlbumName:[String] = []
+            sortedAsset = []
+            albumName = []
             let realm = try! Realm()
             var keyWord: [String] = []
-            
             keyWord = Array(Set(realm.objects(Picture.self).filter("keyword contains %@",searchText).value(forKey: "keyword") as! [String]))
             
             for index in keyWord {
                 let  keyWordId = Array(Set(realm.objects(Picture.self).filter("keyword == %@",index).value(forKey: "id") as! [String]))
-                //let id = Array(realm.objects(Picture.self).filter("keyword",index).value(forKey: "id") as! [String])
                 let fetchResult:PHFetchResult<PHAsset> = PHAsset.fetchAssets(withLocalIdentifiers:keyWordId, options:  PhotoLibrary().getFetchOptions())
-                
-                tempAssets.append(fetchResult)
-                tempAlbumName.append(index)
+                sortedAsset.append(fetchResult)
+                albumName.append(index)
             }
-            sortedAsset = tempAssets
-            albumName = tempAlbumName
         }
         collectionView.reloadData()
         
@@ -226,7 +218,6 @@ extension AlbumListVC: UISearchResultsUpdating,UISearchBarDelegate{
         self.dismiss(animated: true, completion: nil)
         //되는거빼고 다지우기
         self.navigationItem.searchController?.obscuresBackgroundDuringPresentation = true
-    
         self.navigationItem.searchController?.isActive = false
         self.navigationItem.searchController = nil
         definesPresentationContext = false

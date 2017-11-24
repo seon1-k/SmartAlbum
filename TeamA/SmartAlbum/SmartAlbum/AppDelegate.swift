@@ -8,18 +8,18 @@
 
 import UIKit
 import CoreData
-
+import Photos
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
-    
+    var rootVC: AlbumListVC!
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
         
-        let main = AlbumListVC(nibName: nil, bundle: nil)
-        let navigationController = UINavigationController(rootViewController: main)
+       rootVC = AlbumListVC(nibName: nil, bundle: nil)
+        let navigationController = UINavigationController(rootViewController: rootVC)
         
         self.window?.rootViewController = navigationController
         self.window?.backgroundColor = UIColor.white
@@ -28,26 +28,44 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //          DB - initData
         
         
-//        if UserDefaults.standard.bool(forKey: "launchedBefore") {
-//            //첫 실행 아님. 업데이트
-//            print("not first launch")
-//            DBManager.updateData() { _ in
-//                if let vc = navigationController.viewControllers.first as? AlbumListVC{
-//                    vc.collectionView.reloadData()
-//                }
-//            }
-//        } else {
-//            //첫 실행
-//            print("first launch")
-//            DBManager.initData(){_ in
-////                UserDefaults.standard.set(true, forKey: "launchedBefore")
-//                if let vc = navigationController.viewControllers.first as? AlbumListVC{
-//                    vc.collectionView.reloadData()
-//                }
-//            }
-//        }
         
         
+        PHPhotoLibrary.requestAuthorization { (status) in
+            switch status {
+            case .authorized:
+                
+                
+//                if UserDefaults.standard.bool(forKey: "launchedBefore") {
+//                    //첫 실행 아님. 업데이트
+//                    print("not first launch")
+//                    DBManager.updateData() { _ in
+//
+//                        DispatchQueue.main.async {
+//                            self.rootVC?.indicator.stopAnimating()
+//                            self.rootVC?.collectionView.reloadData()
+//                        }
+//                    }
+//                }else {
+                    //첫 실행
+                    print("first launch")
+                    DBManager.initData(){_ in
+                    UserDefaults.standard.set(true, forKey: "launchedBefore")
+                        
+                        DispatchQueue.main.async {
+                            self.rootVC?.indicator.stopAnimating()
+                            self.rootVC?.collectionView.reloadData()
+                        }
+                 //   }
+                }
+
+            case .denied, .restricted:
+                print("Not allowed")
+               self.rootVC?.indicator.stopAnimating()
+            case .notDetermined:
+                print("Not determined yet")
+                self.rootVC?.indicator.stopAnimating()
+            }
+        }
         return true
     }
     

@@ -16,4 +16,13 @@ extension Date {
         let weekDay = myCalendar.component(.weekday, from: self)
         return weekDay
     }
+    
+    func getFottatDate(date:Date) -> Date{
+        let df : DateFormatter = DateFormatter()
+        df.dateFormat = "yy년 MM월 dd일"
+        
+        let date : Date = df.date(from: "16년 7월 3일")!
+   
+            return date
+    }
 }
