@@ -29,7 +29,7 @@ class AlbumListVC: UIViewController {
     var albumName:[String]!
     var sortedAsset:[PHFetchResult<PHAsset>] = []
     var sortType: SortType = .Keyword
-    var indicator:UIActivityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+    var indicator:UIActivityIndicatorView!
 
     // init
     required init?(coder aDecoder: NSCoder) {
@@ -53,10 +53,18 @@ class AlbumListVC: UIViewController {
         setupUI()
         setupConstraints()
         setupBinding()
-        //let realm
     }
     
     private func setupUI(){
+        
+        
+        indicator  = UIActivityIndicatorView(frame: CGRect(x: 100, y: 50, width: 50, height: 50)) as UIActivityIndicatorView
+        indicator.center = self.view.center
+        indicator.hidesWhenStopped = true
+        indicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+        indicator.startAnimating()
+      
+        
         // UI - navigation
         navigationItem.title = "스마트앨범"
         self.navigationController?.navigationBar.prefersLargeTitles = true
@@ -74,6 +82,7 @@ class AlbumListVC: UIViewController {
         layout.sectionInset = UIEdgeInsets(top:20, left: 20, bottom: 20, right: 20)
         self.collectionView.collectionViewLayout = layout
         view.addSubview(collectionView)
+        view.addSubview(indicator)
         
     }
     

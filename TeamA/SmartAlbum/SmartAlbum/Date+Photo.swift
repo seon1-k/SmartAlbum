@@ -10,11 +10,12 @@ import Foundation
 
 extension Date {
     
- static   func getFottatDate(date:Date) -> Date{
-        let df : DateFormatter = DateFormatter()
-        df.dateFormat = "yy년 MM월 dd일"
-        
-        let date : Date = df.date(from: "16년 7월 3일")!
-            return date
+ static   func getFottatDate(date:Date) -> String{
+    let format = DateFormatter()
+    format.locale = NSLocale(localeIdentifier: "ko_kr") as Locale!
+    format.timeZone = TimeZone(abbreviation: "KST")
+    format.dateFormat = "yyyy-MM-dd"
+    let dateString = format.string(from: date)
+        return dateString
     }
 }
