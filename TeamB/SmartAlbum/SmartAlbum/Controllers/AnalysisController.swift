@@ -36,7 +36,6 @@ class AnalysisController {
                 print("error")
             }
         }
-        
     }
     
     @objc func detectEmmotion(_ notification: NSNotification) {

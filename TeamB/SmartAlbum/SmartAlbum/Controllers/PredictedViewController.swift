@@ -38,10 +38,7 @@ class PredictedViewController: UIViewController {
     var collectionNames: [String] {
         return Set(realmObjects.value(forKeyPath: sortBy) as! [String]).sorted { $0 > $1 }
     }
-    var monthNams: [String] {
-        return Set(realmObjects.value(forKeyPath: "creationDate") as! [String]).sorted { $0 > $1 }
-    }
-    
+
     // searcg variable
     let searchController = UISearchController(searchResultsController: nil)
     var filteredData = [String]()
@@ -57,8 +54,6 @@ class PredictedViewController: UIViewController {
         initCollectionView()
         setupSearchController()
         self.getAnalysisAssets()
-        
-        print(monthNams)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -108,7 +103,6 @@ class PredictedViewController: UIViewController {
         case 2:
             self.sortBy = "keyword"
         default:
-            print("default")
         }
     }
     
@@ -217,7 +211,6 @@ extension PredictedViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("Prediceted: get selected collectionview itemindex \(indexPath.row)")
         if indexPath.row < collectionNames.count {
             self.performSegue(withIdentifier: "AnalyzedVC", sender: indexPath)
         } else if indexPath.row == collectionNames.count { // last index
@@ -266,7 +259,6 @@ extension PredictedViewController: UISearchBarDelegate, UISearchResultsUpdating 
     
     func filterContentForSearchText(_ searchText: String) {
         filteredData = collectionNames.filter({( data : String) -> Bool in
-            print(data)
             return (data.lowercased().contains(searchText.lowercased()))
         })
         self.predictedCollectionView.reloadData()
