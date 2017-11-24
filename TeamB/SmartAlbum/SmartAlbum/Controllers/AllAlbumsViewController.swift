@@ -166,8 +166,6 @@ extension AllAlbumsViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("get selected collectionview itemindex \(indexPath.row)")
-        
         if self.checkPickImage {
             guard let cell = collectionView.cellForItem(at: indexPath) as? AssetCell else { return }
             guard let selectedAsset = self.photoLibrary.getAsset(at: indexPath.row) else { return }

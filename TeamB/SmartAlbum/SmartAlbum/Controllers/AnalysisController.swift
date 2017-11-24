@@ -48,7 +48,6 @@ class AnalysisController {
                 print("error")
             }
         }
-        
     }
     
     //get emmtionInfo
