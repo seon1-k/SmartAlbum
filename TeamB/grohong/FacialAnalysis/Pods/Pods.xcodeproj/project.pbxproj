@@ -1,0 +1,596 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		095F522E6920BC2422FFB100CC299248 /* FloatingPoint+Round.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59778534DB68B5F96465ABC42B7B1321 /* FloatingPoint+Round.swift */; };
+		2D2132F94B207A9577A72F05916EFD66 /* VisionLab-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D07DD532BC397A1A89D99118358656F /* VisionLab-dummy.m */; };
+		3AC899F5AED66F6A74D68DBAA47DC3AC /* VisionLab-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C08EA4A1D3049AAAAA85B359051B328E /* VisionLab-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42538B4FCCF9B57520D1DD518877561D /* ClassificationServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B7659729D85CC200F9C88623385A8 /* ClassificationServiceProtocol.swift */; };
+		478CA39B9BA1A3EF7D774119BA50C853 /* VideoCaptureService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F504DDD187682ADB9BCC60A6B249C5A0 /* VideoCaptureService.swift */; };
+		4F1CA531E17B260F9E5A0568AB104E54 /* Pods-FacialAnalysis-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A9FA9EE6934BECF1D281117FB201C084 /* Pods-FacialAnalysis-dummy.m */; };
+		630E98B600D1C11B6F2B47BDC5FF1F4F /* PhotoSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303658D20E2E9DBE4BDF72B73C8992B3 /* PhotoSource.swift */; };
+		6EF977394F2A6E395948BCC91225017C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D33327D291B3A0C805D19F6CE0490D7B /* UIKit.framework */; };
+		90813E10D58896BCCB1A9DD8F87B482C /* CoreML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F64D109CFCDC959FC0BFC666C4366CE /* CoreML.framework */; };
+		AC8F889BC81AD0EB59693F42BAB7E95C /* Pods-FacialAnalysis-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F24B7A3EC52EA141F866F72A0EBD04C /* Pods-FacialAnalysis-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B0BEFEC65B79002D645589E501EC9558 /* VideoPermissionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6487DD62C15203B794EF9D7BEE12C43 /* VideoPermissionService.swift */; };
+		B4E62A7F6BCC28F6C58E29B025BAB236 /* ImageClassificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9EE44387E0C2FDFBE5F420105BCF80 /* ImageClassificationController.swift */; };
+		C1530E818793ACD1C01E403C35C55379 /* Vision.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4FCDE8FABB255FA56021C55BA29115D /* Vision.framework */; };
+		CACB8F8C0814C129A5A55DAC21C50037 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17EAFDB9D3685A7E46CBBB5FE2AA936C /* Foundation.framework */; };
+		EB3F079D1AB3EF3851D3511B264D50E4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17EAFDB9D3685A7E46CBBB5FE2AA936C /* Foundation.framework */; };
+		FA81B1005C67895A9C51022322A5600B /* ImageClassificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EBC954528B8F592D68504365CA8AE9 /* ImageClassificationView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		89FF388EFAD0F33ADE49F4A481D35513 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A7297CFBE85A5D41E5DA0380C4B87FD2;
+			remoteInfo = VisionLab;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		17EAFDB9D3685A7E46CBBB5FE2AA936C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		216056944E461873F4DA05BE7DAA9C84 /* Pods-FacialAnalysis-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-FacialAnalysis-resources.sh"; sourceTree = "<group>"; };
+		2D07DD532BC397A1A89D99118358656F /* VisionLab-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "VisionLab-dummy.m"; sourceTree = "<group>"; };
+		2E454D3CDC8960764A9ECA18815F027D /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		303658D20E2E9DBE4BDF72B73C8992B3 /* PhotoSource.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PhotoSource.swift; path = Sources/Camera/PhotoSource.swift; sourceTree = "<group>"; };
+		3CE2D9EF9AE7C07F8661B36EBAB2FA9F /* Pods-FacialAnalysis.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-FacialAnalysis.release.xcconfig"; sourceTree = "<group>"; };
+		496D91645FD0CE5A2C57740E930B9A8D /* Pods-FacialAnalysis-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-FacialAnalysis-frameworks.sh"; sourceTree = "<group>"; };
+		4E937206AC976D1A478640C933CCD699 /* Pods-FacialAnalysis-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-FacialAnalysis-acknowledgements.markdown"; sourceTree = "<group>"; };
+		500B7659729D85CC200F9C88623385A8 /* ClassificationServiceProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ClassificationServiceProtocol.swift; path = Sources/ClassificationServiceProtocol.swift; sourceTree = "<group>"; };
+		59778534DB68B5F96465ABC42B7B1321 /* FloatingPoint+Round.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "FloatingPoint+Round.swift"; path = "Sources/Extensions/FloatingPoint+Round.swift"; sourceTree = "<group>"; };
+		5F9EE44387E0C2FDFBE5F420105BCF80 /* ImageClassificationController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageClassificationController.swift; path = Sources/Image/ImageClassificationController.swift; sourceTree = "<group>"; };
+		8042D29F9124CAA054FCFC60CC8741AF /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8EB4F43950FFD6D1270450E62B0F3BD0 /* VisionLab.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = VisionLab.framework; path = VisionLab.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8EC417791330A0FE0A2FFAFE7175705A /* Pods-FacialAnalysis.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-FacialAnalysis.debug.xcconfig"; sourceTree = "<group>"; };
+		8F24B7A3EC52EA141F866F72A0EBD04C /* Pods-FacialAnalysis-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-FacialAnalysis-umbrella.h"; sourceTree = "<group>"; };
+		8F64D109CFCDC959FC0BFC666C4366CE /* CoreML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreML.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/CoreML.framework; sourceTree = DEVELOPER_DIR; };
+		9209D564313C309B00F6FCDC39A86713 /* Pods-FacialAnalysis.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-FacialAnalysis.modulemap"; sourceTree = "<group>"; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D279A679DE881FABC4F6B71AADB3EA4 /* VisionLab.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = VisionLab.modulemap; sourceTree = "<group>"; };
+		A35828F70BB81072A0A53732AC65D597 /* VisionLab.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = VisionLab.xcconfig; sourceTree = "<group>"; };
+		A4EBC954528B8F592D68504365CA8AE9 /* ImageClassificationView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageClassificationView.swift; path = Sources/Image/ImageClassificationView.swift; sourceTree = "<group>"; };
+		A9FA9EE6934BECF1D281117FB201C084 /* Pods-FacialAnalysis-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-FacialAnalysis-dummy.m"; sourceTree = "<group>"; };
+		B71248BC8EDFAB72128B7105AF959314 /* Pods-FacialAnalysis-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-FacialAnalysis-acknowledgements.plist"; sourceTree = "<group>"; };
+		C08EA4A1D3049AAAAA85B359051B328E /* VisionLab-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "VisionLab-umbrella.h"; sourceTree = "<group>"; };
+		C4FCDE8FABB255FA56021C55BA29115D /* Vision.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Vision.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Vision.framework; sourceTree = DEVELOPER_DIR; };
+		D33327D291B3A0C805D19F6CE0490D7B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		DE8D9DFD054CAB7D14DB5F75C18B2798 /* Pods_FacialAnalysis.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_FacialAnalysis.framework; path = "Pods-FacialAnalysis.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F504DDD187682ADB9BCC60A6B249C5A0 /* VideoCaptureService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = VideoCaptureService.swift; path = Sources/Camera/VideoCaptureService.swift; sourceTree = "<group>"; };
+		F60F731F599B80F5DD34FF08CAD71C37 /* VisionLab-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "VisionLab-prefix.pch"; sourceTree = "<group>"; };
+		F6487DD62C15203B794EF9D7BEE12C43 /* VideoPermissionService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = VideoPermissionService.swift; path = Sources/Camera/VideoPermissionService.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6D8C5E1F5504C66AEF694589A4463D1A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				90813E10D58896BCCB1A9DD8F87B482C /* CoreML.framework in Frameworks */,
+				EB3F079D1AB3EF3851D3511B264D50E4 /* Foundation.framework in Frameworks */,
+				6EF977394F2A6E395948BCC91225017C /* UIKit.framework in Frameworks */,
+				C1530E818793ACD1C01E403C35C55379 /* Vision.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BDBBDD748A01B3B797447AC63E4E5770 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CACB8F8C0814C129A5A55DAC21C50037 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		14B8B9B15ECBE87983FF987239AB2D7B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CAA8248A1843D346A971A68511006CC9 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		22176DD65F164C1AAE5ED2A3EBA60185 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DE8D9DFD054CAB7D14DB5F75C18B2798 /* Pods_FacialAnalysis.framework */,
+				8EB4F43950FFD6D1270450E62B0F3BD0 /* VisionLab.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		35386F0C31A0D6873CA9083B8C4778A3 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				6EFC642E0CD77C3A47411CAD8750F85B /* Pods-FacialAnalysis */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		6EFC642E0CD77C3A47411CAD8750F85B /* Pods-FacialAnalysis */ = {
+			isa = PBXGroup;
+			children = (
+				8042D29F9124CAA054FCFC60CC8741AF /* Info.plist */,
+				9209D564313C309B00F6FCDC39A86713 /* Pods-FacialAnalysis.modulemap */,
+				4E937206AC976D1A478640C933CCD699 /* Pods-FacialAnalysis-acknowledgements.markdown */,
+				B71248BC8EDFAB72128B7105AF959314 /* Pods-FacialAnalysis-acknowledgements.plist */,
+				A9FA9EE6934BECF1D281117FB201C084 /* Pods-FacialAnalysis-dummy.m */,
+				496D91645FD0CE5A2C57740E930B9A8D /* Pods-FacialAnalysis-frameworks.sh */,
+				216056944E461873F4DA05BE7DAA9C84 /* Pods-FacialAnalysis-resources.sh */,
+				8F24B7A3EC52EA141F866F72A0EBD04C /* Pods-FacialAnalysis-umbrella.h */,
+				8EC417791330A0FE0A2FFAFE7175705A /* Pods-FacialAnalysis.debug.xcconfig */,
+				3CE2D9EF9AE7C07F8661B36EBAB2FA9F /* Pods-FacialAnalysis.release.xcconfig */,
+			);
+			name = "Pods-FacialAnalysis";
+			path = "Target Support Files/Pods-FacialAnalysis";
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
+				14B8B9B15ECBE87983FF987239AB2D7B /* Frameworks */,
+				B931F426445B126A1DC25C2F6ACB5107 /* Pods */,
+				22176DD65F164C1AAE5ED2A3EBA60185 /* Products */,
+				35386F0C31A0D6873CA9083B8C4778A3 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		B931F426445B126A1DC25C2F6ACB5107 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E9C93CD3490FA0AA7F3219910FBEBE15 /* VisionLab */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		CAA8248A1843D346A971A68511006CC9 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				8F64D109CFCDC959FC0BFC666C4366CE /* CoreML.framework */,
+				17EAFDB9D3685A7E46CBBB5FE2AA936C /* Foundation.framework */,
+				D33327D291B3A0C805D19F6CE0490D7B /* UIKit.framework */,
+				C4FCDE8FABB255FA56021C55BA29115D /* Vision.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		E85E9E0B804C48E05B4FE8DEA9CEDA9A /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				2E454D3CDC8960764A9ECA18815F027D /* Info.plist */,
+				9D279A679DE881FABC4F6B71AADB3EA4 /* VisionLab.modulemap */,
+				A35828F70BB81072A0A53732AC65D597 /* VisionLab.xcconfig */,
+				2D07DD532BC397A1A89D99118358656F /* VisionLab-dummy.m */,
+				F60F731F599B80F5DD34FF08CAD71C37 /* VisionLab-prefix.pch */,
+				C08EA4A1D3049AAAAA85B359051B328E /* VisionLab-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/VisionLab";
+			sourceTree = "<group>";
+		};
+		E9C93CD3490FA0AA7F3219910FBEBE15 /* VisionLab */ = {
+			isa = PBXGroup;
+			children = (
+				500B7659729D85CC200F9C88623385A8 /* ClassificationServiceProtocol.swift */,
+				59778534DB68B5F96465ABC42B7B1321 /* FloatingPoint+Round.swift */,
+				5F9EE44387E0C2FDFBE5F420105BCF80 /* ImageClassificationController.swift */,
+				A4EBC954528B8F592D68504365CA8AE9 /* ImageClassificationView.swift */,
+				303658D20E2E9DBE4BDF72B73C8992B3 /* PhotoSource.swift */,
+				F504DDD187682ADB9BCC60A6B249C5A0 /* VideoCaptureService.swift */,
+				F6487DD62C15203B794EF9D7BEE12C43 /* VideoPermissionService.swift */,
+				E85E9E0B804C48E05B4FE8DEA9CEDA9A /* Support Files */,
+			);
+			name = VisionLab;
+			path = VisionLab;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		00E4BD2BF97BD17D37395DDDA22AF22E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3AC899F5AED66F6A74D68DBAA47DC3AC /* VisionLab-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2AA1653423C4352A446978478C27CA0B /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC8F889BC81AD0EB59693F42BAB7E95C /* Pods-FacialAnalysis-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		A7297CFBE85A5D41E5DA0380C4B87FD2 /* VisionLab */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9A75A4B92CD3BDD0FC22FEC629A55654 /* Build configuration list for PBXNativeTarget "VisionLab" */;
+			buildPhases = (
+				7A08C906176259EC06140A8373769F83 /* Sources */,
+				6D8C5E1F5504C66AEF694589A4463D1A /* Frameworks */,
+				00E4BD2BF97BD17D37395DDDA22AF22E /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = VisionLab;
+			productName = VisionLab;
+			productReference = 8EB4F43950FFD6D1270450E62B0F3BD0 /* VisionLab.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		B1DF8E8597D224A2C583597F342D62FC /* Pods-FacialAnalysis */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D881B52FADF6D97CFD0189246AAE4F25 /* Build configuration list for PBXNativeTarget "Pods-FacialAnalysis" */;
+			buildPhases = (
+				6AE82BFB1EFB063A2C4299AFC7ED9289 /* Sources */,
+				BDBBDD748A01B3B797447AC63E4E5770 /* Frameworks */,
+				2AA1653423C4352A446978478C27CA0B /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				63D6C7EFD64DB2572C93117B1E7BDB11 /* PBXTargetDependency */,
+			);
+			name = "Pods-FacialAnalysis";
+			productName = "Pods-FacialAnalysis";
+			productReference = DE8D9DFD054CAB7D14DB5F75C18B2798 /* Pods_FacialAnalysis.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0700;
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = 22176DD65F164C1AAE5ED2A3EBA60185 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B1DF8E8597D224A2C583597F342D62FC /* Pods-FacialAnalysis */,
+				A7297CFBE85A5D41E5DA0380C4B87FD2 /* VisionLab */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6AE82BFB1EFB063A2C4299AFC7ED9289 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4F1CA531E17B260F9E5A0568AB104E54 /* Pods-FacialAnalysis-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7A08C906176259EC06140A8373769F83 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				42538B4FCCF9B57520D1DD518877561D /* ClassificationServiceProtocol.swift in Sources */,
+				095F522E6920BC2422FFB100CC299248 /* FloatingPoint+Round.swift in Sources */,
+				B4E62A7F6BCC28F6C58E29B025BAB236 /* ImageClassificationController.swift in Sources */,
+				FA81B1005C67895A9C51022322A5600B /* ImageClassificationView.swift in Sources */,
+				630E98B600D1C11B6F2B47BDC5FF1F4F /* PhotoSource.swift in Sources */,
+				478CA39B9BA1A3EF7D774119BA50C853 /* VideoCaptureService.swift in Sources */,
+				B0BEFEC65B79002D645589E501EC9558 /* VideoPermissionService.swift in Sources */,
+				2D2132F94B207A9577A72F05916EFD66 /* VisionLab-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		63D6C7EFD64DB2572C93117B1E7BDB11 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = VisionLab;
+			target = A7297CFBE85A5D41E5DA0380C4B87FD2 /* VisionLab */;
+			targetProxy = 89FF388EFAD0F33ADE49F4A481D35513 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		1D23278938ADF334174C5BF2A4B6B1B8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+		8684BF0BA0E03A22C497F68C48295CA1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A35828F70BB81072A0A53732AC65D597 /* VisionLab.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/VisionLab/VisionLab-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/VisionLab/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/VisionLab/VisionLab.modulemap";
+				PRODUCT_NAME = VisionLab;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		995C3A53DEAA96B47E756185345E180D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		CF00C9758E44FB18C7A003D4806A0B9F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8EC417791330A0FE0A2FFAFE7175705A /* Pods-FacialAnalysis.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-FacialAnalysis/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-FacialAnalysis/Pods-FacialAnalysis.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_FacialAnalysis;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		D8D5307CF97A9C5A1E9E595E165D5585 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3CE2D9EF9AE7C07F8661B36EBAB2FA9F /* Pods-FacialAnalysis.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-FacialAnalysis/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-FacialAnalysis/Pods-FacialAnalysis.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_FacialAnalysis;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		DFBE48B6DEE69849949238F37054D069 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A35828F70BB81072A0A53732AC65D597 /* VisionLab.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/VisionLab/VisionLab-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/VisionLab/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/VisionLab/VisionLab.modulemap";
+				PRODUCT_NAME = VisionLab;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				995C3A53DEAA96B47E756185345E180D /* Debug */,
+				1D23278938ADF334174C5BF2A4B6B1B8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9A75A4B92CD3BDD0FC22FEC629A55654 /* Build configuration list for PBXNativeTarget "VisionLab" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8684BF0BA0E03A22C497F68C48295CA1 /* Debug */,
+				DFBE48B6DEE69849949238F37054D069 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D881B52FADF6D97CFD0189246AAE4F25 /* Build configuration list for PBXNativeTarget "Pods-FacialAnalysis" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CF00C9758E44FB18C7A003D4806A0B9F /* Debug */,
+				D8D5307CF97A9C5A1E9E595E165D5585 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}

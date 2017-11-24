@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="FacialAnalysis" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="udC-xo-rpd">
+                                <rect key="frame" x="0.0" y="20" width="375" height="250"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="250" id="NXI-8A-VxY"/>
+                                </constraints>
+                            </imageView>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ohE-Js-zFg">
+                                <rect key="frame" x="0.0" y="20" width="375" height="250"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="hh0-73-oZ1">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QjN-Pa-JvT">
+                                            <rect key="frame" x="62.5" y="0.0" width="250" height="250"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="250" id="Ce7-HM-CMb"/>
+                                            </constraints>
+                                        </imageView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="QjN-Pa-JvT" firstAttribute="top" secondItem="hh0-73-oZ1" secondAttribute="top" id="9RU-m8-cNk"/>
+                                        <constraint firstAttribute="bottom" secondItem="QjN-Pa-JvT" secondAttribute="bottom" id="9Zs-d9-BH6"/>
+                                        <constraint firstAttribute="bottom" secondItem="QjN-Pa-JvT" secondAttribute="bottom" id="Bto-RE-NeJ"/>
+                                        <constraint firstItem="QjN-Pa-JvT" firstAttribute="top" secondItem="hh0-73-oZ1" secondAttribute="top" id="NuR-CJ-c3z"/>
+                                        <constraint firstItem="QjN-Pa-JvT" firstAttribute="centerX" secondItem="hh0-73-oZ1" secondAttribute="centerX" id="zhM-94-KcZ"/>
+                                    </constraints>
+                                </view>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="250" id="JVa-cI-vgb"/>
+                                </constraints>
+                                <blurEffect style="light"/>
+                            </visualEffectView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="IFW-fr-9wH">
+                                <rect key="frame" x="67" y="487" width="240" height="30"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6oU-ex-9id">
+                                        <rect key="frame" x="0.0" y="0.0" width="114" height="30"/>
+                                        <state key="normal" title="앨범 사진 선택"/>
+                                        <connections>
+                                            <action selector="galleryImagePickButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EAi-zi-pT2"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y8u-EH-84D">
+                                        <rect key="frame" x="126" y="0.0" width="114" height="30"/>
+                                        <state key="normal" title="카메라로 사진 선택"/>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="SPc-0j-g7U"/>
+                                    <constraint firstAttribute="width" constant="240" id="hQP-x8-JVI"/>
+                                </constraints>
+                            </stackView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NjK-CX-Zc4">
+                                <rect key="frame" x="0.0" y="290" width="375" height="70"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="zyR-fD-WeR"/>
+                                </constraints>
+                            </scrollView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Face" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1eo-cV-z5q">
+                                <rect key="frame" x="143" y="420" width="89" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="NjK-CX-Zc4" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="0Ow-Ak-Ne3"/>
+                            <constraint firstItem="ohE-Js-zFg" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="2LO-Z1-nbc"/>
+                            <constraint firstItem="1eo-cV-z5q" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="3eX-QS-KsG"/>
+                            <constraint firstItem="NjK-CX-Zc4" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="HWo-EM-hRe"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="IFW-fr-9wH" secondAttribute="bottom" constant="150" id="Hju-3x-6n7"/>
+                            <constraint firstItem="NjK-CX-Zc4" firstAttribute="top" secondItem="udC-xo-rpd" secondAttribute="bottom" constant="20" id="PvZ-LL-07E"/>
+                            <constraint firstItem="udC-xo-rpd" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="RRb-ZV-YLK"/>
+                            <constraint firstItem="IFW-fr-9wH" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="SKM-A1-AD4"/>
+                            <constraint firstItem="udC-xo-rpd" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="V5Y-Vb-tyB"/>
+                            <constraint firstItem="udC-xo-rpd" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="dh5-M3-D1x"/>
+                            <constraint firstItem="ohE-Js-zFg" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="e6l-Gs-eaQ"/>
+                            <constraint firstItem="ohE-Js-zFg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="fA1-xt-ZKZ"/>
+                            <constraint firstItem="1eo-cV-z5q" firstAttribute="top" secondItem="NjK-CX-Zc4" secondAttribute="bottom" constant="60" id="hKg-Qg-RIZ"/>
+                            <constraint firstItem="NjK-CX-Zc4" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="oxW-tk-2OS"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="blurredImage" destination="udC-xo-rpd" id="YNB-SR-BM8"/>
+                        <outlet property="emotionLabel" destination="1eo-cV-z5q" id="Pa0-ut-VcP"/>
+                        <outlet property="faceScrollView" destination="NjK-CX-Zc4" id="aDG-la-Zok"/>
+                        <outlet property="selectImage" destination="QjN-Pa-JvT" id="KfM-Fn-Esb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="136.80000000000001" y="133.5832083958021"/>
+        </scene>
+    </scenes>
+</document>
