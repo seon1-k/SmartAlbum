@@ -95,6 +95,63 @@
 			buildActionMask = 2147483647;
 			files = (
 				B85FD5BFA1D55C2CD96ADE1D /* Pods_SmartAlbumUITests.framework in Frameworks */,
+		1024BE0F99235D9170BD173D /* Pods_SmartAlbum.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F066B75137EAE8C052DF8F30 /* Pods_SmartAlbum.framework */; };
+		74366F071FC6B88900CE6300 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74366F061FC6B88900CE6300 /* AppDelegate.swift */; };
+		74366F0C1FC6B88900CE6300 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74366F0A1FC6B88900CE6300 /* Main.storyboard */; };
+		74366F0E1FC6B88900CE6300 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74366F0D1FC6B88900CE6300 /* Assets.xcassets */; };
+		74366F111FC6B88900CE6300 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74366F0F1FC6B88900CE6300 /* LaunchScreen.storyboard */; };
+		74366F1C1FC6BD2D00CE6300 /* AlbumListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74366F1B1FC6BD2D00CE6300 /* AlbumListCell.swift */; };
+		74366F1E1FC6BD3700CE6300 /* AlbumListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74366F1D1FC6BD3700CE6300 /* AlbumListVC.swift */; };
+		74366F211FC6BD6900CE6300 /* PictureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74366F201FC6BD6900CE6300 /* PictureCell.swift */; };
+		74366F231FC6BDB100CE6300 /* AlbumVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74366F221FC6BDB100CE6300 /* AlbumVC.swift */; };
+		74366F261FC6BE5500CE6300 /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74366F251FC6BE5500CE6300 /* DBManager.swift */; };
+		74366F281FC6BE8600CE6300 /* Picture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74366F271FC6BE8600CE6300 /* Picture.swift */; };
+		74366F321FC6F13600CE6300 /* MobileNet.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 74366F311FC6F13600CE6300 /* MobileNet.mlmodel */; };
+		74366F361FC6F14500CE6300 /* MLHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74366F351FC6F14500CE6300 /* MLHelper.swift */; };
+		74AA735C1FC6F66A00A5B37C /* LocationServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AA735B1FC6F66A00A5B37C /* LocationServices.swift */; };
+		74AA735E1FC6FBA400A5B37C /* TestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74AA735D1FC6FBA400A5B37C /* TestVC.swift */; };
+		74DC3B451FC7663400F2CC59 /* ExtDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DC3B441FC7663400F2CC59 /* ExtDate.swift */; };
+		7BF9A9851FC6C50D0018F4E6 /* PhotoLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF9A9841FC6C50D0018F4E6 /* PhotoLibrary.swift */; };
+		7BF9A9921FC6E5120018F4E6 /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF9A9911FC6E5120018F4E6 /* BaseVC.swift */; };
+		7BF9A9981FC721940018F4E6 /* Date+Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF9A9971FC721940018F4E6 /* Date+Photo.swift */; };
+		7BF9A99A1FC7400E0018F4E6 /* ViewerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF9A9991FC7400E0018F4E6 /* ViewerVC.swift */; };
+		7BF9A99E1FC74C110018F4E6 /* UView+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF9A99D1FC74C110018F4E6 /* UView+Constraints.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		44D6E1B28416DD013EB48959 /* Pods-SmartAlbum.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartAlbum.release.xcconfig"; path = "Pods/Target Support Files/Pods-SmartAlbum/Pods-SmartAlbum.release.xcconfig"; sourceTree = "<group>"; };
+		74366F031FC6B88900CE6300 /* SmartAlbum.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartAlbum.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		74366F061FC6B88900CE6300 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		74366F0B1FC6B88900CE6300 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		74366F0D1FC6B88900CE6300 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		74366F101FC6B88900CE6300 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		74366F121FC6B88900CE6300 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		74366F1B1FC6BD2D00CE6300 /* AlbumListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumListCell.swift; sourceTree = "<group>"; };
+		74366F1D1FC6BD3700CE6300 /* AlbumListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumListVC.swift; sourceTree = "<group>"; };
+		74366F201FC6BD6900CE6300 /* PictureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureCell.swift; sourceTree = "<group>"; };
+		74366F221FC6BDB100CE6300 /* AlbumVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumVC.swift; sourceTree = "<group>"; };
+		74366F251FC6BE5500CE6300 /* DBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
+		74366F271FC6BE8600CE6300 /* Picture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Picture.swift; sourceTree = "<group>"; };
+		74366F311FC6F13600CE6300 /* MobileNet.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = MobileNet.mlmodel; sourceTree = "<group>"; };
+		74366F351FC6F14500CE6300 /* MLHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLHelper.swift; sourceTree = "<group>"; };
+		74AA735B1FC6F66A00A5B37C /* LocationServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServices.swift; sourceTree = "<group>"; };
+		74AA735D1FC6FBA400A5B37C /* TestVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestVC.swift; sourceTree = "<group>"; };
+		74DC3B441FC7663400F2CC59 /* ExtDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtDate.swift; sourceTree = "<group>"; };
+		7BF9A9841FC6C50D0018F4E6 /* PhotoLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLibrary.swift; sourceTree = "<group>"; };
+		7BF9A9911FC6E5120018F4E6 /* BaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
+		7BF9A9971FC721940018F4E6 /* Date+Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Photo.swift"; sourceTree = "<group>"; };
+		7BF9A9991FC7400E0018F4E6 /* ViewerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewerVC.swift; sourceTree = "<group>"; };
+		7BF9A99D1FC74C110018F4E6 /* UView+Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UView+Constraints.swift"; sourceTree = "<group>"; };
+		F066B75137EAE8C052DF8F30 /* Pods_SmartAlbum.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SmartAlbum.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8A9DCD180C3BB914CC637F1 /* Pods-SmartAlbum.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartAlbum.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SmartAlbum/Pods-SmartAlbum.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		74366F001FC6B88900CE6300 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1024BE0F99235D9170BD173D /* Pods_SmartAlbum.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,6 +176,20 @@
 				7B717A681FC1A4EB00972BFF /* SmartAlbum.app */,
 				7B717A7F1FC1A4EB00972BFF /* SmartAlbumTests.xctest */,
 				7B717A8A1FC1A4EB00972BFF /* SmartAlbumUITests.xctest */,
+		74366EFA1FC6B88900CE6300 = {
+			isa = PBXGroup;
+			children = (
+				74366F051FC6B88900CE6300 /* SmartAlbum */,
+				74366F041FC6B88900CE6300 /* Products */,
+				CD8BE36C72FC3F6995325E21 /* Pods */,
+				E7A2A37F3970581D91EC1EEB /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		74366F041FC6B88900CE6300 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				74366F031FC6B88900CE6300 /* SmartAlbum.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -135,6 +206,23 @@
 				7B717A771FC1A4EB00972BFF /* LaunchScreen.storyboard */,
 				7B717A7A1FC1A4EB00972BFF /* Info.plist */,
 				7B717A721FC1A4EB00972BFF /* SmartAlbum.xcdatamodeld */,
+		74366F051FC6B88900CE6300 /* SmartAlbum */ = {
+			isa = PBXGroup;
+			children = (
+				7BF9A99F1FC7ADC50018F4E6 /* Photo */,
+				74366F301FC6F13000CE6300 /* ML */,
+				74366F241FC6BE4F00CE6300 /* DB */,
+				74366F1F1FC6BD5500CE6300 /* AlbumVC */,
+				74366F181FC6BD1200CE6300 /* AlbumList */,
+				7BF9A9A01FC7B99D0018F4E6 /* Viewer */,
+				74366F0A1FC6B88900CE6300 /* Main.storyboard */,
+				74366F061FC6B88900CE6300 /* AppDelegate.swift */,
+				7BF9A9971FC721940018F4E6 /* Date+Photo.swift */,
+				7BF9A99D1FC74C110018F4E6 /* UView+Constraints.swift */,
+				74366F0D1FC6B88900CE6300 /* Assets.xcassets */,
+				74366F0F1FC6B88900CE6300 /* LaunchScreen.storyboard */,
+				74366F121FC6B88900CE6300 /* Info.plist */,
+				74AA735D1FC6FBA400A5B37C /* TestVC.swift */,
 			);
 			path = SmartAlbum;
 			sourceTree = "<group>";
@@ -193,6 +281,66 @@
 				70A1E34652DA3F55D123866B /* Pods-SmartAlbumTests.release.xcconfig */,
 				73377095A775AA353A96404B /* Pods-SmartAlbumUITests.debug.xcconfig */,
 				F4263D6A7AA134E8526C5EC0 /* Pods-SmartAlbumUITests.release.xcconfig */,
+		74366F181FC6BD1200CE6300 /* AlbumList */ = {
+			isa = PBXGroup;
+			children = (
+				74366F1B1FC6BD2D00CE6300 /* AlbumListCell.swift */,
+				74366F1D1FC6BD3700CE6300 /* AlbumListVC.swift */,
+			);
+			path = AlbumList;
+			sourceTree = "<group>";
+		};
+		74366F1F1FC6BD5500CE6300 /* AlbumVC */ = {
+			isa = PBXGroup;
+			children = (
+				7BF9A9911FC6E5120018F4E6 /* BaseVC.swift */,
+				74366F201FC6BD6900CE6300 /* PictureCell.swift */,
+				74366F221FC6BDB100CE6300 /* AlbumVC.swift */,
+			);
+			path = AlbumVC;
+			sourceTree = "<group>";
+		};
+		74366F241FC6BE4F00CE6300 /* DB */ = {
+			isa = PBXGroup;
+			children = (
+				74366F251FC6BE5500CE6300 /* DBManager.swift */,
+				74366F271FC6BE8600CE6300 /* Picture.swift */,
+				74AA735B1FC6F66A00A5B37C /* LocationServices.swift */,
+				74DC3B441FC7663400F2CC59 /* ExtDate.swift */,
+			);
+			path = DB;
+			sourceTree = "<group>";
+		};
+		74366F301FC6F13000CE6300 /* ML */ = {
+			isa = PBXGroup;
+			children = (
+				74366F311FC6F13600CE6300 /* MobileNet.mlmodel */,
+				74366F351FC6F14500CE6300 /* MLHelper.swift */,
+			);
+			path = ML;
+			sourceTree = "<group>";
+		};
+		7BF9A99F1FC7ADC50018F4E6 /* Photo */ = {
+			isa = PBXGroup;
+			children = (
+				7BF9A9841FC6C50D0018F4E6 /* PhotoLibrary.swift */,
+			);
+			path = Photo;
+			sourceTree = "<group>";
+		};
+		7BF9A9A01FC7B99D0018F4E6 /* Viewer */ = {
+			isa = PBXGroup;
+			children = (
+				7BF9A9991FC7400E0018F4E6 /* ViewerVC.swift */,
+			);
+			path = Viewer;
+			sourceTree = "<group>";
+		};
+		CD8BE36C72FC3F6995325E21 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F8A9DCD180C3BB914CC637F1 /* Pods-SmartAlbum.debug.xcconfig */,
+				44D6E1B28416DD013EB48959 /* Pods-SmartAlbum.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -203,6 +351,10 @@
 				E5EB2A52CE695722EE99B3D8 /* Pods_SmartAlbum.framework */,
 				3F9BFB3D68A81BF4E3ADCF51 /* Pods_SmartAlbumTests.framework */,
 				44F15B41BED383999C853327 /* Pods_SmartAlbumUITests.framework */,
+		E7A2A37F3970581D91EC1EEB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F066B75137EAE8C052DF8F30 /* Pods_SmartAlbum.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -220,6 +372,17 @@
 				7B717A661FC1A4EB00972BFF /* Resources */,
 				FF9E20618AB44B814D13E0D6 /* [CP] Embed Pods Frameworks */,
 				3A0BC5CAEE6503912348CBEF /* [CP] Copy Pods Resources */,
+		74366F021FC6B88900CE6300 /* SmartAlbum */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 74366F151FC6B88900CE6300 /* Build configuration list for PBXNativeTarget "SmartAlbum" */;
+			buildPhases = (
+				EE6E9C236095F4E6C08678D2 /* [CP] Check Pods Manifest.lock */,
+				74366EFF1FC6B88900CE6300 /* Sources */,
+				74366F001FC6B88900CE6300 /* Frameworks */,
+				74366F011FC6B88900CE6300 /* Resources */,
+				57E2A34CF6B436DA0345FDE2 /* [CP] Embed Pods Frameworks */,
+				C66FAAA62CBA01B9BB3462CA /* [CP] Copy Pods Resources */,
+				F38C41041FC6BBF600653921 /* Run Script - swiftlint */,
 			);
 			buildRules = (
 			);
@@ -276,6 +439,13 @@
 
 /* Begin PBXProject section */
 		7B717A601FC1A4EB00972BFF /* Project object */ = {
+			productReference = 74366F031FC6B88900CE6300 /* SmartAlbum.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		74366EFB1FC6B88900CE6300 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0910;
@@ -299,6 +469,15 @@
 				};
 			};
 			buildConfigurationList = 7B717A631FC1A4EB00972BFF /* Build configuration list for PBXProject "SmartAlbum" */;
+				ORGANIZATIONNAME = "SeonIl Kim";
+				TargetAttributes = {
+					74366F021FC6B88900CE6300 = {
+						CreatedOnToolsVersion = 9.1;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 74366EFE1FC6B88900CE6300 /* Build configuration list for PBXProject "SmartAlbum" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -314,6 +493,12 @@
 				7B717A671FC1A4EB00972BFF /* SmartAlbum */,
 				7B717A7E1FC1A4EB00972BFF /* SmartAlbumTests */,
 				7B717A891FC1A4EB00972BFF /* SmartAlbumUITests */,
+			mainGroup = 74366EFA1FC6B88900CE6300;
+			productRefGroup = 74366F041FC6B88900CE6300 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				74366F021FC6B88900CE6300 /* SmartAlbum */,
 			);
 		};
 /* End PBXProject section */
@@ -340,6 +525,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+		74366F011FC6B88900CE6300 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				74366F111FC6B88900CE6300 /* LaunchScreen.storyboard in Resources */,
+				74366F0E1FC6B88900CE6300 /* Assets.xcassets in Resources */,
+				74366F0C1FC6B88900CE6300 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,6 +554,7 @@
 			showEnvVarsInLog = 0;
 		};
 		48FB9398D3B33A2B8D79BD6C /* [CP] Embed Pods Frameworks */ = {
+		57E2A34CF6B436DA0345FDE2 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -377,6 +570,21 @@
 			showEnvVarsInLog = 0;
 		};
 		5D4F638E28CE88111779EEC5 /* [CP] Copy Pods Resources */ = {
+				"${SRCROOT}/Pods/Target Support Files/Pods-SmartAlbum/Pods-SmartAlbum-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SmartAlbum/Pods-SmartAlbum-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C66FAAA62CBA01B9BB3462CA /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -412,6 +620,12 @@
 		7A5FDBE52DA190E3F2C40077 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SmartAlbum/Pods-SmartAlbum-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EE6E9C236095F4E6C08678D2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
 			files = (
 			);
 			inputPaths = (
@@ -423,6 +637,7 @@
 				"$(DERIVED_FILE_DIR)/Pods-SmartAlbum-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
@@ -430,6 +645,9 @@
 		D086AF724CF99893B1B776FE /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
+		F38C41041FC6BBF600653921 /* Run Script - swiftlint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
 			files = (
 			);
 			inputPaths = (
@@ -494,6 +712,12 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SmartAlbum/Pods-SmartAlbum-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+			name = "Run Script - swiftlint";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "swiftlint\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -526,6 +750,27 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B717A8F1FC1A4EC00972BFF /* SmartAlbumUITests.swift in Sources */,
+		74366EFF1FC6B88900CE6300 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				74366F281FC6BE8600CE6300 /* Picture.swift in Sources */,
+				7BF9A9921FC6E5120018F4E6 /* BaseVC.swift in Sources */,
+				74366F1E1FC6BD3700CE6300 /* AlbumListVC.swift in Sources */,
+				74366F211FC6BD6900CE6300 /* PictureCell.swift in Sources */,
+				74366F261FC6BE5500CE6300 /* DBManager.swift in Sources */,
+				74366F361FC6F14500CE6300 /* MLHelper.swift in Sources */,
+				74366F071FC6B88900CE6300 /* AppDelegate.swift in Sources */,
+				74366F321FC6F13600CE6300 /* MobileNet.mlmodel in Sources */,
+				7BF9A9851FC6C50D0018F4E6 /* PhotoLibrary.swift in Sources */,
+				7BF9A99E1FC74C110018F4E6 /* UView+Constraints.swift in Sources */,
+				7BF9A99A1FC7400E0018F4E6 /* ViewerVC.swift in Sources */,
+				7BF9A9981FC721940018F4E6 /* Date+Photo.swift in Sources */,
+				74DC3B451FC7663400F2CC59 /* ExtDate.swift in Sources */,
+				74366F1C1FC6BD2D00CE6300 /* AlbumListCell.swift in Sources */,
+				74AA735C1FC6F66A00A5B37C /* LocationServices.swift in Sources */,
+				74AA735E1FC6FBA400A5B37C /* TestVC.swift in Sources */,
+				74366F231FC6BDB100CE6300 /* AlbumVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -549,6 +794,11 @@
 			isa = PBXVariantGroup;
 			children = (
 				7B717A701FC1A4EB00972BFF /* Base */,
+/* Begin PBXVariantGroup section */
+		74366F0A1FC6B88900CE6300 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				74366F0B1FC6B88900CE6300 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -557,6 +807,10 @@
 			isa = PBXVariantGroup;
 			children = (
 				7B717A781FC1A4EB00972BFF /* Base */,
+		74366F0F1FC6B88900CE6300 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				74366F101FC6B88900CE6300 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -565,6 +819,7 @@
 
 /* Begin XCBuildConfiguration section */
 		7B717A911FC1A4EC00972BFF /* Debug */ = {
+		74366F131FC6B88900CE6300 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -622,6 +877,7 @@
 			name = Debug;
 		};
 		7B717A921FC1A4EC00972BFF /* Release */ = {
+		74366F141FC6B88900CE6300 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -681,6 +937,16 @@
 				INFOPLIST_FILE = SmartAlbum/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.swiftExample.SmartAlbum;
+		74366F161FC6B88900CE6300 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F8A9DCD180C3BB914CC637F1 /* Pods-SmartAlbum.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MB55TJY5E4;
+				INFOPLIST_FILE = SmartAlbum/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = s1s1s1.tistory.com.SmartAlbum;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -766,6 +1032,19 @@
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = SmartAlbum;
+		74366F171FC6B88900CE6300 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 44D6E1B28416DD013EB48959 /* Pods-SmartAlbum.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MB55TJY5E4;
+				INFOPLIST_FILE = SmartAlbum/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = s1s1s1.tistory.com.SmartAlbum;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -777,6 +1056,11 @@
 			buildConfigurations = (
 				7B717A911FC1A4EC00972BFF /* Debug */,
 				7B717A921FC1A4EC00972BFF /* Release */,
+		74366EFE1FC6B88900CE6300 /* Build configuration list for PBXProject "SmartAlbum" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				74366F131FC6B88900CE6300 /* Debug */,
+				74366F141FC6B88900CE6300 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -804,6 +1088,11 @@
 			buildConfigurations = (
 				7B717A9A1FC1A4EC00972BFF /* Debug */,
 				7B717A9B1FC1A4EC00972BFF /* Release */,
+		74366F151FC6B88900CE6300 /* Build configuration list for PBXNativeTarget "SmartAlbum" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				74366F161FC6B88900CE6300 /* Debug */,
+				74366F171FC6B88900CE6300 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -824,4 +1113,6 @@
 /* End XCVersionGroup section */
 	};
 	rootObject = 7B717A601FC1A4EB00972BFF /* Project object */;
+	};
+	rootObject = 74366EFB1FC6B88900CE6300 /* Project object */;
 }

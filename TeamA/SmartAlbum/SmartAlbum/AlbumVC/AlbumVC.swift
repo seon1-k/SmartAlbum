@@ -3,6 +3,7 @@
 //  SmartAlbum
 //
 //  Created by 진호놀이터 on 2017. 11. 19..
+//  Created by 진호놀이터 on 2017. 11. 24..
 //  Copyright © 2017년 진호놀이터. All rights reserved.
 //
 
@@ -14,6 +15,10 @@ class AlbumVC: UIViewController {
   
     private let layout = UICollectionViewFlowLayout()
     public var allPhotos: PHFetchResult<PHAsset>!
+class AlbumVC: BaseVC {
+    var pageViewController : UIPageViewController!
+    private let layout = UICollectionViewFlowLayout()
+    public var  photos: PHFetchResult<PHAsset>!
     private let imageManager = PHCachingImageManager()
     private var collectionView: UICollectionView  = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
@@ -21,6 +26,10 @@ class AlbumVC: UIViewController {
 
     var searchBtn:UIButton = UIButton(type: UIButtonType.system)
     
+    
+    var searchBtn:UIButton = UIButton(type: UIButtonType.system)
+    
+    // init
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -42,6 +51,24 @@ class AlbumVC: UIViewController {
 
     private func setupUI(){
    
+    convenience init(asset: PHFetchResult<PHAsset>, title:String) {
+        self.init()
+        self.photos = asset
+        self.navigationItem.title = title
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.prefersLargeTitles = false
+    }
+    
+   
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+    }
+    
+    override func setupUI(){
+        
         collectionView.register(PictureCell.self, forCellWithReuseIdentifier:PictureCell.indentifier)
         collectionView.backgroundColor = UIColor.white
         collectionView.delegate = self
@@ -70,6 +97,10 @@ class AlbumVC: UIViewController {
        
     }
     private func setUpConstraints(){
+        view.addSubview(collectionView)
+    }
+    
+    override func setupContstrains(){
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.topAnchor.constraint(equalTo:view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
         collectionView.bottomAnchor.constraint(equalTo:view.safeAreaLayoutGuide.bottomAnchor).isActive = true
@@ -94,11 +125,13 @@ class AlbumVC: UIViewController {
 extension AlbumVC:UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
     
     
+
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return allPhotos.count
+        return photos.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -115,6 +148,12 @@ extension AlbumVC:UICollectionViewDelegate,UICollectionViewDataSource,UICollecti
             
             
             
+        let asset = photos.object(at: indexPath.item)
+        
+        imageManager.requestImage(for: asset, targetSize: CGSize(width: 100, height: 100), contentMode: .aspectFill, options: nil, resultHandler: { image, _ in
+            
+            cell.pictureImgView.image = image
+        
         })
         return cell
         
@@ -137,3 +176,10 @@ extension AlbumVC:UICollectionViewDelegate,UICollectionViewDataSource,UICollecti
     
     
 }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vc = ViewerVC(asset:photos, index: indexPath.row)
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+

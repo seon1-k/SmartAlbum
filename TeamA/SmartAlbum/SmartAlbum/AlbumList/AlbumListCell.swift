@@ -21,6 +21,7 @@ class AlbumListCell: UICollectionViewCell {
     }
     
     
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -36,6 +37,10 @@ class AlbumListCell: UICollectionViewCell {
        //UI - contentView
     
        // UI - albumView
+
+    private func setupUI(){
+        
+        // UI - albumView
         albumImgView.contentMode = .scaleAspectFill
         albumImgView.clipsToBounds = true
         albumImgView.layer.cornerRadius = 10
@@ -48,6 +53,12 @@ class AlbumListCell: UICollectionViewCell {
         
         albumCountLbl.textColor = UIColor.lightGray
         albumCountLbl.font = .systemFont(ofSize: 13)
+        
+        titleLbl.textAlignment = .left
+        titleLbl.font = .systemFont(ofSize: 15)
+        
+        albumCountLbl.textColor = UIColor.lightGray
+        albumCountLbl.font = .systemFont(ofSize: 15)
         contentView.addSubview(albumImgView)
         contentView.addSubview(titleLbl)
         contentView.addSubview(albumCountLbl)
@@ -68,6 +79,12 @@ class AlbumListCell: UICollectionViewCell {
         albumImgView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 1
         , constant: 0).isActive = true
         
+        albumImgView.translatesAutoresizingMaskIntoConstraints = false
+        albumImgView.leadingAnchor.constraint(equalTo:contentView.leadingAnchor, constant: 0).isActive = true
+        albumImgView.heightAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 1, constant: 0).isActive = true
+        albumImgView.topAnchor.constraint(equalTo:contentView.topAnchor).isActive = true
+        albumImgView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 1
+            , constant: 0).isActive = true
         // Constraints - titleLbl
         titleLbl.translatesAutoresizingMaskIntoConstraints = false
         titleLbl.topAnchor.constraint(equalTo: albumImgView.bottomAnchor).isActive = true
@@ -86,4 +103,7 @@ class AlbumListCell: UICollectionViewCell {
 
     
 
+    
+    
+    
 }

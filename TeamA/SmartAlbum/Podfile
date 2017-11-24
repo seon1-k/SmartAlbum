@@ -17,4 +17,7 @@ target 'SmartAlbum' do
     # Pods for testing
   end
 
+  # Pods for SmartAlbum
+  pod 'RealmSwift'
+
 end

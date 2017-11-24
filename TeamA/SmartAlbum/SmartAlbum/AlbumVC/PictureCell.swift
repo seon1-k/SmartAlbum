@@ -11,6 +11,7 @@ import UIKit
 class PictureCell: UICollectionViewCell {
       static let indentifier: String = String(describing: PictureCell.self)
     var representedAssetIdentifier: String!
+    static let indentifier: String = String(describing: PictureCell.self)
     let pictureImgView: UIImageView = UIImageView()
     
     
@@ -43,3 +44,4 @@ class PictureCell: UICollectionViewCell {
     
     
 }
+
