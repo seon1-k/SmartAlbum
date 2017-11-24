@@ -28,24 +28,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //          DB - initData
         
         
-//        if UserDefaults.standard.bool(forKey: "launchedBefore") {
-//            //첫 실행 아님. 업데이트
-//            print("not first launch")
-//            DBManager.updateData() { _ in
-//                if let vc = navigationController.viewControllers.first as? AlbumListVC{
-//                    vc.collectionView.reloadData()
-//                }
-//            }
-//        } else {
-//            //첫 실행
-//            print("first launch")
-            DBManager.initData(){_ in
-//                UserDefaults.standard.set(true, forKey: "launchedBefore")
+        if UserDefaults.standard.bool(forKey: "launchedBefore") {
+            //첫 실행 아님. 업데이트
+            print("not first launch")
+            DBManager.updateData() { _ in
                 if let vc = navigationController.viewControllers.first as? AlbumListVC{
                     vc.collectionView.reloadData()
                 }
             }
-//        }
+        } else {
+//            //첫 실행
+            print("first launch")
+            DBManager.initData(isFirst: true){_ in
+                UserDefaults.standard.set(true, forKey: "launchedBefore")
+                if let vc = navigationController.viewControllers.first as? AlbumListVC{
+                    vc.collectionView.reloadData()
+                }
+            }
+        }
         
         
         return true
