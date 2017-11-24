@@ -28,8 +28,8 @@ class DBManager {
         var items:[Picture] = []
         //        assets.count
         var count = 0
-        if assets.count > 300 || isFirst {
-            count = 300
+        if assets.count > 500 || isFirst {
+            count = 500
         } else {
             count = assets.count
         }
@@ -38,20 +38,20 @@ class DBManager {
             let pic = Picture(asset: asset)
             
             
-//            if let loc = asset.location {
-//                LocationServices.getCity(location: loc) { city, error in
-//                    if error == nil {
-//                        print("insert city : \(city!)")
-//                        try! pic.realm?.write {
-//                            pic.city = city!
-//                        }
-//                    } else {
+            if let loc = asset.location {
+                LocationServices.getCity(location: loc) { city, error in
+                    if error == nil {
+                        print("insert city : \(city!)")
+                        try! pic.realm?.write {
+                            pic.city = city!
+                        }
+                    } else {
 //                        print("no insert city 1")
-//                    }
-//                }
-//            } else {
+                    }
+                }
+            } else {
 //                print("no insert city 2 \(asset.location)")
-//            }
+            }
 
             
             // 에러 포인트. 4번 이상 실행하면 에러 안남. coreML 버그인가...
@@ -124,6 +124,52 @@ class DBManager {
             }
         }
         
+        //도시 정보 못받아간 자료들 정보 받기
+        let realm = try! Realm()
+        
+        try! realm.write {
+            let noCitys = realm.objects(Picture.self).filter("location != nil AND city == %@", "")
+            print(noCitys)
+            let noCityPictures:[Picture] = Array(noCitys)
+            
+            for noCityP in noCityPictures {
+                if let location = noCityP.value(forKey: "location") as? Location {
+                    let lati = location.value(forKey: "latitude") as! Double
+                    let longti = location.value(forKey: "longtitude") as! Double
+                    let loc = CLLocation(latitude: lati, longitude: longti)
+                    LocationServices.getCity(location: loc) { city, error in
+                        if error == nil {
+                            print("insert city : \(city!)")
+                            noCityP.city = city!
+                        }
+                    }
+                }
+            }
+        }
+        
+        
+//        let identifiers:[String] = noCitys.value(forKey: "id") as! [String]
+//        let locationFetchArr = PHAsset.fetchAssets(withLocalIdentifiers: identifiers, options: fetchOptions)
+//        for i in 0..<locationFetchArr.count {
+//            let asset = locationFetchArr.object(at: i)
+//            if let loc = asset.location {
+//                LocationServices.getCity(location: loc) { city, error in
+//                    if error == nil {
+//                        print("insert city : \(city!)")
+//                        try! pic.realm?.write {
+//                            pic.city = city!
+//                        }
+//                        try
+//
+//
+//                    } else {
+//                    }
+//                }
+//            } else {
+//
+//            }
+//        }
+        
         initData(assets: newFetchArr, isFirst: false) { _ in
             print("\(newFetchArr.count) of items updated.")
             UserDefaults.standard.set(Date(), forKey: "updateDate")
@@ -193,61 +239,71 @@ class DBManager {
 //
 //    }
     
+    
     static func groupByCity() -> (groupKey:[String], groupAssets:[PHFetchResult<PHAsset>])  {
         // 시 단위 그루핑
         let realm = try! Realm()
         
-//        addLocation()
-        var citys:[String] = []
+        let citys:[String] = Array(Set(realm.objects(Picture.self).value(forKey: "city") as! [String]))
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
         var groupAssets:[PHFetchResult<PHAsset>] = []
-        
-        DispatchQueue.main.async {
-            citys = Array(Set(realm.objects(Location.self).value(forKey: "city") as! [String]))
-            
-            let fetchOptions = PHFetchOptions()
-            fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-            
-            
-            for city in citys {
-                var identifiers:[String] = []
-                if city == "" {
-                    // 분류 안된 것만 리턴
-                    identifiers = Array(realm.objects(Picture.self).filter("location == nil").value(forKey: "id") as! [String])
-                } else {
-                    identifiers = Array(realm.objects(Picture.self).filter("location.city == %@", city).value(forKey: "id") as! [String])
-                }
-                
-                
-                let fds:PHFetchResult<PHAsset> = PHAsset.fetchAssets(withLocalIdentifiers: identifiers, options: fetchOptions)
-                groupAssets.append(fds)
-            }
+        for city in citys {
+            let ids:[String] = Array(realm.objects(Picture.self).filter("city == %@", city).value(forKey: "id") as! [String])
+            let fds:PHFetchResult<PHAsset> = PHAsset.fetchAssets(withLocalIdentifiers: ids, options: fetchOptions)
+            groupAssets.append(fds)
         }
         
-//        let ids:[String] = Array(realm.objects(Picture.self).filter("location != nil").value(forKey: "id") as! [String])
-//        let locations:[Location] = Array(realm.objects(Location.self))
-//
-//        let pictures = realm.objects(Picture.self).filter("location != nil")
-//        let locations = Array(pictures.value(forKey: "location") as! [Location])
-//
+////        addLocation()
 //        var citys:[String] = []
+//        var groupAssets:[PHFetchResult<PHAsset>] = []
 //
-//        LocationServices.getCitys(loc: locations) { (arr, error) in
-//            citys = arr!
-//        }
+//        DispatchQueue.main.async {
+//            citys = Array(Set(realm.objects(Location.self).value(forKey: "city") as! [String]))
+//
         
-//        for loc in locations {
-//            LocationServices.getCity(loc: loc) { (city, error) in
-//                citys.append(city!)
-////                print("citys:\(citys)")
+//
+//
+//            for city in citys {
+//                var identifiers:[String] = []
+//                if city == "" {
+//                    // 분류 안된 것만 리턴
+//                    identifiers = Array(realm.objects(Picture.self).filter("location == nil").value(forKey: "id") as! [String])
+//                } else {
+//                    identifiers = Array(realm.objects(Picture.self).filter("location.city == %@", city).value(forKey: "id") as! [String])
+//                }
+//
+//
+//                let fds:PHFetchResult<PHAsset> = PHAsset.fetchAssets(withLocalIdentifiers: identifiers, options: fetchOptions)
+//                groupAssets.append(fds)
 //            }
 //        }
-        
-//        print("citys:\(citys)")
-        
-//        addCity() { citys in
-////            let citys = Array(Set(realm.objects(Location.self).value(forKey: "city") as! [String]))
-//            print("citys:\(citys)")
-//        }
+//
+////        let ids:[String] = Array(realm.objects(Picture.self).filter("location != nil").value(forKey: "id") as! [String])
+////        let locations:[Location] = Array(realm.objects(Location.self))
+////
+////        let pictures = realm.objects(Picture.self).filter("location != nil")
+////        let locations = Array(pictures.value(forKey: "location") as! [Location])
+////
+////        var citys:[String] = []
+////
+////        LocationServices.getCitys(loc: locations) { (arr, error) in
+////            citys = arr!
+////        }
+//
+////        for loc in locations {
+////            LocationServices.getCity(loc: loc) { (city, error) in
+////                citys.append(city!)
+//////                print("citys:\(citys)")
+////            }
+////        }
+//
+////        print("citys:\(citys)")
+//
+////        addCity() { citys in
+//////            let citys = Array(Set(realm.objects(Location.self).value(forKey: "city") as! [String]))
+////            print("citys:\(citys)")
+////        }
         
         return (citys, groupAssets)
     }
@@ -294,7 +350,7 @@ class DBManager {
         for item in items {
             // 월단위 데이터 저장
             let itemDate = item.createDate //현재 아이템의 시간
-            print("itemDate:\(item.createDate)")
+//            print("itemDate:\(item.createDate)")
             
             if startDate.isInSameMonth(date: itemDate!) {
                 temp.append(item.value(forKey: "id") as! String)
