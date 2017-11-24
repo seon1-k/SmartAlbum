@@ -39,12 +39,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        } else {
 //            //첫 실행
 //            print("first launch")
-//            DBManager.initData(){_ in
-////                UserDefaults.standard.set(true, forKey: "launchedBefore")
-//                if let vc = navigationController.viewControllers.first as? AlbumListVC{
-//                    vc.collectionView.reloadData()
-//                }
-//            }
+            DBManager.initData(){_ in
+//                UserDefaults.standard.set(true, forKey: "launchedBefore")
+                if let vc = navigationController.viewControllers.first as? AlbumListVC{
+                    vc.collectionView.reloadData()
+                }
+            }
 //        }
         
         

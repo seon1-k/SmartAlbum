@@ -31,13 +31,22 @@ class DBManager {
             let asset = assets[i]
             let pic = Picture(asset: asset)
             
+            
 //            if let loc = asset.location {
 //                LocationServices.getCity(location: loc) { city, error in
 //                    if error == nil {
-//                        pic.city = city!
+//                        print("insert city : \(city!)")
+//                        try! pic.realm?.write {
+//                            pic.city = city!
+//                        }
+//                    } else {
+//                        print("no insert city 1")
 //                    }
 //                }
+//            } else {
+//                print("no insert city 2 \(asset.location)")
 //            }
+
             
             // 에러 포인트. 4번 이상 실행하면 에러 안남. coreML 버그인가...
             // [coreml] MLModelAsset: modelWithError: load failed with error Error Domain=com.apple.CoreML Code=0 "Error in declaring network."
@@ -111,9 +120,9 @@ class DBManager {
 //            }
 //        }
         
-        LocationServices.getCity{ _ in
-            print("add location finished")
-        }
+//        LocationServices.getCity{ _ in
+//            print("add location finished")
+//        }
         
     }
     

@@ -122,24 +122,26 @@ class AlbumListVC: UIViewController {
 //                }
 //            }
             
-            let realm = try! Realm()
-            let pictures = realm.objects(Picture.self).filter("location != nil").sorted(byKeyPath: "createDate", ascending: false)
-            let loc = pictures.value(forKey: "location") as! [Location]
-//            let ids = pictures.value(forKey: "id") as! [String]
-            LocationServices.getCity(locations: loc) { citys in
-//                if error == nil {
-                    self.albumName = citys
-                    self.sortType = .Location
-                    self.collectionView.reloadData()
-//
-//                    self.sortedAsset = []
-//                    var imgArr:[PHAsset] = []
-//                    for id in ids {
-//                        let fds:PHFetchResult<PHAsset> = PHAsset.fetchAssets(withLocalIdentifiers: [id], options: nil)
-//                        imgArr.append(fds.objects(at: I))
-//                    }
-//                }
-            }
+//            let realm = try! Realm()
+//            let pictures = realm.objects(Picture.self).filter("location != nil").sorted(byKeyPath: "createDate", ascending: false)
+//            let loc = pictures.value(forKey: "location") as! [Location]
+////            let ids = pictures.value(forKey: "id") as! [String]
+//            LocationServices.getCity(locations: loc) { citys in
+////                if error == nil {
+//                    self.albumName = citys
+//                    self.sortType = .Location
+//                    self.collectionView.reloadData()
+////
+////                    self.sortedAsset = []
+////                    var imgArr:[PHAsset] = []
+////                    for id in ids {
+////                        let fds:PHFetchResult<PHAsset> = PHAsset.fetchAssets(withLocalIdentifiers: [id], options: nil)
+////                        imgArr.append(fds.objects(at: I))
+////                    }
+////                }
+//            }
+            
+            
 //            for pic in pictures {
 //
 //            }
