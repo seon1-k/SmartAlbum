@@ -1,6 +1,0 @@
-framework module Pods_FacialAnalysis {
-  umbrella header "Pods-FacialAnalysis-umbrella.h"
-
-  export *
-  module * { export * }
-}

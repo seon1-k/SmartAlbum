@@ -1,6 +1,0 @@
-framework module Pods_SmartAlbum {
-  umbrella header "Pods-SmartAlbum-umbrella.h"
-
-  export *
-  module * { export * }
-}

@@ -1,6 +1,0 @@
-framework module VisionLab {
-  umbrella header "VisionLab-umbrella.h"
-
-  export *
-  module * { export * }
-}
